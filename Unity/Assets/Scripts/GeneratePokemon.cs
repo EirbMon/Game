@@ -15,6 +15,7 @@ public class GeneratePokemon : MonoBehaviour
         
         var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
         int N = PokemonsJSON.Count;
+        Debug.Log("Number of Pokemon Generated: " + N);
                 
         for (int i=0; i<N; i++){    
             float pos_x = float.Parse(PokemonsJSON[i]["position_x"],CultureInfo.InvariantCulture.NumberFormat);
