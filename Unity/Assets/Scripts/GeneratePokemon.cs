@@ -9,9 +9,13 @@ public class GeneratePokemon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {         
-        // GET JSON from REACT // 
+        // GET JSON from REACT //
+        // JEAN, c'est ici qu'il faut changer le JSONString //
+        // Le JSONString correspond aux JSON que tu envoies à partir de react. //  
         string JSONString = "{\"Pokemons\":[{\"type\":\"Pikachu\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"4.1\"},{\"type\":\"Carapuce\",\"name\":\"CaraCara\",\"color\":\"blue\",\"position_x\":\"-57.44\",\"position_y\":\"4.2\"},{\"type\":\"Salameche\",\"name\":\"SalaSala\",\"color\":\"red\",\"position_x\":\"-55.5\",\"position_y\":\"4.1\"}]}";
-        //// 
+        // LA LIGNE string JSONString = "..." DOIT ETRE REMPLACER PAR LA FONCTION DE RECEPTION DE MESSAGE REACT // 
+        //
+
         
         var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
         int N = PokemonsJSON.Count;
@@ -26,6 +30,7 @@ public class GeneratePokemon : MonoBehaviour
             Pokemon.GetComponent<PokemonObject>().color = PokemonsJSON[i]["color"];
             Pokemon.GetComponent<PokemonObject>().position_x = pos_x;
             Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
+            // cf PokemonObject.cs 
         }
         
     }
@@ -34,6 +39,6 @@ public class GeneratePokemon : MonoBehaviour
     void Update()
     {
         
-        
+       
     }
 }
