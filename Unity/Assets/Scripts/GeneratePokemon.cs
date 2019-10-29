@@ -9,29 +9,16 @@ public class GeneratePokemon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {     
-
-        // Sur React, ajouter un truc du style :
-
-        // onClickButton() {
-        //    string JSONString = "{\"Pokemons\":[{\"type\":\"Pikachu\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"4.1\"},{\"type\":\"Carapuce\",\"name\":\"CaraCara\",\"color\":\"blue\",\"position_x\":\"-57.44\",\"position_y\":\"4.2\"},{\"type\":\"Salameche\",\"name\":\"SalaSala\",\"color\":\"red\",\"position_x\":\"-55.5\",\"position_y\":\"4.1\"}]}";
-        //    this.unityContent.send("GeneratePokemon", "GenerateFirstPokemon", JSONString);
-        //}
-
-        // Puis supprimer les 2 lignes suivantes (celle ci sont uniquement pour test) : 
-
-        string JSONString = "{\"Pokemons\":[{\"type\":\"Pikachu\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"4.1\"},{\"type\":\"Carapuce\",\"name\":\"CaraCara\",\"color\":\"blue\",\"position_x\":\"-57.44\",\"position_y\":\"4.2\"},{\"type\":\"Salameche\",\"name\":\"SalaSala\",\"color\":\"red\",\"position_x\":\"-55.5\",\"position_y\":\"4.1\"}]}";
-        GenerateFirstPokemon(JSONString) ;
-
-        // Puis Tester.     
-
-        ////// 
+        //string JSONString = "{\"Pokemons\":[{\"type\":\"Pikachu\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"4.1\"},{\"type\":\"Carapuce\",\"name\":\"CaraCara\",\"color\":\"blue\",\"position_x\":\"-57.44\",\"position_y\":\"4.2\"},{\"type\":\"Salameche\",\"name\":\"SalaSala\",\"color\":\"red\",\"position_x\":\"-55.5\",\"position_y\":\"4.1\"}]}";
+        //GenerateFirstPokemon(JSONString) ;
     }
 
     public void GenerateFirstPokemon (string JSONString) {
 
+
         var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
         int N = PokemonsJSON.Count;
-        Debug.Log("Number of Pokemon Generated: " + N);
+        Debug.Log("Genetaring Pokemon from JSON, N = " + N);
                 
         for (int i=0; i<N; i++){    
             float pos_x = float.Parse(PokemonsJSON[i]["position_x"],CultureInfo.InvariantCulture.NumberFormat);

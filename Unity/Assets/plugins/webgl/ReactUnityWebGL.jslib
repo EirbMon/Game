@@ -10,6 +10,6 @@
     // the event within the ReactUnityWebGL object
     // which is exposed by the library to the window.
 
-    ReactUnityWebGL.DoInteraction(message);
+    ReactUnityWebGL.DoInteraction(UTF8ToString(message));
   }
 });

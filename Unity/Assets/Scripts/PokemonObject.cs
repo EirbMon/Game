@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.InteropServices;
+using System.Text;
 public class PokemonObject : MonoBehaviour
 {
     public bool inventory; //If true: object can be stored in inventory
@@ -20,10 +21,12 @@ public class PokemonObject : MonoBehaviour
         Debug.Log("Message: "+message);
         gameObject.SetActive(false);
         
-        // 1) Configurer REACTpour recevoir les messages de "DoInteraction".
-        // 2) Décommenter la ligne ci dessous.
-
-        //DoInteraction(message);
+        try{
+            DoInteraction(message);
+        }
+        catch{
+            Debug.Log("Do interaction fail");
+        }
 
     }
 }
