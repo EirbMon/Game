@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9154802513258288124}
   - component: {fileID: 9154802513258288125}
-  - component: {fileID: 9154802513258288127}
   - component: {fileID: 2066123861548092361}
   - component: {fileID: 9154802513258288126}
   m_Layer: 0
@@ -82,19 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9154802513258288127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9154802513258288112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a5535a3a38152e45a05cdea0af23524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: 1
 --- !u!114 &2066123861548092361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,10 +93,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aaa0fa6f866396439ce3586e1a704ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  name: 
+  inventory: 1
+  pokemon_name: Valerian
   type: 0
   color: red
+  position_x: 0
+  position_y: 0
 --- !u!61 &9154802513258288126
 BoxCollider2D:
   m_ObjectHideFlags: 0

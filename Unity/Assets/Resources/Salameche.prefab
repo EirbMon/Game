@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4282241266202632044}
   - component: {fileID: 4282241266202632047}
-  - component: {fileID: 4282241266202632034}
   - component: {fileID: 4399641372132895354}
   - component: {fileID: 4282241266202632045}
   m_Layer: 0
-  m_Name: Reptincelle
+  m_Name: Salameche
   m_TagString: interactionobject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,19 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4282241266202632034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4282241266202632046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a5535a3a38152e45a05cdea0af23524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: 1
 --- !u!114 &4399641372132895354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,10 +93,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aaa0fa6f866396439ce3586e1a704ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  name: 
+  inventory: 1
+  pokemon_name: Valerian
   type: 0
   color: red
+  position_x: 0
+  position_y: 0
 --- !u!61 &4282241266202632045
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     public GameObject currentInterObj = null;
-    public InteractionObject currentInterObjScript = null;
+    public PokemonObject currentInterObjScript = null;
     public Inventory inventory;
 
     void Update()
     {
+
         if (Input.GetButtonDown ("Interact") && currentInterObj){    
             if (currentInterObjScript.inventory){
                 inventory.AddItem(currentInterObj);
@@ -21,7 +22,7 @@ public class PlayerInteract : MonoBehaviour
     {
             if (other.CompareTag("interactionobject")){
                 currentInterObj = other.gameObject;
-                currentInterObjScript = currentInterObj.GetComponent <InteractionObject> ();
+                currentInterObjScript = currentInterObj.GetComponent <PokemonObject> ();
             }  
     }
 
