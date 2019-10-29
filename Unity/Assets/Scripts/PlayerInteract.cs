@@ -20,7 +20,6 @@ public class PlayerInteract : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
             if (other.CompareTag("interactionobject")){
-                Debug.Log(other.name);
                 currentInterObj = other.gameObject;
                 currentInterObjScript = currentInterObj.GetComponent <InteractionObject> ();
             }  

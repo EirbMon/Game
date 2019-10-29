@@ -10,7 +10,7 @@ public class InteractionObject : MonoBehaviour
 
     public void DoInteraction(string name)
     {
-        Debug.Log("J'ENVOIE: " + name);
+        Debug.Log("Item added to inventory: " + name);
         gameObject.SetActive(false);
     }
 

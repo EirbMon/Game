@@ -16,7 +16,6 @@ public class Inventory : MonoBehaviour
             if (inventory[i] == null){
                 inventory[i] = item;
                 itemAdded = true;
-                Debug.Log(item.name + " was added to inventory");
                 item.SendMessage("DoInteraction",item.name);
                 break;
             }

@@ -6,7 +6,7 @@ public class DamageZone : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D other)
     {
-        RubyController controller = other.GetComponent<RubyController >();
+        DresserController controller = other.GetComponent<DresserController >();
 
         if (controller != null)
         {
