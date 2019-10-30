@@ -1,31 +1,60 @@
 fileFormatVersion: 2
 guid: 7fd81ad725659d143aa4569c40a6d820
-timeCreated: 1460431211
-licenseType: Pro
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Sheet1_0
-    21300002: Sheet1_1
-    21300004: Sheet1_2
-    21300006: Sheet1_3
-    21300008: Sheet1_4
-    21300010: Sheet1_5
-    21300012: Sheet1_6
-    21300014: Sheet1_7
-    21300016: Sheet1_8
-    21300018: Sheet1_9
-    21300020: Sheet1_10
-    21300022: Sheet1_11
-    21300024: Sheet1_12
-    21300026: Sheet1_13
-  serializedVersion: 2
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Sheet1_0
+  - first:
+      213: 21300002
+    second: Sheet1_1
+  - first:
+      213: 21300004
+    second: Sheet1_2
+  - first:
+      213: 21300006
+    second: Sheet1_3
+  - first:
+      213: 21300008
+    second: Sheet1_4
+  - first:
+      213: 21300010
+    second: Sheet1_5
+  - first:
+      213: 21300012
+    second: Sheet1_6
+  - first:
+      213: 21300014
+    second: Sheet1_7
+  - first:
+      213: 21300016
+    second: Sheet1_8
+  - first:
+      213: 21300018
+    second: Sheet1_9
+  - first:
+      213: 21300020
+    second: Sheet1_10
+  - first:
+      213: 21300022
+    second: Sheet1_11
+  - first:
+      213: 21300024
+    second: Sheet1_12
+  - first:
+      213: 21300026
+    second: Sheet1_13
+  externalObjects: {}
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -34,56 +63,80 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: 0
     aniso: 16
-    mipBias: -1
-    wrapMode: 1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 96
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Sheet1_0
+    - serializedVersion: 2
+      name: Sheet1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 288
         width: 96
-        height: 96
+        height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 14, y: -12}
-        - {x: -12, y: -12}
-        - {x: -22, y: -20}
-        - {x: -22, y: -47}
-        - {x: -21, y: -48}
-        - {x: 13, y: -48}
-        - {x: 16, y: -44}
-        - {x: 16, y: -14}
-    - name: Sheet1_1
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e9afc5f6234c7f4ebcf623903d1e930
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_1
       rect:
         serializedVersion: 2
         x: 96
@@ -91,19 +144,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -6, y: -3}
-        - {x: -9, y: -4}
-        - {x: -21, y: -11}
-        - {x: -21, y: -48}
-        - {x: 19, y: -48}
-        - {x: 23, y: -47}
-        - {x: 26, y: -31}
-        - {x: 26, y: -15}
-        - {x: 17, y: -3}
-    - name: Sheet1_2
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f9296db6b7a3e74eac84e17fc3c5db4
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_2
       rect:
         serializedVersion: 2
         x: 192
@@ -111,40 +165,41 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 26, y: 0}
-        - {x: 22, y: 4}
-        - {x: 5, y: 9}
-        - {x: -13, y: 9}
-        - {x: -31, y: 2}
-        - {x: -32, y: -17}
-        - {x: -32, y: -42}
-        - {x: -26, y: -48}
-        - {x: 31, y: -48}
-        - {x: 31, y: -21}
-    - name: Sheet1_3
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d448aed95a2ad45814f47c673d5d8c
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_3
       rect:
         serializedVersion: 2
         x: 288
         y: 288
-        width: 96
-        height: 96
+        width: 95
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 12, y: -13}
-        - {x: 11, y: -9}
-        - {x: 4, y: -6}
-        - {x: -14, y: -6}
-        - {x: -14, y: -48}
-        - {x: 18, y: -48}
-        - {x: 25, y: -34}
-        - {x: 25, y: -15}
-        - {x: 19, y: -10}
-    - name: Sheet1_4
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b17e1b655d3633042bc9d96dac328b95
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_4
       rect:
         serializedVersion: 2
         x: 384
@@ -152,16 +207,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -27, y: 2}
-        - {x: -27, y: -47}
-        - {x: -22, y: -48}
-        - {x: 22, y: -48}
-        - {x: 26, y: -36}
-        - {x: 26, y: 2}
-    - name: Sheet1_5
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bdd05ede15c0b04da03e15948ecda2d
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_5
       rect:
         serializedVersion: 2
         x: 480
@@ -169,44 +228,41 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 24, y: 12}
-        - {x: 11, y: 17}
-        - {x: 10, y: 17}
-        - {x: 7, y: 14}
-        - {x: -2, y: 17}
-        - {x: -12, y: 17}
-        - {x: -30, y: 11}
-        - {x: -32, y: 2}
-        - {x: -32, y: -44}
-        - {x: -28, y: -48}
-        - {x: 22, y: -48}
-        - {x: 36, y: -39}
-        - {x: 36, y: 0}
-        - {x: 32, y: 7}
-    - name: Sheet1_6
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90c0a06da862be54e8be0e497091c866
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_6
       rect:
         serializedVersion: 2
         x: 576
         y: 288
-        width: 96
-        height: 96
+        width: 95
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -12, y: -9}
-        - {x: -21, y: -14}
-        - {x: -22, y: -18}
-        - {x: -22, y: -36}
-        - {x: -14, y: -48}
-        - {x: 15, y: -48}
-        - {x: 20, y: -41}
-        - {x: 20, y: -25}
-        - {x: 5, y: -9}
-    - name: Sheet1_7
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e62f29a30c147b14ba6ea14d7f80c86e
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_7
       rect:
         serializedVersion: 2
         x: 672
@@ -214,20 +270,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -17, y: 1}
-        - {x: -19, y: -1}
-        - {x: -19, y: -10}
-        - {x: -25, y: -18}
-        - {x: -25, y: -28}
-        - {x: -17, y: -48}
-        - {x: 22, y: -48}
-        - {x: 28, y: -40}
-        - {x: 28, y: -10}
-        - {x: 21, y: 1}
-    - name: Sheet1_8
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dff5efafb5e15049816f5f03c1b903d
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_8
       rect:
         serializedVersion: 2
         x: 768
@@ -235,16 +291,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -30, y: 8}
-        - {x: -30, y: -48}
-        - {x: 23, y: -48}
-        - {x: 33, y: -43}
-        - {x: 33, y: 3}
-        - {x: 31, y: 8}
-    - name: Sheet1_9
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a38632115623d934c98d6b7144b6172a
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_9
       rect:
         serializedVersion: 2
         x: 0
@@ -252,18 +312,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -15, y: -9}
-        - {x: -22, y: -16}
-        - {x: -22, y: -43}
-        - {x: -17, y: -48}
-        - {x: 10, y: -48}
-        - {x: 16, y: -36}
-        - {x: 16, y: -24}
-        - {x: -7, y: -9}
-    - name: Sheet1_10
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b1ef4fb9259f4843b0ec175c350e7f4
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_10
       rect:
         serializedVersion: 2
         x: 96
@@ -271,17 +333,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 20, y: 6}
-        - {x: -15, y: 6}
-        - {x: -27, y: -5}
-        - {x: -27, y: -27}
-        - {x: -14, y: -48}
-        - {x: 22, y: -48}
-        - {x: 22, y: 5}
-    - name: Sheet1_11
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd396bf75a7deaf499a5d974670d0a70
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_11
       rect:
         serializedVersion: 2
         x: 192
@@ -289,38 +354,41 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -34, y: 15}
-        - {x: -34, y: -45}
-        - {x: -33, y: -48}
-        - {x: 32, y: -48}
-        - {x: 32, y: 15}
-    - name: Sheet1_12
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a4e6078be672e54ca53ee367491f93b
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_12
       rect:
         serializedVersion: 2
         x: 288
         y: 192
-        width: 96
-        height: 96
+        width: 97
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 20, y: -11}
-        - {x: 22, y: -7}
-        - {x: 21, y: 2}
-        - {x: 13, y: 3}
-        - {x: -14, y: 3}
-        - {x: -17, y: -1}
-        - {x: -17, y: -41}
-        - {x: -13, y: -48}
-        - {x: 22, y: -48}
-        - {x: 23, y: -47}
-        - {x: 28, y: -29}
-        - {x: 28, y: -9}
-    - name: Sheet1_13
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d9bc410ef4b824e96a5619dc905185
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet1_13
       rect:
         serializedVersion: 2
         x: 384
@@ -328,19 +396,31 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -19, y: 14}
-        - {x: -31, y: 10}
-        - {x: -31, y: -25}
-        - {x: -23, y: -48}
-        - {x: 19, y: -48}
-        - {x: 30, y: -35}
-        - {x: 30, y: -18}
-        - {x: 12, y: 14}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 674b6eb9b90b88a4cb5fa3ebe5f8f6ef
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 41c684c15c09bb54f9b34c5359ea1af1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
   spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

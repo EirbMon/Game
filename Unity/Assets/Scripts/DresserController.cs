@@ -23,6 +23,7 @@ public class DresserController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(800, 600, true);
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;

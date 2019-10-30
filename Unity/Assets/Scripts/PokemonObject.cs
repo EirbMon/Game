@@ -6,6 +6,7 @@ using System.Text;
 public class PokemonObject : MonoBehaviour
 {
     public bool inventory; //If true: object can be stored in inventory
+    public string itemType = "pokemon";
     public string pokemon_name = "Valerian";
     public string type = "Pikachu";
     public string color = "red";
