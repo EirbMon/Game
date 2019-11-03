@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Play");
         SceneManager.LoadScene("MainScene");      
         
-        NetworkManager.singleton.StartClient();
+        //NetworkManager.singleton.StartClient();
         //NetworkManager.singleton.StartServer();
     }
 

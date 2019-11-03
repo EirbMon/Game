@@ -44,7 +44,7 @@ public class DresserController : NetworkBehaviour
         }
 
         if (isInCombat){
-            Debug.Log("33333");
+            Debug.Log("Start Combat Scene");
             SceneManager.LoadScene("CombatScene", LoadSceneMode.Additive);   
             isInCombat = false;
         }

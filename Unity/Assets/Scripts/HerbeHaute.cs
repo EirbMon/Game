@@ -8,9 +8,8 @@ public class HerbeHaute: NetworkBehaviour
 {
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("1111");
         if (Random.Range(0,10) == 5){
-            Debug.Log("2222");   
+            Debug.Log("Find Fight");   
             other.GetComponent<DresserController>().isInCombat = true;
         }
 
