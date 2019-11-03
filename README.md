@@ -1,6 +1,9 @@
 # Game <br/>
 
-Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système serveur-clients.<br/>
+Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système serveur-clients. Il faudra donc: <br/>
+- Lancer le serveur qui permettra de host tous les clients.<br/>
+- Lancer un client pour tester la connexion et les fonctionnalités du jeu.<br/>
+
 
 
 SERVEUR: <br/>
