@@ -23,3 +23,5 @@ CLIENT: <br/>
 - Si nécessaire: Ecrivez à la place de "localhost" l'adresse IP de l'adresse du frontend.<br/>
 - Un haut à gauche sur le network manager hud, cliquez sur "LAN Client (C)"<br/>
 
+/!\ Le port par défaut du serveur est 7777 /!\
+
