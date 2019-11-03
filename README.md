@@ -7,14 +7,14 @@ Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système
 <br/>
 
 SERVEUR: <br/>
-- Lancez l'éxécutable dans "Build - Windows".<br/>
+- Lancez l'éxécutable dans "Build - Server".<br/>
 - Cliquez sur "PLAY". <br/>
 - En haut à gauche sur le network manager hud, cliquez sur "LAN Server Only(S)".<br/>
 
 <br/>
 
 CLIENT: <br/>
-- Copiez / Collez le contenu du dossier "BuildInfo" vers \Front\src\game\Unity\BuildInfo<br/>
+- Copiez / Collez le contenu du dossier "Build - Client" vers \Front\src\game\Unity\BuildInfo<br/>
 - Lancez le serveur REACT avec npm run dev<br/>
 - Rendez-vous sur http://localhost:3000/unity ou l'adresse du frontend.<br/>
 - Allez dans la section UNITY.<br/>
