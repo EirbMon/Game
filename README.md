@@ -1,20 +1,20 @@
-# Game;;
+# Game<br/>;
 
-Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système serveur-clients.;
+Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système serveur-clients.<br/>;
 
 
 SERVEUR: ;
-• Lancez l'éxécutable dans "Build - Windows".;
+• Lancez l'éxécutable dans "Build - Windows".<br/>;
 • Cliquez sur "PLAY";
-• En haut à gauche sur le network manager hud, cliquez sur "LAN Server Only(S)".;
+• En haut à gauche sur le network manager hud, cliquez sur "LAN Server Only(S)".<br/>;
 
-CLIENT:
-• Copiez / Collez le contenu du dossier "BuildInfo" vers \Front\src\game\Unity\BuildInfo;
-• Lancez le serveur REACT avec npm run dev;
-• Rendez-vous sur http://localhost:3000/unity ou l'adresse du frontend.;
-• Allez dans la section UNITY.;
-• Le jeu se lance. Cliquez sur PLAY.;
-• Repérez l'écriture "localhost", en haut à gauche sur le network manager hud, à coté de "LAN Client(C)".;
-• Si nécessaire: Ecrivez à la place de "localhost" l'adresse IP de l'adresse du frontend.;
-• En haut à gauche sur le network manager hud, cliquez sur "LAN Client (C)";
+CLIENT:<br/>;
+• Copiez / Collez le contenu du dossier "BuildInfo" vers \Front\src\game\Unity\BuildInfo<br/>;
+• Lancez le serveur REACT avec npm run dev<br/>;
+• Rendez-vous sur http://localhost:3000/unity ou l'adresse du frontend.<br/>;
+• Allez dans la section UNITY.<br/>;
+• Le jeu se lance. Cliquez sur PLAY.<br/>;
+• Repérez l'écriture "localhost", en haut à gauche sur le network manager hud, à coté de "LAN Client(C)".<br/>;
+• Si nécessaire: Ecrivez à la place de "localhost" l'adresse IP de l'adresse du frontend.<br/>;
+• En haut à gauche sur le network manager hud, cliquez sur "LAN Client (C)"<br/>;
 
