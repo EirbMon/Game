@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class Inventory : MonoBehaviour
-{
-
+    public class Inventory : NetworkBehaviour
+    {
     public GameObject[] inventory = new GameObject[6];
     public Button[] InventoryButtons = new Button[6];
 
     // La fonction AddItem est appellé dans "PlayerInteract.cs" lorsque le player appuit sur E devant un Pokémon typé inventaire. 
+
      public void AddItem(GameObject item){
 
         bool itemAdded = false;
@@ -19,15 +20,8 @@ public class Inventory : MonoBehaviour
             if (inventory[i] == null){
                 inventory[i] = item;
                 itemAdded = true;
- 
                 InventoryButtons[i].image.overrideSprite = item.GetComponent<SpriteRenderer>().sprite;
                 InventoryButtons[i].image.rectTransform.localScale += new Vector3(1f, 0f, 0f);
-            
-                string type = item.GetComponent<PokemonObject>().type;
-                string name = item.GetComponent<PokemonObject>().pokemon_name;
-                string color = item.GetComponent<PokemonObject>().color;
-                string message = "{\"type\":" + "\"" + type + "\","  + "\"name\":" + "\"" + name + "\"," + "\"color\":" + "\"" + color + "\"}";
-                item.SendMessage("SendPokemonToReact",message);
                 break;
             }
         }
@@ -38,6 +32,9 @@ public class Inventory : MonoBehaviour
         }
 
     }
+
+ 
+
 
     public bool FindItem(GameObject item){
         for (int i = 0; i<inventory.Length; i++){

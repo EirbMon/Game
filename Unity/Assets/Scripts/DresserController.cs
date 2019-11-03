@@ -1,11 +1,12 @@
 ﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
-public class DresserController : MonoBehaviour
+public class DresserController : NetworkBehaviour
 {
     public float speed = 3.0f;
-    
     public int maxHealth = 5;
     public float timeInvincible = 2.0f;
     
@@ -13,6 +14,7 @@ public class DresserController : MonoBehaviour
     int currentHealth;
     bool isInvincible;
     float invincibleTimer;
+    public bool isInCombat = false;
     
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
@@ -23,15 +25,35 @@ public class DresserController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screen.SetResolution(800, 600, true);
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+
+        if (!isLocalPlayer) 
+        {
+        this.transform.Find("CM vcam1").gameObject.SetActive(false);
+        this.transform.Find("InventoryCanvas").gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isLocalPlayer){
+            return;
+        }
+
+        if (isInCombat){
+            Debug.Log("33333");
+            SceneManager.LoadScene("CombatScene", LoadSceneMode.Additive);   
+            isInCombat = false;
+        }
+
+        if (SceneManager.GetSceneByName("CombatScene").isLoaded){
+            return;
+        }
+
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
                         
@@ -82,5 +104,10 @@ public class DresserController : MonoBehaviour
     {
         transform.position = new Vector2(x, y);
         rigidbody2d.MovePosition(transform.position);
+    }
+
+    public void CombatMode(bool mode){
+        isInCombat = mode;
+
     }
 }
