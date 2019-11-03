@@ -3,9 +3,9 @@
 Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système serveur-clients.<br/>
 
 
-SERVEUR: <br/>;
+SERVEUR: <br/>
 • Lancez l'éxécutable dans "Build - Windows".<br/>
-• Cliquez sur "PLAY". <br/>;
+• Cliquez sur "PLAY". <br/>
 • En haut à gauche sur le network manager hud, cliquez sur "LAN Server Only(S)".<br/>
 
 CLIENT:<br/>
