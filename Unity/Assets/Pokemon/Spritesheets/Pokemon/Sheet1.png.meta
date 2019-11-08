@@ -139,10 +139,10 @@ TextureImporter:
       name: Sheet1_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 98
         y: 288
-        width: 96
-        height: 96
+        width: 94
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: Sheet1_2
       rect:
         serializedVersion: 2
-        x: 192
+        x: 191
         y: 288
-        width: 96
-        height: 96
+        width: 97
+        height: 57
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: Sheet1_4
       rect:
         serializedVersion: 2
-        x: 384
+        x: 383
         y: 288
-        width: 96
-        height: 96
+        width: 97
+        height: 51
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,7 +226,7 @@ TextureImporter:
         x: 480
         y: 288
         width: 96
-        height: 96
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,10 +265,10 @@ TextureImporter:
       name: Sheet1_7
       rect:
         serializedVersion: 2
-        x: 672
+        x: 675
         y: 288
-        width: 96
-        height: 96
+        width: 93
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,10 +286,10 @@ TextureImporter:
       name: Sheet1_8
       rect:
         serializedVersion: 2
-        x: 768
+        x: 769
         y: 288
-        width: 96
-        height: 96
+        width: 95
+        height: 59
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -308,9 +308,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
-        width: 96
-        height: 96
+        y: 193
+        width: 90
+        height: 35
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,10 +328,10 @@ TextureImporter:
       name: Sheet1_10
       rect:
         serializedVersion: 2
-        x: 96
+        x: 97
         y: 192
-        width: 96
-        height: 96
+        width: 92
+        height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -349,10 +349,10 @@ TextureImporter:
       name: Sheet1_11
       rect:
         serializedVersion: 2
-        x: 192
+        x: 191
         y: 192
-        width: 96
-        height: 96
+        width: 97
+        height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,10 +391,10 @@ TextureImporter:
       name: Sheet1_13
       rect:
         serializedVersion: 2
-        x: 384
+        x: 383
         y: 192
-        width: 96
-        height: 96
+        width: 97
+        height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

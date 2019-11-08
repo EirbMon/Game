@@ -148,12 +148,26 @@ public class DresserController : NetworkBehaviour
             if (other.CompareTag("interactionobject")){
                 currentInterObj = other.gameObject;
                 currentInterObjScript = currentInterObj.GetComponent <PokemonObject> ();
-            }  
+            } 
+
+            if (other.CompareTag("HerbeHaute")){
+                currentInterObj = other.gameObject;
+                Debug.Log("Haute herbe contact");   
+                if (Random.Range(0,15) == 5){
+                    Debug.Log("Find Fight");   
+                    isInCombat = true;
+                }
+            }   
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
             if (other.CompareTag("interactionobject")){
+                if (other.gameObject == currentInterObj){
+                    currentInterObj = null;
+                }
+            }
+            if (other.CompareTag("HerbeHaute")){
                 if (other.gameObject == currentInterObj){
                     currentInterObj = null;
                 }

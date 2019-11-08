@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300006, guid: 7fd81ad725659d143aa4569c40a6d820, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,8 +100,10 @@ MonoBehaviour:
   pokemon_name: Valerian
   type: 0
   color: red
+  health: 100
   position_x: 0
   position_y: 0
+  visible: 1
 --- !u!61 &4282241266202632045
 BoxCollider2D:
   m_ObjectHideFlags: 0
