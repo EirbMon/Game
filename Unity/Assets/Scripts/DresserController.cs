@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using System.Text;
+using SimpleJSON;
+using System.Globalization;
 
 public class DresserController : NetworkBehaviour
 {
@@ -16,6 +19,9 @@ public class DresserController : NetworkBehaviour
     float invincibleTimer;
     public bool isInCombat = false;
     
+    public bool catch_pokemon = false;
+
+    public string CatchedPokemon = "null";
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
     Rigidbody2D rigidbody2d;
@@ -62,6 +68,13 @@ public class DresserController : NetworkBehaviour
                 RpcTakeItem();
             else
                 CmdTakeItem();
+        }
+
+        if (catch_pokemon){
+            catch_pokemon = false;
+            Debug.Log("Inside catch pokemeon");
+            SetPokemon(CatchedPokemon);
+            
         }
 
         // Player localization
@@ -135,12 +148,47 @@ public class DresserController : NetworkBehaviour
      }
 
     void TakeItem(){
+
+        if (!isLocalPlayer){
+            return;
+        }
+
         if (currentInterObjScript.inventory){
                     inventory.AddItem(currentInterObj);
                     currentInterObjScript.visible = false;
                     currentInterObjScript.Deactivate(false);
                     currentInterObjScript.SendPokemonToReact();
         }
+    }
+
+    public void SetPokemon(string JSONString){
+        var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
+        int N = PokemonsJSON.Count;
+        Debug.Log("Genetaring Pokemon from JSON, N = " + N);
+                
+        for (int i=0; i<N; i++){    
+            Debug.Log("Spawn Pokemon ");
+            float pos_x = float.Parse(PokemonsJSON[i]["position_x"],CultureInfo.InvariantCulture.NumberFormat);
+            float pos_y = float.Parse(PokemonsJSON[i]["position_y"],CultureInfo.InvariantCulture.NumberFormat);
+            var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
+            Pokemon.GetComponent<PokemonObject>().type = PokemonsJSON[i]["type"];
+            Pokemon.GetComponent<PokemonObject>().pokemon_name = PokemonsJSON[i]["name"];
+            Pokemon.GetComponent<PokemonObject>().color = PokemonsJSON[i]["color"];
+            Pokemon.GetComponent<PokemonObject>().position_x = pos_x;
+            Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
+            // cf PokemonObject.cs 
+
+            NetworkServer.Spawn(Pokemon);
+
+            if (Pokemon.GetComponent<PokemonObject>().inventory){
+                inventory.AddItem(Pokemon);
+                Pokemon.GetComponent<PokemonObject>().visible = false;
+                Pokemon.GetComponent<PokemonObject>().Deactivate(false);
+                Pokemon.GetComponent<PokemonObject>().SendPokemonToReact();
+            }
+
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D other)

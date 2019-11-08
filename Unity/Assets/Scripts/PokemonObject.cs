@@ -25,7 +25,7 @@ public class PokemonObject : NetworkBehaviour
     public void SendPokemonToReact(){
 
         string message = "{\"type\":" + "\"" + this.type + "\","  + "\"name\":" + "\"" + this.name + "\"," + "\"color\":" + "\"" + this.color + "\"}";
-        Debug.Log("Message: " + message);
+        Debug.Log("SendReactMessage: " + message);
         
         try{
             DoInteraction(message);
@@ -35,9 +35,7 @@ public class PokemonObject : NetworkBehaviour
         }
     }
 
-
     public void Deactivate(bool visible){
-        Debug.Log("Deactivate Pokemon");
         this.gameObject.SetActive(visible); 
     }
 

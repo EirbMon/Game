@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,9 +12,11 @@ public class CombatMenu : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void DoInteraction(string message);
 
+    public GameObject Pokemon = null;
+
     void Start(){
         SendMessageToReact();
-        string JSONString = "{\"Pokemons\":[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\"},{\"type\":\"Florizard\",\"name\":\"CaraCara\",\"color\":\"blue\",\"position_x\":\"-57.5\",\"position_y\":\"3.6\"},{\"type\":\"Dracofeu\",\"name\":\"SalaSala\",\"color\":\"red\",\"position_x\":\"-55.5\",\"position_y\":\"3.6\"}]}";
+        string JSONString = "{\"Pokemons\":[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\"}]}";
         GenerateWildPokemon(JSONString);
     }
 
@@ -43,17 +45,20 @@ public class CombatMenu : MonoBehaviour
 
     public void CatchPokemon(){
         Debug.Log("Catch");
+        SceneManager.UnloadSceneAsync("CombatScene");
+        GameObject.Find("Dresser(Clone)").GetComponent<DresserController>().catch_pokemon = true;
     }
 
     public void GenerateWildPokemon (string JSONString) {
 
+        GameObject.Find("Dresser(Clone)").GetComponent<DresserController>().CatchedPokemon = JSONString;
         var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
         Debug.Log("Get Random Orphelin Pokemon ");
 
         float pos_x = 300f;
         float pos_y = 100f;
         Debug.Log(PokemonsJSON[0]);
-        var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[0]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
+        Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[0]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
         Pokemon.GetComponent<PokemonObject>().type = PokemonsJSON[0]["type"];
         Pokemon.GetComponent<PokemonObject>().pokemon_name = PokemonsJSON[0]["name"];
         Pokemon.GetComponent<PokemonObject>().color = PokemonsJSON[0]["color"];
@@ -61,6 +66,7 @@ public class CombatMenu : MonoBehaviour
         Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
         Pokemon.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
         Pokemon.transform.localScale += new Vector3(300f, 400f, 0f);
+
 
 
     }
