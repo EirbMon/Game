@@ -1612,7 +1612,6 @@ GameObject:
   - component: {fileID: 1267019477493152736}
   - component: {fileID: 1267019477493152743}
   - component: {fileID: 1267019477493152742}
-  - component: {fileID: 1812721870}
   - component: {fileID: 1812721876}
   - component: {fileID: 858383901588072937}
   - component: {fileID: -7925027787764247032}
@@ -1770,18 +1769,6 @@ MonoBehaviour:
   maxHealth: 5
   timeInvincible: 2
   isInCombat: 0
---- !u!114 &1812721870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267019477493152666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9439677bd4cca614090e38339e77f736, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   currentInterObj: {fileID: 0}
   currentInterObjScript: {fileID: 0}
   inventory: {fileID: 1812721876}

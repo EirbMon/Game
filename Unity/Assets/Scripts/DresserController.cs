@@ -18,8 +18,11 @@ public class DresserController : NetworkBehaviour
     
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
-
     Rigidbody2D rigidbody2d;
+
+    public GameObject currentInterObj = null;
+    public PokemonObject currentInterObjScript = null;
+    public Inventory inventory;
 
     
     // Start is called before the first frame update
@@ -28,9 +31,9 @@ public class DresserController : NetworkBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+        Debug.Log("Start Dresser");
 
-        if (!isLocalPlayer) 
-        {
+        if (!isLocalPlayer) {
         this.transform.Find("CM vcam1").gameObject.SetActive(false);
         this.transform.Find("InventoryCanvas").gameObject.SetActive(false);
         }
@@ -49,34 +52,40 @@ public class DresserController : NetworkBehaviour
             isInCombat = false;
         }
 
-        if (SceneManager.GetSceneByName("CombatScene").isLoaded){
+        if (SceneManager.GetSceneByName("CombatScene").isLoaded)
             return;
+        
+
+        if (Input.GetButtonDown ("Interact") && currentInterObj){
+            TakeItem();
+            if (isServer)
+                RpcTakeItem();
+            else
+                CmdTakeItem();
         }
 
-
+        // Player localization
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-                        
-        Vector2 move = new Vector2(horizontal, vertical);
-                
-        if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
-        {
+
+        // Direction                
+        Vector2 move = new Vector2(horizontal, vertical);          
+        if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)){
             lookDirection.Set(move.x, move.y);
             lookDirection.Normalize();
         }
                 
+        // Animation
         animator.SetFloat("Look X", lookDirection.x);
         animator.SetFloat("Look Y", lookDirection.y);
         animator.SetFloat("Speed", move.magnitude);
                 
-        Vector2 position = rigidbody2d.position;
-                
+        // Movement
+        Vector2 position = rigidbody2d.position;        
         position = position + move * speed * Time.deltaTime;
-
         rigidbody2d.MovePosition(position);
 
-        if (isInvincible)
-        {
+        if (isInvincible){
             invincibleTimer -= Time.deltaTime;
             if (invincibleTimer < 0)
                 isInvincible = false;
@@ -86,17 +95,14 @@ public class DresserController : NetworkBehaviour
 
     public void ChangeHealth(int amount)
     {
-        if (amount < 0)
-        {
+        if (amount < 0){
             if (isInvincible)
-                return;
-            
+                return;          
             isInvincible = true;
             invincibleTimer = timeInvincible;
         }
         
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        
         Debug.Log(currentHealth + "/" + maxHealth);
     }
 
@@ -108,6 +114,51 @@ public class DresserController : NetworkBehaviour
 
     public void CombatMode(bool mode){
         isInCombat = mode;
-
     }
+
+    [Command]
+     void CmdTakeItem()
+     {
+         //Apply it to all other clients
+         Debug.Log("CMD - Apply it to all other clients");
+         TakeItem();
+         RpcTakeItem();
+     }
+ 
+     [ClientRpc]
+     void RpcTakeItem()
+     {
+         Debug.Log("RPC - Apply only to local client");
+         if (isLocalPlayer)
+             return;
+         TakeItem();
+     }
+
+    void TakeItem(){
+        if (currentInterObjScript.inventory){
+                    inventory.AddItem(currentInterObj);
+                    currentInterObjScript.visible = false;
+                    currentInterObjScript.Deactivate(false);
+                    currentInterObjScript.SendPokemonToReact();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+            if (other.CompareTag("interactionobject")){
+                currentInterObj = other.gameObject;
+                currentInterObjScript = currentInterObj.GetComponent <PokemonObject> ();
+            }  
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+            if (other.CompareTag("interactionobject")){
+                if (other.gameObject == currentInterObj){
+                    currentInterObj = null;
+                }
+            }
+    }
+
+
 }

@@ -18,7 +18,6 @@ public class GeneratePokemon : NetworkBehaviour
 
     public void GenerateFirstPokemon (string JSONString) {
 
-
         var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
         int N = PokemonsJSON.Count;
         Debug.Log("Genetaring Pokemon from JSON, N = " + N);

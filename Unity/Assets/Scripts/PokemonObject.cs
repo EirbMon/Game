@@ -11,6 +11,7 @@ public class PokemonObject : NetworkBehaviour
     public string pokemon_name = "Valerian";
     public string type = "Pikachu";
     public string color = "red";
+    public int health = 100;
     public float position_x = 0.0f;
     public float position_y = 0.0f;
 
@@ -32,11 +33,16 @@ public class PokemonObject : NetworkBehaviour
         catch{
             Debug.Log("Do interaction fail");
         }
-
     }
+
+
     public void Deactivate(bool visible){
         Debug.Log("Deactivate Pokemon");
         this.gameObject.SetActive(visible); 
+    }
+
+    public void TakeDamage(bool visible){
+        this.health = this.health - 25;
     }
 
 }
