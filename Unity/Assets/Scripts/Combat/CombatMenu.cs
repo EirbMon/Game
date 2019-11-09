@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,10 +14,21 @@ public class CombatMenu : MonoBehaviour
 
     public GameObject Pokemon = null;
 
+     private float timer = 0;
+ 
+    private float timerMax = 0;
+
+    private bool enter = false;
+
     void Start(){
         SendMessageToReact();
         string JSONString = "{\"Pokemons\":[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\"}]}";
         GenerateWildPokemon(JSONString);
+    }
+
+    void Update(){
+
+
     }
 
     // La fonction SendPokemonToReact est appellé dans "Inventory.cs". 
@@ -41,6 +52,13 @@ public class CombatMenu : MonoBehaviour
 
     public void FightCombat(){
         Debug.Log("Fight");
+
+        if (Pokemon.GetComponent<PokemonObject>().health > 0)
+            Pokemon.GetComponent<PokemonObject>().TakeDamage(25);        
+              
+        if (Pokemon.GetComponent<PokemonObject>().health <= 0){
+            StartCoroutine(EndFight());
+        }
     }
 
     public void CatchPokemon(){
@@ -66,8 +84,13 @@ public class CombatMenu : MonoBehaviour
         Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
         Pokemon.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
         Pokemon.transform.localScale += new Vector3(300f, 400f, 0f);
+    }
 
-
+    IEnumerator EndFight()
+    {
+        Pokemon.transform.Rotate (Vector3.forward * -90);
+        yield return new WaitForSeconds(2.5f);
+        RunAwayCombat();
 
     }
 }

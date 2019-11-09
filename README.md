@@ -10,6 +10,8 @@ Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système
 
 SERVEUR: <br/>
 - Le serveur à lancé est situé dans le dossier "Build - Server" du répertoire GitHub/Game.<br/>
+- Pour lancer sur linux, instaler wine pour ouvrir le .Exe: > sudo apt-get update sudo apt-get install wine <br/>
+- Puis simplement: > wine \~\repetoire_du_build\Build - Server\Eirbmon.exe <br/>
 - DevOps: Automatiquement mis à jour dans le NUC via GitHub. <br/>
 - DevOps: Lance automatiquement sur l'addresse IP du NUC sur le port 7777<br/>
 

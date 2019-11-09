@@ -11,6 +11,8 @@ public class PokemonObject : NetworkBehaviour
     public string pokemon_name = "Valerian";
     public string type = "Pikachu";
     public string color = "red";
+    public int max_health = 100;
+
     public int health = 100;
     public float position_x = 0.0f;
     public float position_y = 0.0f;
@@ -20,6 +22,10 @@ public class PokemonObject : NetworkBehaviour
 
     [DllImport("__Internal")]
     private static extern void DoInteraction(string message);
+
+    void Start(){
+        health = max_health;
+    }
 
     // La fonction SendPokemonToReact est appellé dans "Inventory.cs". 
     public void SendPokemonToReact(){
@@ -39,8 +45,9 @@ public class PokemonObject : NetworkBehaviour
         this.gameObject.SetActive(visible); 
     }
 
-    public void TakeDamage(bool visible){
-        this.health = this.health - 25;
+    public void TakeDamage(int damage){
+        this.health = this.health - damage;
+        Debug.Log("Health = " + this.health);
     }
 
 }
