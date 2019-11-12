@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class GeneratePokemon : NetworkBehaviour
 {
-    
+
     // Start is called before the first frame update
     public override void OnStartServer()
     {     

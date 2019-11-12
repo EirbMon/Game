@@ -178,7 +178,7 @@ public class DresserController : NetworkBehaviour
             Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
             // cf PokemonObject.cs 
 
-            NetworkServer.Spawn(Pokemon);
+            //NetworkServer.Spawn(Pokemon);
 
             if (Pokemon.GetComponent<PokemonObject>().inventory){
                 inventory.AddItem(Pokemon);
