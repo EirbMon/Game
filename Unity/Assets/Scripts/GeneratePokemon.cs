@@ -27,13 +27,7 @@ public class GeneratePokemon : NetworkBehaviour
             float pos_x = float.Parse(PokemonsJSON[i]["position_x"],CultureInfo.InvariantCulture.NumberFormat);
             float pos_y = float.Parse(PokemonsJSON[i]["position_y"],CultureInfo.InvariantCulture.NumberFormat);
             var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
-            Pokemon.GetComponent<PokemonObject>().type = PokemonsJSON[i]["type"];
-            Pokemon.GetComponent<PokemonObject>().pokemon_name = PokemonsJSON[i]["name"];
-            Pokemon.GetComponent<PokemonObject>().color = PokemonsJSON[i]["color"];
-            Pokemon.GetComponent<PokemonObject>().position_x = pos_x;
-            Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
-            // cf PokemonObject.cs 
-
+            Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
             NetworkServer.Spawn(Pokemon);
 
         }

@@ -17,11 +17,6 @@ public class DresserController : NetworkBehaviour
     int currentHealth;
     bool isInvincible;
     float invincibleTimer;
-    public bool isInCombat = false;
-    
-    public bool catch_pokemon = false;
-
-    public string CatchedPokemon = "null";
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
     Rigidbody2D rigidbody2d;
@@ -52,29 +47,16 @@ public class DresserController : NetworkBehaviour
             return;
         }
 
-        if (isInCombat){
-            Debug.Log("Start Combat Scene");
-            SceneManager.LoadScene("CombatScene", LoadSceneMode.Additive);   
-            isInCombat = false;
-        }
-
         if (SceneManager.GetSceneByName("CombatScene").isLoaded)
             return;
         
 
-        if (Input.GetButtonDown ("Interact") && currentInterObj){
+        if (Input.GetButtonDown("Interact") && currentInterObj){
             TakeItem();
             if (isServer)
                 RpcTakeItem();
             else
                 CmdTakeItem();
-        }
-
-        if (catch_pokemon){
-            catch_pokemon = false;
-            Debug.Log("Inside catch pokemeon");
-            SetPokemon(CatchedPokemon);
-            
         }
 
         // Player localization
@@ -125,8 +107,16 @@ public class DresserController : NetworkBehaviour
         rigidbody2d.MovePosition(transform.position);
     }
 
-    public void CombatMode(bool mode){
-        isInCombat = mode;
+    public void EnterCombat(){
+        Debug.Log("Enter Combat");
+        SceneManager.LoadScene("CombatScene", LoadSceneMode.Additive); 
+        this.transform.Find("InventoryCanvas").gameObject.SetActive(false);  
+    }
+
+    public void LeaveCombat(){
+        Debug.Log("Leave Combat");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
+        this.transform.Find("InventoryCanvas").gameObject.SetActive(true);  
     }
 
     [Command]
@@ -154,39 +144,25 @@ public class DresserController : NetworkBehaviour
         }
 
         if (currentInterObjScript.inventory){
-                    inventory.AddItem(currentInterObj);
-                    currentInterObjScript.visible = false;
-                    currentInterObjScript.Deactivate(false);
-                    currentInterObjScript.SendPokemonToReact();
+
+                    if (inventory.AddItem(currentInterObj)){
+                        currentInterObjScript.visible = false;
+                        currentInterObjScript.Deactivate(false);
+                        currentInterObjScript.SendPokemonToReact();
+                }
         }
     }
 
-    public void SetPokemon(string JSONString){
+    public void CatchPokemon(string JSONString){
+
         var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
         int N = PokemonsJSON.Count;
-        Debug.Log("Genetaring Pokemon from JSON, N = " + N);
+        Debug.Log("CatchPokemon");
                 
         for (int i=0; i<N; i++){    
-            Debug.Log("Spawn Pokemon ");
-            float pos_x = float.Parse(PokemonsJSON[i]["position_x"],CultureInfo.InvariantCulture.NumberFormat);
-            float pos_y = float.Parse(PokemonsJSON[i]["position_y"],CultureInfo.InvariantCulture.NumberFormat);
-            var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
-            Pokemon.GetComponent<PokemonObject>().type = PokemonsJSON[i]["type"];
-            Pokemon.GetComponent<PokemonObject>().pokemon_name = PokemonsJSON[i]["name"];
-            Pokemon.GetComponent<PokemonObject>().color = PokemonsJSON[i]["color"];
-            Pokemon.GetComponent<PokemonObject>().position_x = pos_x;
-            Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
-            // cf PokemonObject.cs 
-
-            //NetworkServer.Spawn(Pokemon);
-
-            if (Pokemon.GetComponent<PokemonObject>().inventory){
-                inventory.AddItem(Pokemon);
-                Pokemon.GetComponent<PokemonObject>().visible = false;
-                Pokemon.GetComponent<PokemonObject>().Deactivate(false);
-                Pokemon.GetComponent<PokemonObject>().SendPokemonToReact();
-            }
-
+            var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(0, 0), Quaternion.identity) as GameObject;
+            Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
+            inventory.AddItem(Pokemon);
         }
 
     }
@@ -202,8 +178,7 @@ public class DresserController : NetworkBehaviour
                 currentInterObj = other.gameObject;
                 Debug.Log("Haute herbe contact");   
                 if (Random.Range(0,15) == 5){
-                    Debug.Log("Find Fight");   
-                    isInCombat = true;
+                    EnterCombat();
                 }
             }   
     }
@@ -215,12 +190,5 @@ public class DresserController : NetworkBehaviour
                     currentInterObj = null;
                 }
             }
-            if (other.CompareTag("HerbeHaute")){
-                if (other.gameObject == currentInterObj){
-                    currentInterObj = null;
-                }
-            }
     }
-
-
 }

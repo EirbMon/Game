@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine.Networking;
+using SimpleJSON;
 public class PokemonObject : NetworkBehaviour
 {
     public bool inventory; //If true: object can be stored in inventory
@@ -11,9 +12,11 @@ public class PokemonObject : NetworkBehaviour
     public string pokemon_name = "Valerian";
     public string type = "Pikachu";
     public string color = "red";
-    public int max_health = 100;
+    public float max_health = 100;
 
-    public int health = 100;
+    public int level = 0;
+
+    public float health = 100;
     public float position_x = 0.0f;
     public float position_y = 0.0f;
 
@@ -45,9 +48,16 @@ public class PokemonObject : NetworkBehaviour
         this.gameObject.SetActive(visible); 
     }
 
-    public void TakeDamage(int damage){
+    public void TakeDamage(float damage){
         this.health = this.health - damage;
         Debug.Log("Health = " + this.health);
+    }
+
+    public void Initiate (JSONNode PokemonJSON){
+        this.type = PokemonJSON["type"];
+        this.pokemon_name = PokemonJSON["name"];
+        this.color = PokemonJSON["color"];
+        this.health = max_health;
     }
 
 }
