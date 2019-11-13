@@ -33,9 +33,6 @@ using UnityEngine.Networking;
             if (inventory[i] == null){
                 inventory[i] = item;
                 itemAdded = true;
-                inventory[i].GetComponent<PokemonObject>().visible = false;
-                inventory[i].GetComponent<PokemonObject>().Deactivate(false);
-                inventory[i].GetComponent<PokemonObject>().SendPokemonToReact();
                 InventoryButtons[i].image.overrideSprite = item.GetComponent<SpriteRenderer>().sprite;
                 InventoryButtons[i].image.rectTransform.localScale += new Vector3(1f, 0f, 0f);
                 return true;
