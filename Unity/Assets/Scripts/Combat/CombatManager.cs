@@ -103,11 +103,11 @@ public class CombatManager : MonoBehaviour
             skill1T = skill1.text;
             skill2T = skill2.text;
             skill3T = skill3.text;
+            skill4T = skill4.text;
             ennemy_maxhp.SetText("{0}",Pokemon.GetComponent<PokemonObject>().max_health );
             ennemy_name.SetText( Pokemon.GetComponent<PokemonObject>().type );
             ennemy_level.SetText("{0}", Pokemon.GetComponent<PokemonObject>().level );
             ennemy_hp.SetText("{0}", Pokemon.GetComponent<PokemonObject>().health );
-
             side.SetText(" A wild " + Pokemon.GetComponent<PokemonObject>().type + " has appeared ! ");
         }
 
@@ -121,6 +121,47 @@ public class CombatManager : MonoBehaviour
             currentSelection--;
         }
 
+        if (Input.GetKeyDown(KeyCode.Return)){
+            Debug.Log(currentSelection);
+            Debug.Log(currentMenu);
+            switch(currentMenu){
+            case CombatMenu.Fight:
+                switch(currentSelection){
+                    case 1:
+                        Fight();
+                        break;
+                    case 2:
+                        Fight();
+                        break;
+                    case 3:
+                        Fight();
+                        break;
+                    case 4:
+                        Debug.Log("OK");
+                        ChangeMenu(CombatMenu.Main);
+                        break;                
+                }
+                break;
+
+            case CombatMenu.Main:
+                switch(currentSelection){
+                    case 1:
+                        ChangeMenu(CombatMenu.Fight);
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        CatchPokemon();
+                        break;
+                    case 4:
+                        RunAwayCombat();
+                        break;           
+                }
+                break;
+
+            }
+        }
+
         if (currentSelection == 0)
             currentSelection = 1;
 
@@ -129,28 +170,28 @@ public class CombatManager : MonoBehaviour
             case CombatMenu.Fight:
                 switch(currentSelection){
                     case 1:
-                        skill1.text = "> " + skill1.text;
-                        skill2.text = skill2.text;
-                        skill3.text = skill3.text;
-                        skill4.text = skill4.text;
+                        skill1.SetText("> " + skill1T);
+                        skill2.SetText(skill2T);
+                        skill3.SetText(skill3T);
+                        skill4.SetText(skill4T);
                         break;
                     case 2:
-                        skill1.text = skill1.text;
-                        skill2.text = "> " + skill2.text;
-                        skill3.text = skill3.text;
-                        skill4.text = skill4.text;
+                        skill1.SetText(skill1T);
+                        skill2.SetText("> " + skill2T);
+                        skill3.SetText(skill3T);
+                        skill4.SetText(skill4T);
                         break;
                     case 3:
-                        skill1.text = skill1.text;
-                        skill2.text = skill2.text;
-                        skill3.text = "> " + skill3.text;
-                        skill4.text = skill4.text;
+                        skill1.SetText(skill1T);
+                        skill2.SetText(skill2T);
+                        skill3.SetText("> " + skill3T);
+                        skill4.SetText(skill4T);
                         break;
                     case 4:
-                        skill1.text = skill1.text;
-                        skill2.text = skill2.text;
-                        skill3.text = skill3.text;
-                        skill4.text = "> " + skill4.text;
+                        skill1.SetText(skill1T);
+                        skill2.SetText(skill2T);
+                        skill3.SetText(skill3T);
+                        skill4.SetText("> " + skill4T);
                         break;                
                 }
                 break;
@@ -158,44 +199,34 @@ public class CombatManager : MonoBehaviour
             case CombatMenu.Main:
                 switch(currentSelection){
                     case 1:
-                        fight.text = "> FIGHT";
-                        bag.text = "BAG";
-                        catchp.text = "CATCH";
-                        run.text = "RUN";
+                        fight.SetText("> FIGHT");
+                        bag.SetText("BAG");
+                        catchp.SetText("CATCH");
+                        run.SetText("RUN");
                         break;
                     case 2:
-                        fight.text = "FIGHT";
-                        bag.text = "> BAG";
-                        catchp.text = "CATCH";
-                        run.text = "RUN";
+                        fight.SetText("FIGHT");
+                        bag.SetText("> BAG");
+                        catchp.SetText("CATCH");
+                        run.SetText("RUN");
                         break;
                     case 3:
-                        fight.text = "FIGHT";
-                        bag.text = "BAG";
-                        catchp.text = "> CATCH";
-                        run.text = "RUN";
+                        fight.SetText("FIGHT");
+                        bag.SetText("BAG");
+                        catchp.SetText("> CATCH");
+                        run.SetText("RUN");
                         break;
                     case 4:
-                        fight.text = "FIGHT";
-                        bag.text = "BAG";
-                        catchp.text = "CATCH";
-                        run.text = "> RUN";
+                        fight.SetText("FIGHT");
+                        bag.SetText("BAG");
+                        catchp.SetText("CATCH");
+                        run.SetText("> RUN");
                         break;           
                 }
                 break;
 
-        }
+            }
 
-        switch(currentSelection){
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;                
-        }
     }
 
     public enum CombatMenu{
@@ -209,6 +240,7 @@ public class CombatManager : MonoBehaviour
     public void ChangeMenu(CombatMenu m){
         currentMenu = m;
         currentSelection = 1;
+        Debug.Log(m);
         switch(m){
             case CombatMenu.Main:
                 MainMenu.gameObject.SetActive(true);
@@ -219,22 +251,23 @@ public class CombatManager : MonoBehaviour
                 break;
 
             case CombatMenu.Fight:
-                MainMenu.gameObject.SetActive(true);
-                SideInfo.gameObject.SetActive(true);
-                SkillsMenu.gameObject.SetActive(false);
-                SkillsInfo.gameObject.SetActive(false);
+                MainMenu.gameObject.SetActive(false);
+                SideInfo.gameObject.SetActive(false);
+                SkillsMenu.gameObject.SetActive(true);
+                SkillsInfo.gameObject.SetActive(true);
                 InfoMenu.gameObject.SetActive(false);
                 break;
 
             case CombatMenu.Info:
-                MainMenu.gameObject.SetActive(true);
-                SideInfo.gameObject.SetActive(true);
+                MainMenu.gameObject.SetActive(false);
+                SideInfo.gameObject.SetActive(false);
                 SkillsMenu.gameObject.SetActive(false);
                 SkillsInfo.gameObject.SetActive(false);
-                InfoMenu.gameObject.SetActive(false);
+                InfoMenu.gameObject.SetActive(true);
                 break;
         }
     }
+
 
 
     // La fonction SendPokemonToReact est appellé dans "Inventory.cs". 

@@ -23,25 +23,8 @@ public class PokemonObject : NetworkBehaviour
     [SyncVar(hook="Deactivate")]
     public bool visible = true;
 
-    [DllImport("__Internal")]
-    private static extern void DoInteraction(string message);
-
     void Start(){
         health = max_health;
-    }
-
-    // La fonction SendPokemonToReact est appellé dans "Inventory.cs". 
-    public void SendPokemonToReact(){
-
-        string message = "{\"type\":" + "\"" + this.type + "\","  + "\"name\":" + "\"" + this.name + "\"," + "\"color\":" + "\"" + this.color + "\"}";
-        Debug.Log("SendReactMessage: " + message);
-        
-        try{
-            DoInteraction(message);
-        }
-        catch{
-            Debug.Log("Do interaction fail");
-        }
     }
 
     public void Deactivate(bool visible){
@@ -58,6 +41,11 @@ public class PokemonObject : NetworkBehaviour
         this.pokemon_name = PokemonJSON["name"];
         this.color = PokemonJSON["color"];
         this.health = max_health;
+    }
+
+    public string ConvertToString(){
+        string message = "{\"type\":" + "\"" + this.type + "\","  + "\"name\":" + "\"" + this.name + "\"," + "\"level\":" + "\"" + this.level + "\"}";
+        return message;
     }
 
 }

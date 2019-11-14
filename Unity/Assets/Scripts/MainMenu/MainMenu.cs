@@ -11,7 +11,8 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Play");
-        SceneManager.LoadScene("MainScene");      
+        SceneManager.LoadScene("MainScene"); 
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));     
         
         //NetworkManager.singleton.StartClient();
         //NetworkManager.singleton.StartServer();

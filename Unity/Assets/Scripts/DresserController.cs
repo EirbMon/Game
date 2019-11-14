@@ -9,6 +9,7 @@ using System.Globalization;
 
 public class DresserController : NetworkBehaviour
 {
+    GameManager gameManager;
     public float speed = 3.0f;
     public int maxHealth = 5;
     public float timeInvincible = 2.0f;
@@ -17,6 +18,7 @@ public class DresserController : NetworkBehaviour
     int currentHealth;
     bool isInvincible;
     float invincibleTimer;
+    string name;
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
     Rigidbody2D rigidbody2d;
@@ -25,10 +27,14 @@ public class DresserController : NetworkBehaviour
     public PokemonObject currentInterObjScript = null;
     public Inventory inventory;
 
+    private bool testBool = true; 
+
     
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
@@ -57,6 +63,13 @@ public class DresserController : NetworkBehaviour
                 RpcTakeItem();
             else
                 CmdTakeItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            testBool = !testBool;
+            this.transform.Find("InventoryCanvas").gameObject.SetActive(testBool);  
+
+
         }
 
         // Player localization
@@ -148,7 +161,7 @@ public class DresserController : NetworkBehaviour
                     if (inventory.AddItem(currentInterObj)){
                         currentInterObjScript.visible = false;
                         currentInterObjScript.Deactivate(false);
-                        currentInterObjScript.SendPokemonToReact();
+                        gameManager.SendMessageToReact(currentInterObjScript.ConvertToString());
                 }
         }
     }
@@ -190,5 +203,14 @@ public class DresserController : NetworkBehaviour
                     currentInterObj = null;
                 }
             }
+    }
+
+    void SavePlayer(){
+        
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        
+        string saveText = "{ \"Player\" : [{ \"name\":" + "\"" + name + "\"," + "\"position_x\":" + "\"" + horizontal + "\"," + "\"position_y\":" + "\"" + vertical + "\"}]}";
+        gameManager.SendMessageToReact(saveText);
     }
 }
