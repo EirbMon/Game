@@ -1,11 +1,11 @@
 pipeline {
   agent any
-  stages {  
+  stages {
     stage('Build') {
       parallel {
         stage('Build dev') {
           when {
-            branch "dev"
+            branch 'dev'
           }
           steps {
             sh 'docker build -t eirbmon/game-dev .'
@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build prod') {
           when {
-            branch "master"
+            branch 'master'
           }
           steps {
             sh 'docker build -t eirbmon/game .'
@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Stop old dev') {
           when {
-            branch "dev"
+            branch 'dev'
           }
           steps {
             sh 'cp -r Buildinfo/* /home/eirbmon/Documents/SharedUnity/dev'
@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Stop old prod') {
           when {
-            branch "master"
+            branch 'master'
           }
           steps {
             sh 'cp -r Buildinfo/* /home/eirbmon/Documents/SharedUnity/prod'
@@ -49,7 +49,7 @@ pipeline {
     }
     stage('Run dev container') {
       when {
-        branch "dev"
+        branch 'dev'
       }
       steps {
         sh 'docker run -p 6666:7777 -it -v /home/eirbmon/Documents/SharedUnity/dev:/Game/BuildInfo -d --name eirbmon-game-dev eirbmon/game-dev'
@@ -58,12 +58,12 @@ pipeline {
     }
     stage('Run prod container') {
       when {
-        branch "master"
+        branch 'master'
       }
       steps {
         sh 'docker run -p 7777:7777 -it -v /home/eirbmon/Documents/SharedUnity/prod:/Game/BuildInfo -d --name eirbmon-game eirbmon/game'
         echo 'Prod container ready !'
       }
     }
-  }  
+  }
 }
