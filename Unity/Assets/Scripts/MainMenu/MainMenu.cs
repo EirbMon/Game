@@ -7,6 +7,8 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class MainMenu : MonoBehaviour
 {
+    AudioSource m_MyAudioSource;
+    float m_MySliderValue;
 
     public void PlayGame()
     {
@@ -22,5 +24,11 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    void OnGUI()
+    {
+        //m_MySliderValue = GUI.HorizontalSlider(new Rect(25, 25, 200, 60), m_MySliderValue, 0.0F, 1.0F);
+        //m_MyAudioSource.volume = m_MySliderValue;
     }
 }

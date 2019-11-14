@@ -69,19 +69,13 @@ using UnityEngine.Networking;
 
         var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
         int N = PokemonsJSON.Count;
-        Debug.Log("Genetaring Pokemon from JSON, N = " + N);
+        Debug.Log("Retrieving " + N + " pokemons");
                 
         for (int i=0; i<N; i++){    
-            Debug.Log("Spawn Pokemon ");
             float pos_x = -100f;
             float pos_y = -100f;
             var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
-            Pokemon.GetComponent<PokemonObject>().type = PokemonsJSON[i]["type"];
-            Pokemon.GetComponent<PokemonObject>().pokemon_name = PokemonsJSON[i]["name"];
-            Pokemon.GetComponent<PokemonObject>().color = PokemonsJSON[i]["color"];
-            Pokemon.GetComponent<PokemonObject>().position_x = pos_x;
-            Pokemon.GetComponent<PokemonObject>().position_y = pos_y;
-
+            Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
             // Create Pokemon item in Inventory
             AddItem(Pokemon);
 

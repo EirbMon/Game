@@ -13,12 +13,9 @@ public class PokemonObject : NetworkBehaviour
     public string type = "Pikachu";
     public string color = "red";
     public float max_health = 100;
-
     public int level = 0;
-
     public float health = 100;
-    public float position_x = 0.0f;
-    public float position_y = 0.0f;
+    public float exp = 0;
 
     [SyncVar(hook="Deactivate")]
     public bool visible = true;
@@ -36,16 +33,33 @@ public class PokemonObject : NetworkBehaviour
         Debug.Log("Health = " + this.health);
     }
 
+    public void increaseExp(float gain){
+        this.exp = this.exp + gain;
+        if (this.exp >= 100){
+            levelUp();
+            this.exp = this.exp - 100;
+        }
+        Debug.Log("Exp = " + this.exp + " & Level = " + this.level);
+    }
+
+    public void levelUp(){
+        this.level = this.level + 1;
+    }
+
     public void Initiate (JSONNode PokemonJSON){
         this.type = PokemonJSON["type"];
         this.pokemon_name = PokemonJSON["name"];
         this.color = PokemonJSON["color"];
-        this.health = max_health;
+        this.max_health = PokemonJSON["max_health"];
+        this.level = PokemonJSON["level"];
+        this.exp = PokemonJSON["exp"];
     }
 
     public string ConvertToString(){
         string message = "{\"type\":" + "\"" + this.type + "\","  + "\"name\":" + "\"" + this.name + "\"," + "\"level\":" + "\"" + this.level + "\"}";
         return message;
     }
+
+
 
 }

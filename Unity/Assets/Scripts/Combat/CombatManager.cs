@@ -99,7 +99,6 @@ public class CombatManager : MonoBehaviour
 
         if (pokemonRecieved){
             pokemonRecieved = false;
-            
             skill1T = skill1.text;
             skill2T = skill2.text;
             skill3T = skill3.text;
@@ -321,8 +320,10 @@ public class CombatManager : MonoBehaviour
               
         if (Pokemon.GetComponent<PokemonObject>().health <= 0){
             Pokemon.transform.Rotate (Vector3.forward * -90);
+            Pokemon.GetComponent<PokemonObject>().increaseExp(25);
             StartCoroutine(EndFight());
         }
+
         float lost_health = Pokemon.GetComponent<PokemonObject>().health;
         float pourcentage = damage / Pokemon.GetComponent<PokemonObject>().max_health;
         float lost_healthbar = pourcentage * GameObject.Find("EnnemyHealthBar").GetComponent<RectTransform>().rect.width;

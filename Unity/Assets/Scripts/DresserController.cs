@@ -89,7 +89,7 @@ public class DresserController : NetworkBehaviour
         animator.SetFloat("Speed", move.magnitude);
                 
         // Movement
-        Vector2 position = rigidbody2d.position;        
+        Vector2 position = rigidbody2d.position;
         position = position + move * speed * Time.deltaTime;
         rigidbody2d.MovePosition(position);
 
@@ -116,8 +116,10 @@ public class DresserController : NetworkBehaviour
 
     public void Teleport(float x, float y)
     {
-        transform.position = new Vector2(x, y);
-        rigidbody2d.MovePosition(transform.position);
+        Debug.Log("we enter here");
+        Vector2 new_position = new Vector2(x,y); 
+        rigidbody2d.position = new_position;
+        //rigidbody2d.MovePosition(new_position);
     }
 
     public void EnterCombat(){
@@ -209,8 +211,18 @@ public class DresserController : NetworkBehaviour
         
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        
         string saveText = "{ \"Player\" : [{ \"name\":" + "\"" + name + "\"," + "\"position_x\":" + "\"" + horizontal + "\"," + "\"position_y\":" + "\"" + vertical + "\"}]}";
         gameManager.SendMessageToReact(saveText);
+    }
+
+    void LoadPlayer(string JSONString){
+
+        var DresserJSON = JSON.Parse(JSONString)["Dresser"];
+        this.name = DresserJSON["name"];
+        float pos_x = float.Parse(DresserJSON[0]["position_x"],CultureInfo.InvariantCulture.NumberFormat);
+        float pos_y = float.Parse(DresserJSON[0]["position_y"],CultureInfo.InvariantCulture.NumberFormat);
+        transform.position = new Vector2(pos_x, pos_y);
+        //rigidbody2d.MovePosition(transform.position);
+
     }
 }

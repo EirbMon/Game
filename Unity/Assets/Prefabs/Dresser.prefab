@@ -1768,7 +1768,6 @@ MonoBehaviour:
   speed: 6
   maxHealth: 5
   timeInvincible: 2
-  isInCombat: 0
   currentInterObj: {fileID: 0}
   currentInterObjScript: {fileID: 0}
   inventory: {fileID: 1812721876}
