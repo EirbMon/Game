@@ -8,7 +8,7 @@ Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système
 
 -- EN PRODUCTION : --
 
-SERVEUR: <br/>
+SERVEUR : <br/>
 - Le serveur à lancé est situé dans le dossier "BuildLinux" du répertoire GitHub/Game.<br/>
 - Pour lancer sur linux, placez dans le dossier récemment télécharger avec "cd \le_repertoire\BuildLinux\"
 - Ensuite, accordez vous les permissions sur le fichier Eirbmon.x86_64 avec "chmod +x Eirbmon.x86_64" <br/>
