@@ -38,8 +38,8 @@ pipeline {
             branch "master"
           }
           steps {
-            // sh 'cp -r BuildInfo/* /home/eirbmon/Documents/SharedUnity/prod'
-            sh 'cp -r BuildInfo/* /home/atia/Desktop/SharedUnity/prod'
+        // sh 'cp -r BuildInfo/* /home/eirbmon/Documents/SharedUnity/prod'
+    //      sh 'cp -r BuildInfo/* /home/atia/Desktop/SharedUnity/prod'
             sh 'docker stop eirbmon-game || true'
             sh 'docker rm eirbmon-game || true'
             sh 'docker rmi eirbmon/game || true'
