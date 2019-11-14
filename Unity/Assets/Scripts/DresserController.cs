@@ -116,7 +116,6 @@ public class DresserController : NetworkBehaviour
 
     public void Teleport(float x, float y)
     {
-        Debug.Log("we enter here");
         Vector2 new_position = new Vector2(x,y); 
         rigidbody2d.position = new_position;
         //rigidbody2d.MovePosition(new_position);

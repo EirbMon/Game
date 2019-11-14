@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class LeavingInside : MonoBehaviour
 {
+    public EnterInside entry;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         DresserController controller = other.GetComponent<DresserController>();
 
         if (controller != null)
         {
-            controller.Teleport(-2.39f,1.50f);
+            float pos_x = entry.transform.position.x;
+            float pos_y = entry.transform.position.y;
+            controller.Teleport( pos_x , pos_y - 1);
         }
     }
 }

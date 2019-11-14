@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnterInside : MonoBehaviour
 {
+    public LeavingInside exit;
     
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,7 +13,9 @@ public class EnterInside : MonoBehaviour
 
         if (controller != null)
         {
-            controller.Teleport(-56.5f,-2.00f);
+            float pos_x = exit.transform.position.x;
+            float pos_y = exit.transform.position.y;
+            controller.Teleport(pos_x , pos_y + 1);
         }
     }
 }
