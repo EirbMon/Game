@@ -26,7 +26,6 @@ pipeline {
             branch "dev"
           }
           steps {
-            sh 'cp -r BuildInfo/* /home/eirbmon/Documents/SharedUnity/dev'
             sh 'docker stop eirbmon-game-dev || true'
             sh 'docker rm eirbmon-game-dev || true'
             sh 'docker rmi eirbmon/game-dev || true'
@@ -38,8 +37,6 @@ pipeline {
             branch "master"
           }
           steps {
-        // sh 'cp -r BuildInfo/* /home/eirbmon/Documents/SharedUnity/prod'
-    //      sh 'cp -r BuildInfo/* /home/atia/Desktop/SharedUnity/prod'
             sh 'docker stop eirbmon-game || true'
             sh 'docker rm eirbmon-game || true'
             sh 'docker rmi eirbmon/game || true'
@@ -53,7 +50,7 @@ pipeline {
         branch "dev"
       }
       steps {
-        sh 'docker run -p 6666:7777 -it -v /home/eirbmon/Documents/SharedUnity/dev:/Game/BuildInfo -d --name eirbmon-game-dev eirbmon/game-dev'
+        sh 'docker run -p 6666:7777 -it -d --name eirbmon-game-dev eirbmon/game-dev'
         echo 'Dev container ready !'
       }
     }
@@ -62,7 +59,7 @@ pipeline {
         branch "master"
       }
       steps {
-        sh 'docker run -p 7777:7777 -it -v /home/eirbmon/Documents/SharedUnity/prod:/Game/BuildInfo -d --name eirbmon-game eirbmon/game'
+        sh 'docker run -p 7777:7777 -it -d --name eirbmon-game eirbmon/game'
         echo 'Prod container ready !'
       }
     }
