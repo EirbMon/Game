@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 242905614}
   - component: {fileID: 242905613}
   m_Layer: 0
-  m_Name: ServerManager (1)
+  m_Name: ServerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,7 +721,6 @@ GameObject:
   - component: {fileID: 324957851}
   - component: {fileID: 324957850}
   - component: {fileID: 324957849}
-  - component: {fileID: 324957848}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -743,18 +742,6 @@ Transform:
   m_Father: {fileID: 19684263}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &324957848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324957846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ea7f69877cc30c43aa01bf1fe605270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!66 &324957849
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -70513,7 +70500,7 @@ GameObject:
   - component: {fileID: 736426801}
   - component: {fileID: 736426800}
   m_Layer: 0
-  m_Name: EventSystem (1)
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70829,6 +70816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07171fa37d8bb9b4bb0e159990b7419a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entry: {fileID: 1035469094}
 --- !u!61 &852758476
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -71209,6 +71197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ddb0c8b054daf438005ddb9dece490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exit: {fileID: 852758475}
 --- !u!61 &1035469095
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -72284,7 +72273,7 @@ GameObject:
   - component: {fileID: 1441614693}
   - component: {fileID: 1441614692}
   m_Layer: 0
-  m_Name: GameManager (1)
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72361,7 +72350,7 @@ GameObject:
   - component: {fileID: 1492723771}
   - component: {fileID: 1492723770}
   m_Layer: 0
-  m_Name: Network Manager (1)
+  m_Name: Network Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

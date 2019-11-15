@@ -21,12 +21,6 @@ public class CombatManager : MonoBehaviour
 
     public string JSONString = null;
 
-    private float timer = 0;
- 
-    private float timerMax = 0;
-
-    private bool enter = false;
-
     public bool pokemonRecieved = false;
 
     public CombatMenu currentMenu;
