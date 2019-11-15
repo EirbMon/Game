@@ -5,7 +5,6 @@ Avec l'arrivé du multiplayer sur le jeu, il est nécessaire d'avoir un système
 - Lancer un ou plusieurs clients pour tester la connexion et les fonctionnalités du jeu.<br/>
 
 <br/>
-<!-- branch dev -->
 
 -- EN PRODUCTION : --
 
