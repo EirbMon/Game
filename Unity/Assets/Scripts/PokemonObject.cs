@@ -34,6 +34,7 @@ public class PokemonObject : NetworkBehaviour
     }
 
     public void increaseExp(float gain){
+        Debug.Log("TYPE POKEMON FIGHT: " + this.type);
         this.exp = this.exp + gain;
         if (this.exp >= 100){
             levelUp();
