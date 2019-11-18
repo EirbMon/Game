@@ -224,7 +224,7 @@ public class DresserController : NetworkBehaviour
         
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        string saveText = "{ \"Player\" : [{ \"name\":" + "\"" + name + "\"," + "\"position_x\":" + "\"" + horizontal + "\"," + "\"position_y\":" + "\"" + vertical + "\"}]}";
+        string saveText = "{ \"Player\" : [{ \"name\":" + "\"" + this.name + "\"," + "\"position_x\":" + "\"" + horizontal + "\"," + "\"position_y\":" + "\"" + vertical + "\"}]}";
         gameManager.SendMessageToReact(saveText);
     }
 
