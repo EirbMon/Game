@@ -84,9 +84,11 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Start Combat");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("CombatScene"));
         SendCombatToReact();
-        JSONString = "{\"Pokemons\":[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\"}]}";
+        JSONString = "{\"Pokemons\":[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\", \"max_health\":\"100\"}]}";
 
         GenerateWildPokemon(JSONString);
+
+        Debug.Log(Pokemon.GetComponent<PokemonObject>().max_health);
     }
 
     void Update(){
@@ -314,9 +316,11 @@ public class CombatManager : MonoBehaviour
               
         if (Pokemon.GetComponent<PokemonObject>().health <= 0){
             Pokemon.transform.Rotate (Vector3.forward * -90);
-            Pokemon.GetComponent<PokemonObject>().increaseExp(25);
+            //Pokemon.GetComponent<PokemonObject>().increaseExp(25);
             StartCoroutine(EndFight());
         }
+
+        Debug.Log(Pokemon.GetComponent<PokemonObject>().max_health);
 
         float lost_health = Pokemon.GetComponent<PokemonObject>().health;
         float pourcentage = damage / Pokemon.GetComponent<PokemonObject>().max_health;

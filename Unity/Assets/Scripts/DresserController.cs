@@ -59,10 +59,11 @@ public class DresserController : NetworkBehaviour
 
         if (Input.GetButtonDown("Interact") && currentInterObj){
             TakeItem();
-            if (isServer)
-                RpcTakeItem();
-            else
-                CmdTakeItem();
+            CmdRemoveItem();
+            //if (isServer)
+            //    RpcTakeItem();
+            //else
+            //    CmdTakeItem();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)){
@@ -131,6 +132,19 @@ public class DresserController : NetworkBehaviour
         Debug.Log("Leave Combat");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         this.transform.Find("InventoryCanvas").gameObject.SetActive(true);  
+    }
+
+    [ClientRpc]
+    void RpcRemoveItem(){
+        if (currentInterObjScript.inventory){
+                currentInterObjScript.visible = false;
+                currentInterObjScript.Deactivate(false);
+        }
+    }
+
+    [Command]
+    void CmdRemoveItem(){
+        RpcRemoveItem();
     }
 
     [Command]
