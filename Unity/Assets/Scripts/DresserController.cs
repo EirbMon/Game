@@ -69,8 +69,6 @@ public class DresserController : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)){
             testBool = !testBool;
             this.transform.Find("InventoryCanvas").gameObject.SetActive(testBool);  
-
-
         }
 
         // Player localization

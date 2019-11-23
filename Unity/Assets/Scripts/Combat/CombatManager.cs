@@ -86,12 +86,14 @@ public class CombatManager : MonoBehaviour
         SendCombatToReact();
         JSONString = "{\"Pokemons\":[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\", \"max_health\":\"100\"}]}";
 
-        GenerateWildPokemon(JSONString);
-
-        Debug.Log(Pokemon.GetComponent<PokemonObject>().max_health);
+        //GenerateWildPokemon(JSONString);
+        
     }
 
     void Update(){
+
+        if (!pokemonRecieved)
+            return ;
 
         if (pokemonRecieved){
             pokemonRecieved = false;
