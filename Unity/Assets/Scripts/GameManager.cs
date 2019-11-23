@@ -16,6 +16,7 @@ public class GameManager : NetworkBehaviour
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
+        Debug.Log("version 1.0");
     }
 
     public void GenerateFirstPokemon (string JSONString) {
