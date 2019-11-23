@@ -50,7 +50,7 @@ pipeline {
         branch "dev"
       }
       steps {
-        sh 'docker run -p 6666:7777 -it -d --name eirbmon-game-dev eirbmon/game-dev'
+        sh 'docker run -p 6767:7777 -it -d --name eirbmon-game-dev eirbmon/game-dev'
         echo 'Dev container ready !'
       }
     }
