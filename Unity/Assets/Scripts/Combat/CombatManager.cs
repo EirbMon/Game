@@ -22,6 +22,7 @@ public class CombatManager : MonoBehaviour
     public string JSONString = null;
 
     public bool pokemonRecieved = false;
+    bool first_time = true;
 
     public CombatMenu currentMenu;
 
@@ -84,8 +85,7 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Start Combat");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("CombatScene"));
         SendCombatToReact();
-        JSONString = "{\"Pokemons\":[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\", \"max_health\":\"100\"}]}";
-
+        //JSONString = "[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\", \"hp\":\"100\"}]";
         //GenerateWildPokemon(JSONString);
         
     }
@@ -95,8 +95,9 @@ public class CombatManager : MonoBehaviour
         if (!pokemonRecieved)
             return ;
 
-        if (pokemonRecieved){
-            pokemonRecieved = false;
+        if (pokemonRecieved && first_time){
+            Debug.Log("PokemonRecieved = " + pokemonRecieved);
+            first_time = false;
             skill1T = skill1.text;
             skill2T = skill2.text;
             skill3T = skill3.text;
@@ -119,8 +120,7 @@ public class CombatManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Return)){
-            Debug.Log(currentSelection);
-            Debug.Log(currentMenu);
+
             switch(currentMenu){
             case CombatMenu.Fight:
                 switch(currentSelection){
@@ -134,7 +134,6 @@ public class CombatManager : MonoBehaviour
                         Fight();
                         break;
                     case 4:
-                        Debug.Log("OK");
                         ChangeMenu(CombatMenu.Main);
                         break;                
                 }
@@ -237,7 +236,6 @@ public class CombatManager : MonoBehaviour
     public void ChangeMenu(CombatMenu m){
         currentMenu = m;
         currentSelection = 1;
-        Debug.Log(m);
         switch(m){
             case CombatMenu.Main:
                 MainMenu.gameObject.SetActive(true);
@@ -270,7 +268,7 @@ public class CombatManager : MonoBehaviour
     // La fonction SendPokemonToReact est appellé dans "Inventory.cs". 
     public void SendCombatToReact(){
 
-        string message = "{\"type\":\"1\"}";
+        string message = "combat_pokemon";
         Debug.Log("Message: " + message);
         
         try{
@@ -290,7 +288,6 @@ public class CombatManager : MonoBehaviour
     }
 
     public void GoFightMenu(){
-        Debug.Log("FightMenu");
         MainMenu.gameObject.SetActive(false);
         SideInfo.gameObject.SetActive(false);
         SkillsMenu.gameObject.SetActive(true);
@@ -300,7 +297,6 @@ public class CombatManager : MonoBehaviour
     }
 
     public void GoMainMenu(){
-        Debug.Log("MainMenu");
         MainMenu.gameObject.SetActive(true);
         SideInfo.gameObject.SetActive(true);
         SkillsMenu.gameObject.SetActive(false);
@@ -322,14 +318,9 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(EndFight());
         }
 
-        Debug.Log(Pokemon.GetComponent<PokemonObject>().max_health);
-
         float lost_health = Pokemon.GetComponent<PokemonObject>().health;
         float pourcentage = damage / Pokemon.GetComponent<PokemonObject>().max_health;
         float lost_healthbar = pourcentage * GameObject.Find("EnnemyHealthBar").GetComponent<RectTransform>().rect.width;
-
-        Debug.Log(pourcentage);
-        Debug.Log(lost_healthbar);
 
         ennemy_hp.SetText("{0}", lost_health );
         GameObject.Find("EnnemyHealthBackground").GetComponent<RectTransform>().offsetMax += new Vector2(-lost_healthbar, -0);
@@ -346,7 +337,10 @@ public class CombatManager : MonoBehaviour
 
     public void GenerateWildPokemon (string JSONString) {
 
-        var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
+        var PokemonsJSON = JSON.Parse(JSONString);
+        Debug.Log("Generate Orphelin Pokemin in Combat");
+        Debug.Log(PokemonsJSON[0]);
+
         var pokemon_position = PokemonPodium.transform.position;
         var pokemon_prefab = Resources.Load(PokemonsJSON[0]["type"], typeof(GameObject));
 
@@ -355,8 +349,8 @@ public class CombatManager : MonoBehaviour
 
         //Pokemon.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
         Pokemon.transform.localScale += new Vector3(4f, 4f, 0f);
-
         pokemonRecieved = true;
+        Debug.Log("pokemonRecieved well " + pokemonRecieved);
     }
 
     IEnumerator EndFight()

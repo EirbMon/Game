@@ -181,7 +181,7 @@ public class DresserController : NetworkBehaviour
 
     public void CatchPokemon(string JSONString){
 
-        var PokemonsJSON = JSON.Parse(JSONString)["Pokemons"];
+        var PokemonsJSON = JSON.Parse(JSONString);
         int N = PokemonsJSON.Count;
         Debug.Log("CatchPokemon");
                 

@@ -10,6 +10,12 @@ public class MainMenu : MonoBehaviour
     AudioSource m_MyAudioSource;
     float m_MySliderValue;
 
+
+    void Start()
+    {    
+        Screen.SetResolution(Screen.height*5/4*1/2, Screen.height*1/2, false);
+    }
+
     public void PlayGame()
     {
         Debug.Log("Play v1.0");
