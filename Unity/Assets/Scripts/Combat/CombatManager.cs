@@ -87,6 +87,7 @@ public class CombatManager : MonoBehaviour
         SendCombatToReact();
         //JSONString = "[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\", \"hp\":\"100\"}]";
         //GenerateWildPokemon(JSONString);
+
         
     }
 
