@@ -33,18 +33,26 @@ public class DresserController : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        currentHealth = maxHealth;
-        Debug.Log("Start Dresser");
-
         if (!isLocalPlayer) {
         this.transform.Find("CM vcam1").gameObject.SetActive(false);
         this.transform.Find("InventoryCanvas").gameObject.SetActive(false);
         }
     }
+
+     public override void OnStartLocalPlayer()
+    {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        currentHealth = maxHealth;
+
+        NetworkInstanceId playerId = this.netId;
+        Debug.Log("Start Dresser with ID: " + playerId);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.SendMessageToReact("user_pokemon");
+        base.OnStartLocalPlayer();
+        gameObject.name = "Dresser(Local)";
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -121,15 +129,41 @@ public class DresserController : NetworkBehaviour
     }
 
     public void EnterCombat(){
+
+        if (isLocalPlayer){
         Debug.Log("Enter Combat");
         SceneManager.LoadScene("CombatScene", LoadSceneMode.Additive); 
         this.transform.Find("InventoryCanvas").gameObject.SetActive(false);  
+        }
     }
 
     public void LeaveCombat(){
         Debug.Log("Leave Combat");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         this.transform.Find("InventoryCanvas").gameObject.SetActive(true);  
+    }
+
+    public void RetrievePokemonList(string JSONString){
+
+        // Create Pokemon in Game
+
+        var PokemonsJSON = JSON.Parse(JSONString);
+        int N = PokemonsJSON.Count;
+        Debug.Log("Retrieving " + N + " pokemons");
+                
+        for (int i=0; i<N; i++){    
+            float pos_x = -100f;
+            float pos_y = -100f;
+            var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
+            Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
+            // Create Pokemon item in Inventory
+            inventory.AddItem(Pokemon);
+
+            // Deactivate Pokemon
+            Pokemon.GetComponent<PokemonObject>().visible = false;
+            Pokemon.GetComponent<PokemonObject>().Deactivate(false);
+
+        }
     }
 
     [ClientRpc]
@@ -195,18 +229,21 @@ public class DresserController : NetworkBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-            if (other.CompareTag("interactionobject")){
-                currentInterObj = other.gameObject;
-                currentInterObjScript = currentInterObj.GetComponent <PokemonObject> ();
-            } 
+            if (isLocalPlayer) {
+                
+                if (other.CompareTag("interactionobject")){
+                    currentInterObj = other.gameObject;
+                    currentInterObjScript = currentInterObj.GetComponent <PokemonObject> ();
+                } 
 
-            if (other.CompareTag("HerbeHaute")){
-                currentInterObj = other.gameObject;
-                Debug.Log("Haute herbe contact");   
-                if (Random.Range(0,15) == 5){
-                    EnterCombat();
-                }
-            }   
+                if (other.CompareTag("HerbeHaute")){
+                    currentInterObj = other.gameObject;
+                    Debug.Log("Haute herbe contact");   
+                    if (Random.Range(0,15) == 5){
+                        EnterCombat();
+                    }
+                }   
+            }
     }
 
     void OnTriggerExit2D(Collider2D other)

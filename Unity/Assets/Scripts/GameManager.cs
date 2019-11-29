@@ -11,12 +11,23 @@ using UnityEngine.SceneManagement;
 public class GameManager : NetworkBehaviour
 {
 
+
     [DllImport("__Internal")]
     private static extern void DoInteraction(string message);
+
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         Debug.Log("version 1.1");
+    }
+
+    public void SendMessageToReact(string message){
+        try{
+            DoInteraction(message);
+        }
+        catch{
+            Debug.Log("DoInteraction fail");
+        }
     }
 
     public void GenerateFirstPokemon (string JSONString) {
@@ -36,13 +47,8 @@ public class GameManager : NetworkBehaviour
 
     }
 
-    public void SendMessageToReact(string message){
-        try{
-            DoInteraction(message);
-        }
-        catch{
-            Debug.Log("DoInteraction fail");
-        }
+    public void SelectLocalPlayer (NetworkInstanceId playerId) {
+        ClientScene.FindLocalObject(playerId);
     }
 
 }

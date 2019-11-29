@@ -14,7 +14,7 @@ public class LeavingInside : MonoBehaviour
         {
             float pos_x = entry.transform.position.x;
             float pos_y = entry.transform.position.y;
-            controller.Teleport( pos_x , pos_y - 1);
+            controller.Teleport(pos_x ,pos_y - 1);
         }
     }
 }

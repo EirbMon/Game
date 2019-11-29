@@ -330,7 +330,7 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Catch");
         side.SetText(" Congratulations ! You catch sucessfuly the " + Pokemon.GetComponent<PokemonObject>().type + " !");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        GameObject.Find("Dresser(Clone)").GetComponent<DresserController>().CatchPokemon(JSONString);
+        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().CatchPokemon(JSONString);
         Pokemon.transform.Rotate (Vector3.forward * -90);
         StartCoroutine(EndFight());
     }
@@ -357,7 +357,7 @@ public class CombatManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         SceneManager.UnloadSceneAsync("CombatScene");
-        GameObject.Find("Dresser(Clone)").GetComponent<DresserController>().LeaveCombat();
+        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
 
 
     }

@@ -12,8 +12,8 @@ public class MainMenu : MonoBehaviour
 
 
     void Start()
-    {    
-        Screen.SetResolution(Screen.height*5/4*1/2, Screen.height*1/2, false);
+    {   
+        Screen.SetResolution(Screen.height*5/4, Screen.height , false);
     }
 
     public void PlayGame()
