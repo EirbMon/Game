@@ -46,7 +46,6 @@ public class DresserController : NetworkBehaviour
         currentHealth = maxHealth;
 
         NetworkInstanceId playerId = this.netId;
-        Debug.Log("Start Dresser with ID: " + playerId);
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.SendMessageToReact("user_pokemon");
         base.OnStartLocalPlayer();
@@ -131,14 +130,12 @@ public class DresserController : NetworkBehaviour
     public void EnterCombat(){
 
         if (isLocalPlayer){
-        Debug.Log("Enter Combat");
         SceneManager.LoadScene("CombatScene", LoadSceneMode.Additive); 
         this.transform.Find("InventoryCanvas").gameObject.SetActive(false);  
         }
     }
 
     public void LeaveCombat(){
-        Debug.Log("Leave Combat");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         this.transform.Find("InventoryCanvas").gameObject.SetActive(true);  
     }
@@ -217,13 +214,10 @@ public class DresserController : NetworkBehaviour
 
         var PokemonsJSON = JSON.Parse(JSONString);
         int N = PokemonsJSON.Count;
-        Debug.Log("CatchPokemon");
-                
-        for (int i=0; i<N; i++){    
-            var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(0, 0), Quaternion.identity) as GameObject;
-            Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
-            inventory.AddItem(Pokemon);
-        }
+        var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[0]["type"], typeof(GameObject)), new Vector2(-100, -100), Quaternion.identity) as GameObject;
+        Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[0]);
+        inventory.AddItem(Pokemon);
+        
 
     }
 
@@ -237,8 +231,7 @@ public class DresserController : NetworkBehaviour
                 } 
 
                 if (other.CompareTag("HerbeHaute")){
-                    currentInterObj = other.gameObject;
-                    Debug.Log("Haute herbe contact");   
+                    currentInterObj = other.gameObject;  
                     if (Random.Range(0,15) == 5){
                         EnterCombat();
                     }

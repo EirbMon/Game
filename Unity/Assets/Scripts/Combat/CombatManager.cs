@@ -82,10 +82,10 @@ public class CombatManager : MonoBehaviour
 
     void Start(){
  
-        Debug.Log("Start Combat");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("CombatScene"));
-        SendCombatToReact();
-        //JSONString = "[{\"type\":\"Roucoul\",\"name\":\"PikaPika\",\"color\":\"yellow\",\"position_x\":\"-56.5\",\"position_y\":\"3.6\", \"hp\":\"100\"}]";
+        GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("combat_pokemon");
+
+        //JSONString = "[{\"skills_id\": [1,7,32],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Pikachu\",\"name\": \"Gerard le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
         //GenerateWildPokemon(JSONString);
 
         
@@ -97,7 +97,7 @@ public class CombatManager : MonoBehaviour
             return ;
 
         if (pokemonRecieved && first_time){
-            Debug.Log("PokemonRecieved = " + pokemonRecieved);
+
             first_time = false;
             skill1T = skill1.text;
             skill2T = skill2.text;
@@ -265,24 +265,7 @@ public class CombatManager : MonoBehaviour
     }
 
 
-
-    // La fonction SendPokemonToReact est appellé dans "Inventory.cs". 
-    public void SendCombatToReact(){
-
-        string message = "combat_pokemon";
-        Debug.Log("Message: " + message);
-        
-        try{
-            DoInteraction(message);
-        }
-        catch{
-            Debug.Log("Do interaction fail");
-        }
-    }
-
     public void RunAwayCombat(){
-        Debug.Log("Run Away");
-
         side.SetText(" Run away has worked ! You're escaping the fight.");
 
         StartCoroutine(EndFight());
@@ -328,19 +311,22 @@ public class CombatManager : MonoBehaviour
     }
 
     public void CatchPokemon(){
-        Debug.Log("Catch");
+
         side.SetText(" Congratulations ! You catch sucessfuly the " + Pokemon.GetComponent<PokemonObject>().type + " !");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
+
+        GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("catch_pokemon");
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().CatchPokemon(JSONString);
+
         Pokemon.transform.Rotate (Vector3.forward * -90);
         StartCoroutine(EndFight());
     }
 
-    public void GenerateWildPokemon (string JSONString) {
+    public void GenerateWildPokemon (string JSONString2) {
+
+        JSONString = JSONString2;
 
         var PokemonsJSON = JSON.Parse(JSONString);
-        Debug.Log("Generate Orphelin Pokemin in Combat");
-        Debug.Log(PokemonsJSON[0]);
 
         var pokemon_position = PokemonPodium.transform.position;
         var pokemon_prefab = Resources.Load(PokemonsJSON[0]["type"], typeof(GameObject));
@@ -351,7 +337,7 @@ public class CombatManager : MonoBehaviour
         //Pokemon.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
         Pokemon.transform.localScale += new Vector3(4f, 4f, 0f);
         pokemonRecieved = true;
-        Debug.Log("pokemonRecieved well " + pokemonRecieved);
+
     }
 
     IEnumerator EndFight()

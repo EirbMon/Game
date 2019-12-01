@@ -18,7 +18,6 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        Debug.Log("Play v1.0");
         SceneManager.LoadScene("MainScene"); 
        // SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));     
         

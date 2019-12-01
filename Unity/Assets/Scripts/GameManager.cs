@@ -18,7 +18,7 @@ public class GameManager : NetworkBehaviour
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        Debug.Log("version 1.1");
+        Debug.Log("Start: version 1.1");
     }
 
     public void SendMessageToReact(string message){
@@ -46,9 +46,4 @@ public class GameManager : NetworkBehaviour
         }
 
     }
-
-    public void SelectLocalPlayer (NetworkInstanceId playerId) {
-        ClientScene.FindLocalObject(playerId);
-    }
-
 }
