@@ -65,12 +65,9 @@ public class DresserController : NetworkBehaviour
         
 
         if (Input.GetButtonDown("Interact") && currentInterObj){
+
             TakeItem();
-            CmdRemoveItem();
-            //if (isServer)
-            //    RpcTakeItem();
-            //else
-            //    CmdTakeItem();
+            CmdRemoveItem(currentInterObj.name);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)){
@@ -164,35 +161,20 @@ public class DresserController : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcRemoveItem(){
-        if (currentInterObjScript.inventory){
-                currentInterObjScript.visible = false;
-                currentInterObjScript.Deactivate(false);
+    void RpcRemoveItem(string name){
+        Debug.Log(name);
+        PokemonObject starterPokemon = GameObject.Find(name).GetComponent <PokemonObject> ();
+        
+        if (starterPokemon.inventory){
+                starterPokemon.visible = false;
+                starterPokemon.Deactivate(false);
         }
     }
 
     [Command]
-    void CmdRemoveItem(){
-        RpcRemoveItem();
+    void CmdRemoveItem(string name){
+        RpcRemoveItem(name);
     }
-
-    [Command]
-     void CmdTakeItem()
-     {
-         //Apply it to all other clients
-         Debug.Log("CMD - Apply it to all other clients");
-         TakeItem();
-         RpcTakeItem();
-     }
- 
-     [ClientRpc]
-     void RpcTakeItem()
-     {
-         Debug.Log("RPC - Apply only to local client");
-         if (isLocalPlayer)
-             return;
-         TakeItem();
-     }
 
     void TakeItem(){
 
@@ -203,8 +185,6 @@ public class DresserController : NetworkBehaviour
         if (currentInterObjScript.inventory){
 
                     if (inventory.AddItem(currentInterObj)){
-                        currentInterObjScript.visible = false;
-                        currentInterObjScript.Deactivate(false);
                         gameManager.SendMessageToReact(currentInterObjScript.ConvertToString());
                 }
         }

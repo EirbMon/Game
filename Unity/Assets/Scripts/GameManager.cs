@@ -18,7 +18,7 @@ public class GameManager : NetworkBehaviour
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        Debug.Log("Start: version 1.1");
+        Debug.Log("Start: version 1.3");
     }
 
     public void SendMessageToReact(string message){
@@ -40,6 +40,7 @@ public class GameManager : NetworkBehaviour
             float pos_x = float.Parse(PokemonsJSON[i]["position_x"],CultureInfo.InvariantCulture.NumberFormat);
             float pos_y = float.Parse(PokemonsJSON[i]["position_y"],CultureInfo.InvariantCulture.NumberFormat);
             var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject)), new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
+            Pokemon.name = "StarterPokemon"+i;
             Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
             NetworkServer.Spawn(Pokemon);
 
