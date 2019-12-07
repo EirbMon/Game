@@ -16,10 +16,11 @@ public class CombatManager : MonoBehaviour
 
     public GameObject Pokemon = null;
     public GameObject PokemonPodium = null;
-
     public GameObject DresserPodium = null;
 
     public string JSONString = null;
+    public string MyEirbmons = null;
+
 
     public bool pokemonRecieved = false;
     bool first_time = true;
@@ -79,14 +80,34 @@ public class CombatManager : MonoBehaviour
     public GameObject InfoMenu;
     public TextMeshProUGUI infotext;
 
+    [Header("Bag")]
+    public GameObject Bag;
+    public TextMeshProUGUI Pokemon1;
+    private string Pokemon1T;
+    public TextMeshProUGUI Pokemon2;
+    private string Pokemon2T;
+    public TextMeshProUGUI Pokemon3;
+    private string Pokemon3T;
+    public TextMeshProUGUI Pokemon4;
+    private string Pokemon4T;
+    public TextMeshProUGUI Pokemon5;
+    private string Pokemon5T;
+    public TextMeshProUGUI Pokemon6;
+    private string Pokemon6T;
+    public TextMeshProUGUI Retour;
+
 
     void Start(){
  
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("CombatScene"));
         GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("combat_pokemon");
 
-        //JSONString = "[{\"skills_id\": [1,7,32],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Pikachu\",\"name\": \"Gerard le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
-        //GenerateWildPokemon(JSONString);
+        //string MyEirbmons = "[{\"skills_id\": [1,7,32],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Pikachu\",\"name\": \"Gerard le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+        string JSONString2 = "[{\"skills_id\": [1,7,32],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+
+        MyEirbmons = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
+        IChooseYou(MyEirbmons,0);
+        GenerateWildPokemon(JSONString2);
 
         
     }
@@ -108,6 +129,18 @@ public class CombatManager : MonoBehaviour
             ennemy_level.SetText("{0}", Pokemon.GetComponent<PokemonObject>().level );
             ennemy_hp.SetText("{0}", Pokemon.GetComponent<PokemonObject>().health );
             side.SetText(" A wild " + Pokemon.GetComponent<PokemonObject>().type + " has appeared ! ");
+
+
+            var PokemonsJSON = JSON.Parse(MyEirbmons);
+            int N = PokemonsJSON.Count;
+            Debug.Log("Retrieving " + N + " pokemons"); 
+
+            if (N>0)         
+                Pokemon1T = PokemonsJSON[0]["name"];
+            if (N>1)
+                Pokemon2T = PokemonsJSON[1]["name"];
+            if (N>2)
+                Pokemon3T = PokemonsJSON[2]["name"];
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow)){
@@ -146,6 +179,7 @@ public class CombatManager : MonoBehaviour
                         ChangeMenu(CombatMenu.Fight);
                         break;
                     case 2:
+                        ChangeMenu(CombatMenu.Bag);
                         break;
                     case 3:
                         CatchPokemon();
@@ -153,6 +187,23 @@ public class CombatManager : MonoBehaviour
                     case 4:
                         RunAwayCombat();
                         break;           
+                }
+                break;
+
+            case CombatMenu.Bag:
+                switch(currentSelection){
+                    case 1:
+                        IChooseYou(MyEirbmons,0);
+                        break;
+                    case 2:
+                        IChooseYou(MyEirbmons,1);
+                        break;
+                    case 3:
+                        IChooseYou(MyEirbmons,2);
+                        break;
+                     case 4:
+                        ChangeMenu(CombatMenu.Main);
+                        break;                                        
                 }
                 break;
 
@@ -222,6 +273,35 @@ public class CombatManager : MonoBehaviour
                 }
                 break;
 
+            case CombatMenu.Bag:
+                switch(currentSelection){
+                    case 1:
+                        Pokemon1.SetText("> " + Pokemon1T);
+                        Pokemon2.SetText(Pokemon2T);
+                        Pokemon3.SetText(Pokemon3T);
+                        Retour.SetText("Retour");
+                        break;
+                    case 2:
+                        Pokemon1.SetText(Pokemon1T);
+                        Pokemon2.SetText("> " + Pokemon2T);
+                        Pokemon3.SetText(Pokemon3T);
+                        Retour.SetText("Retour");
+                        break;
+                    case 3:
+                        Pokemon1.SetText(Pokemon1T);
+                        Pokemon2.SetText(Pokemon2T);
+                        Pokemon3.SetText("> " + Pokemon3T);
+                        Retour.SetText("Retour");
+                        break;
+                    case 4:
+                        Pokemon1.SetText(Pokemon1T);
+                        Pokemon2.SetText(Pokemon2T);
+                        Pokemon3.SetText(Pokemon3T);
+                        Retour.SetText(" > Retour");
+                        break;             
+                }
+                break;
+
             }
 
     }
@@ -244,6 +324,7 @@ public class CombatManager : MonoBehaviour
                 SkillsMenu.gameObject.SetActive(false);
                 SkillsInfo.gameObject.SetActive(false);
                 InfoMenu.gameObject.SetActive(false);
+                Bag.gameObject.SetActive(false);
                 break;
 
             case CombatMenu.Fight:
@@ -252,6 +333,7 @@ public class CombatManager : MonoBehaviour
                 SkillsMenu.gameObject.SetActive(true);
                 SkillsInfo.gameObject.SetActive(true);
                 InfoMenu.gameObject.SetActive(false);
+                Bag.gameObject.SetActive(false);
                 break;
 
             case CombatMenu.Info:
@@ -260,6 +342,16 @@ public class CombatManager : MonoBehaviour
                 SkillsMenu.gameObject.SetActive(false);
                 SkillsInfo.gameObject.SetActive(false);
                 InfoMenu.gameObject.SetActive(true);
+                Bag.gameObject.SetActive(false);
+                break;
+
+            case CombatMenu.Bag:
+                MainMenu.gameObject.SetActive(true);
+                SideInfo.gameObject.SetActive(true);
+                SkillsMenu.gameObject.SetActive(false);
+                SkillsInfo.gameObject.SetActive(false);
+                InfoMenu.gameObject.SetActive(false);
+                Bag.gameObject.SetActive(true);
                 break;
         }
     }
@@ -277,7 +369,7 @@ public class CombatManager : MonoBehaviour
         SkillsMenu.gameObject.SetActive(true);
         SkillsInfo.gameObject.SetActive(true);
         InfoMenu.gameObject.SetActive(false);
-
+        Bag.gameObject.SetActive(false);
     }
 
     public void GoMainMenu(){
@@ -286,7 +378,16 @@ public class CombatManager : MonoBehaviour
         SkillsMenu.gameObject.SetActive(false);
         SkillsInfo.gameObject.SetActive(false);
         InfoMenu.gameObject.SetActive(false);
+        Bag.gameObject.SetActive(false);
+    }
 
+    public void GoBagMenu(){
+        MainMenu.gameObject.SetActive(true);
+        SideInfo.gameObject.SetActive(true);
+        SkillsMenu.gameObject.SetActive(false);
+        SkillsInfo.gameObject.SetActive(false);
+        InfoMenu.gameObject.SetActive(false);
+        Bag.gameObject.SetActive(true);
     }
 
     public void Fight(){
@@ -338,6 +439,30 @@ public class CombatManager : MonoBehaviour
         Pokemon.transform.localScale += new Vector3(4f, 4f, 0f);
         pokemonRecieved = true;
 
+    }
+
+    
+
+    public void IChooseYou (string MyEirbmons, int i) {
+
+        Destroy(GameObject.Find("ChoosenPokemon"));
+
+        var PokemonsJSON = JSON.Parse(MyEirbmons);
+        var pokemon_position = DresserPodium.transform.position;
+        var pokemon_prefab = Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject));
+
+        Pokemon = (GameObject)Instantiate(pokemon_prefab, pokemon_position, Quaternion.identity) as GameObject;
+        Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
+
+        Pokemon.name = "ChoosenPokemon";
+
+        //Pokemon.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+        Pokemon.transform.localScale += new Vector3(4f, 4f, 0f);
+
+        dresser_maxhp.SetText("{0}",Pokemon.GetComponent<PokemonObject>().max_health );
+        dresser_name.SetText( Pokemon.GetComponent<PokemonObject>().type );
+        dresser_level.SetText("{0}", Pokemon.GetComponent<PokemonObject>().level );
+        dresser_hp.SetText("{0}", Pokemon.GetComponent<PokemonObject>().health );
     }
 
     IEnumerator EndFight()

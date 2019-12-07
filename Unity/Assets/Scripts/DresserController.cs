@@ -13,6 +13,7 @@ public class DresserController : NetworkBehaviour
     public float speed = 3.0f;
     public int maxHealth = 5;
     public float timeInvincible = 2.0f;
+    public string MyEirbmons = null;
     
     public int health {  get { return currentHealth; }}
     int currentHealth;
@@ -45,11 +46,13 @@ public class DresserController : NetworkBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
 
-        NetworkInstanceId playerId = this.netId;
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gameManager.SendMessageToReact("user_pokemon");
         base.OnStartLocalPlayer();
         gameObject.name = "Dresser(Local)";
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.SendMessageToReact("user_pokemon");
+        string MyEirbmons2 = "[{\"skills_id\": [1,7,32],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 9,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Salameche\",\"name\": \"Valentin\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+        RetrievePokemonList(MyEirbmons2);
     }
 
 
@@ -140,6 +143,8 @@ public class DresserController : NetworkBehaviour
     public void RetrievePokemonList(string JSONString){
 
         // Create Pokemon in Game
+
+        MyEirbmons = JSONString;
 
         var PokemonsJSON = JSON.Parse(JSONString);
         int N = PokemonsJSON.Count;
