@@ -51,6 +51,7 @@ public class PokemonObject : NetworkBehaviour
         this.pokemon_name = PokemonJSON["name"];
         this.color = PokemonJSON["color"];
         this.max_health = PokemonJSON["hp"];
+        this.health = this.max_health;
         this.level = PokemonJSON["lvl"];
         this.exp = PokemonJSON["xp"];
     }
