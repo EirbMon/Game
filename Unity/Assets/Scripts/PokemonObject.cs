@@ -16,8 +16,6 @@ public class PokemonObject : NetworkBehaviour
     public int level = 0;
     public float health = 100;
     public float exp = 0;
-
-    [SyncVar(hook="Deactivate")]
     public bool visible = true;
 
     void Start(){
@@ -51,7 +49,9 @@ public class PokemonObject : NetworkBehaviour
         this.pokemon_name = PokemonJSON["name"];
         this.color = PokemonJSON["color"];
         this.max_health = PokemonJSON["hp"];
-        this.health = this.max_health;
+        this.health = PokemonJSON["current_hp"];
+        if (PokemonJSON["current_hp"] == null)
+            this.health = this.max_health;
         this.level = PokemonJSON["lvl"];
         this.exp = PokemonJSON["xp"];
     }

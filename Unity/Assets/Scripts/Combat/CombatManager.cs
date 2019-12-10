@@ -17,17 +17,18 @@ public class CombatManager : MonoBehaviour
     public GameObject PokemonPodium = null;
     public GameObject DresserPodium = null;
 
-    public GameObject ChoosenPokemon = null;
+    public GameObject[] MyEirbmonsList = new GameObject[3];
+    public int currentPokemon = 0;
     public GameObject EnnemyPokemon = null;
 
     public string JSONString = null;
-    public string MyEirbmons = null;
+    public string PokemonString = null;
 
     const string TabSkills = "[{\"name\":\"VIVE ATTACK\",\"damage\":22},{\"name\":\"ECLAIR\",\"damage\":15},{\"name\":\"HATE\",\"damage\":10},{\"name\":\"ULTRALASER\",\"damage\":51},{\"name\":\"SURF\",\"damage\":30},{\"name\":\"TREMPETTE\",\"damage\":20},{\"name\":\"BISMILLAH\",\"damage\":35},{\"name\":\"GROS YEUX\",\"damage\":0},{\"name\":\"LANCE-FLAMME\",\"damage\":5}]";
     public int[] currentSkillDamage = new int[3];
     
-    public bool pokemonRecieved = false;
-    bool first_time = true;
+    public bool waiting_react_response = false;
+    public bool lockRound = false;
 
     public CombatMenu currentMenu;
 
@@ -104,42 +105,30 @@ public class CombatManager : MonoBehaviour
     void Start(){
  
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("CombatScene"));
+
+        waiting_react_response = true;
         GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("combat_pokemon");
 
-        //string MyEirbmons = "[{\"skills_id\": [1,7,32],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Pikachu\",\"name\": \"Gerard le pikachu\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
-        string JSONString2 = "[{\"skills_id\": [1,7,32],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,7,32],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+        PokemonString = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
+        InitiateEirbmon();
+        IChooseYou(0);
 
-        MyEirbmons = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
-        IChooseYou(MyEirbmons,0);
-        GenerateWildPokemon(JSONString2);
+        // DEV - Text Brut sans REACT
+        //string JSONString2 = "[{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,4,5],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+        //GenerateOrphelin(JSONString2);
+        // A CONSERVE UNIQUEMENT EN DEV
 
-        var PokemonsJSON = JSON.Parse(MyEirbmons);
-        int N = PokemonsJSON.Count;
-        skill4T = skill4.text;
-        if (N>0)         
-            Pokemon1T = PokemonsJSON[0]["name"];
-        if (N>1)
-            Pokemon2T = PokemonsJSON[1]["name"];
-        if (N>2)
-            Pokemon3T = PokemonsJSON[2]["name"];
-
+        
         
     }
 
     void Update(){
 
-        if (!pokemonRecieved)
-            return ;
+        if (lockRound)
+            return;
 
-        if (pokemonRecieved && first_time){
-
-            first_time = false;
-            ennemy_maxhp.SetText("{0}",EnnemyPokemon.GetComponent<PokemonObject>().max_health );
-            ennemy_name.SetText( EnnemyPokemon.GetComponent<PokemonObject>().type );
-            ennemy_level.SetText("{0}", EnnemyPokemon.GetComponent<PokemonObject>().level );
-            ennemy_hp.SetText("{0}", EnnemyPokemon.GetComponent<PokemonObject>().health );
-            side.SetText(" A wild " + EnnemyPokemon.GetComponent<PokemonObject>().type + " has appeared ! ");
-        }
+        if (waiting_react_response)
+            return;
 
         if (Input.GetKeyDown(KeyCode.DownArrow)){
             if(currentSelection < 4)
@@ -157,19 +146,22 @@ public class CombatManager : MonoBehaviour
             case CombatMenu.Fight:
                 switch(currentSelection){
                     case 1:
-                        Fight(ChoosenPokemon, EnnemyPokemon, 1);
+                        Fight(MyEirbmonsList[currentPokemon], EnnemyPokemon, 1);
+                        lockRound = true;
                         ChangeMenu(CombatMenu.Main);
-                        StartCoroutine(EnnemyAttack(EnnemyPokemon, ChoosenPokemon, -1));
+                        StartCoroutine(EnnemyAttack(EnnemyPokemon, MyEirbmonsList[currentPokemon], -1));
                         break;
                     case 2:
-                        Fight(ChoosenPokemon, EnnemyPokemon, 1);
+                        Fight(MyEirbmonsList[currentPokemon], EnnemyPokemon, 1);
+                        lockRound = true;
                         ChangeMenu(CombatMenu.Main);
-                        StartCoroutine(EnnemyAttack(EnnemyPokemon, ChoosenPokemon, -1));
+                        StartCoroutine(EnnemyAttack(EnnemyPokemon, MyEirbmonsList[currentPokemon], -1));
                         break;
                     case 3:
-                        Fight(ChoosenPokemon, EnnemyPokemon, 1);
+                        Fight(MyEirbmonsList[currentPokemon], EnnemyPokemon, 1);
+                        lockRound = true;
                         ChangeMenu(CombatMenu.Main);
-                        StartCoroutine(EnnemyAttack(EnnemyPokemon, ChoosenPokemon, -1));
+                        StartCoroutine(EnnemyAttack(EnnemyPokemon, MyEirbmonsList[currentPokemon], -1));
                         break;
                     case 4:
                         ChangeMenu(CombatMenu.Main);
@@ -186,7 +178,13 @@ public class CombatManager : MonoBehaviour
                         ChangeMenu(CombatMenu.Bag);
                         break;
                     case 3:
-                        CatchPokemon();
+                        if (Random.Range(0,Mathf.Round(EnnemyPokemon.GetComponent<PokemonObject>().health/30)) == 0)
+                            CatchPokemon();
+                        else{
+                            FailCatchPokemon();
+                            ChangeMenu(CombatMenu.Main);
+                            StartCoroutine(EnnemyAttack(EnnemyPokemon, MyEirbmonsList[currentPokemon], -1));
+                        }
                         break;
                     case 4:
                         RunAwayCombat();
@@ -197,16 +195,22 @@ public class CombatManager : MonoBehaviour
             case CombatMenu.Bag:
                 switch(currentSelection){
                     case 1:
-                        IChooseYou(MyEirbmons,0);
+                        IChooseYou(currentSelection-1);
+                        lockRound = true;
                         ChangeMenu(CombatMenu.Main);
+                        StartCoroutine(EnnemyAttack(EnnemyPokemon, MyEirbmonsList[currentPokemon], -1));
                         break;
                     case 2:
-                        IChooseYou(MyEirbmons,1);
+                        IChooseYou(currentSelection-1);
+                        lockRound = true;
                         ChangeMenu(CombatMenu.Main);
+                        StartCoroutine(EnnemyAttack(EnnemyPokemon, MyEirbmonsList[currentPokemon], -1));
                         break;
                     case 3:
-                        IChooseYou(MyEirbmons,2);
+                        IChooseYou(currentSelection-1);
+                        lockRound = true;
                         ChangeMenu(CombatMenu.Main);
+                        StartCoroutine(EnnemyAttack(EnnemyPokemon, MyEirbmonsList[currentPokemon], -1));
                         break;
                      case 4:
                         ChangeMenu(CombatMenu.Main);
@@ -228,25 +232,25 @@ public class CombatManager : MonoBehaviour
                         skill1.SetText("> " + skill1T);
                         skill2.SetText(skill2T);
                         skill3.SetText(skill3T);
-                        skill4.SetText(skill4T);
+                        skill4.SetText("Retour");
                         break;
                     case 2:
                         skill1.SetText(skill1T);
                         skill2.SetText("> " + skill2T);
                         skill3.SetText(skill3T);
-                        skill4.SetText(skill4T);
+                        skill4.SetText("Retour");
                         break;
                     case 3:
                         skill1.SetText(skill1T);
                         skill2.SetText(skill2T);
                         skill3.SetText("> " + skill3T);
-                        skill4.SetText(skill4T);
+                        skill4.SetText("Retour");
                         break;
                     case 4:
                         skill1.SetText(skill1T);
                         skill2.SetText(skill2T);
                         skill3.SetText(skill3T);
-                        skill4.SetText("> " + skill4T);
+                        skill4.SetText("> Retour");
                         break;                
                 }
                 break;
@@ -365,8 +369,7 @@ public class CombatManager : MonoBehaviour
 
 
     public void RunAwayCombat(){
-        side.SetText(" Run away has worked ! You\"re escaping the fight.");
-
+        side.SetText(" Run away has worked ! You have escaped the fight.");
         StartCoroutine(EndFight());
     }
 
@@ -403,23 +406,22 @@ public class CombatManager : MonoBehaviour
         string heathbar_mode = "Ennemy";
 
         if (mode < 0){
-            damage = 25;
+            damage = 12;
             heathbar_mode = "Dresser";
         }
 
-        if (DefenderPokemon.GetComponent<PokemonObject>().health > 0)
-            DefenderPokemon.GetComponent<PokemonObject>().TakeDamage(damage);        
+        if (DefenderPokemon.GetComponent<PokemonObject>().health > 0){
+            DefenderPokemon.GetComponent<PokemonObject>().TakeDamage(damage);    
+            StartCoroutine(AnimationAttack(0.2f, AttackerPokemon, 1.5f*mode));
+            StartCoroutine(AnimationDefense(0.05f, DefenderPokemon));
+            SetHealthBar(DefenderPokemon,heathbar_mode);
+        }    
               
         if (DefenderPokemon.GetComponent<PokemonObject>().health <= 0){
             DefenderPokemon.transform.Rotate(Vector3.forward * -90);
             //Pokemon.GetComponent<PokemonObject>().increaseExp(25);
             StartCoroutine(EndFight());
-        };
-
-        StartCoroutine(AnimationAttack(0.2f, AttackerPokemon, 1.5f*mode));
-        StartCoroutine(AnimationDefense(0.05f, DefenderPokemon));
-
-        SetHealthBar(DefenderPokemon,heathbar_mode);
+        };        
 
        }
 
@@ -435,75 +437,126 @@ public class CombatManager : MonoBehaviour
         GameObject.Find(heathbar_mode+"HealthBackground").GetComponent<RectTransform>().offsetMax = new Vector2(-lost_healthbar, GameObject.Find(heathbar_mode+"HealthBackground").GetComponent<RectTransform>().offsetMax.y);
 
     }
+    public void FailCatchPokemon(){
+        side.SetText(" Too bad ! You failed to catch the " + EnnemyPokemon.GetComponent<PokemonObject>().type + " !");
+    }
 
     public void CatchPokemon(){
 
         side.SetText(" Congratulations ! You catch sucessfuly the " + EnnemyPokemon.GetComponent<PokemonObject>().type + " !");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
 
+        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().waiting_react_response = true;
         GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("catch_pokemon");
-        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().CatchPokemon(JSONString);
+
+        // DEV
+        //GameObject.Find("Dresser(Local)").GetComponent<DresserController>().CatchPokemon(JSONString);
+        // FIN DU DEV
 
         EnnemyPokemon.transform.Rotate (Vector3.forward * -90);
         StartCoroutine(EndFight());
     }
 
-    public void GenerateWildPokemon (string JSONString2) {
+    public void GenerateOrphelin (string JSONString2) {
+
+        waiting_react_response = false;
+
+        try{
 
         JSONString = JSONString2;
-
         var PokemonsJSON = JSON.Parse(JSONString);
-
         var pokemon_position = PokemonPodium.transform.position;
         var pokemon_prefab = Resources.Load(PokemonsJSON[0]["type"], typeof(GameObject));
 
         EnnemyPokemon = (GameObject)Instantiate(pokemon_prefab, pokemon_position, Quaternion.identity) as GameObject;
         EnnemyPokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[0]);
-
-        //Pokemon.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
         EnnemyPokemon.transform.localScale += new Vector3(4f, 4f, 0f);
-        pokemonRecieved = true;
 
+        ennemy_maxhp.SetText("{0}",EnnemyPokemon.GetComponent<PokemonObject>().max_health );
+        ennemy_name.SetText( EnnemyPokemon.GetComponent<PokemonObject>().type );
+        ennemy_level.SetText("{0}", EnnemyPokemon.GetComponent<PokemonObject>().level );
+        ennemy_hp.SetText("{0}", EnnemyPokemon.GetComponent<PokemonObject>().health );
+        side.SetText(" A wild " + EnnemyPokemon.GetComponent<PokemonObject>().type + " has appeared ! ");
+
+        }
+
+        catch{
+            Debug.LogError("Erreur GenerateOrphelin: l'Eirbmon orphelin envoyé possède un mauvais type ou format incorrecte. Voici ce que Unity recoit: " + JSONString2);
+            RunAwayCombat();
+        }
+
+    }
+
+    public void InitiateEirbmon(){
+
+
+
+        var PokemonsJSON = JSON.Parse(PokemonString);
+        int N = 0;
+        if (PokemonsJSON != null)
+            N = PokemonsJSON.Count;
+        if (N>3)
+            N = 3;
+
+        for (int i = 0; i<N; i++){
+            var pokemon_position = DresserPodium.transform.position;
+            var pokemon_prefab = Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject));
+            GameObject Pokemon = (GameObject)Instantiate(pokemon_prefab, pokemon_position, Quaternion.identity) as GameObject;
+
+            Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
+            Pokemon.transform.localScale += new Vector3(4f, 4f, 0f);
+            Pokemon.SetActive(false);    
+
+            MyEirbmonsList[i] = Pokemon;       
+     
+            if (i==0)         
+                Pokemon1T = PokemonsJSON[0]["name"];
+            if (i==1)
+                Pokemon2T = PokemonsJSON[1]["name"];
+            if (i==2)
+                Pokemon3T = PokemonsJSON[2]["name"];
+        }
+
+        MyEirbmonsList[currentPokemon] = MyEirbmonsList[0];
+        
+        
     }
 
     
 
-    public void IChooseYou (string MyEirbmons, int i) {
+    public void IChooseYou (int i) {
+        try{
+            MyEirbmonsList[currentPokemon].SetActive(false);
 
-        Destroy(GameObject.Find("ChoosenPokemon"));
+            currentPokemon = i;
+            MyEirbmonsList[currentPokemon].name = "MyEirbmonsList[currentPokemon]";
+            MyEirbmonsList[currentPokemon].SetActive(true);
 
-        var PokemonsJSON = JSON.Parse(MyEirbmons);
-        var pokemon_position = DresserPodium.transform.position;
-        var pokemon_prefab = Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject));
+            dresser_maxhp.SetText("{0}",MyEirbmonsList[currentPokemon].GetComponent<PokemonObject>().max_health );
+            dresser_name.SetText( MyEirbmonsList[currentPokemon].GetComponent<PokemonObject>().type );
+            dresser_level.SetText("{0}", MyEirbmonsList[currentPokemon].GetComponent<PokemonObject>().level );
+            dresser_hp.SetText("{0}", MyEirbmonsList[currentPokemon].GetComponent<PokemonObject>().health );
 
-        ChoosenPokemon = (GameObject)Instantiate(pokemon_prefab, pokemon_position, Quaternion.identity) as GameObject;
-        ChoosenPokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
+            var PokemonsJSON = JSON.Parse(PokemonString);
+            int skill1_id = PokemonsJSON[i]["skills_id"][0];
+            int skill2_id = PokemonsJSON[i]["skills_id"][1];
+            int skill3_id = PokemonsJSON[i]["skills_id"][2];
+            
+            var SkillsJSON = JSON.Parse(TabSkills);
+            skill1T = SkillsJSON[skill1_id]["name"];
+            skill2T = SkillsJSON[skill2_id]["name"];
+            skill3T = SkillsJSON[skill3_id]["name"];
 
-        ChoosenPokemon.name = "ChoosenPokemon";
+            currentSkillDamage[0] = SkillsJSON[skill1_id]["damage"];
+            currentSkillDamage[1] = SkillsJSON[skill2_id]["damage"];
+            currentSkillDamage[2] = SkillsJSON[skill3_id]["damage"];
 
-        //Pokemon.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
-        ChoosenPokemon.transform.localScale += new Vector3(4f, 4f, 0f);
-        
-        dresser_maxhp.SetText("{0}",ChoosenPokemon.GetComponent<PokemonObject>().max_health );
-        dresser_name.SetText( ChoosenPokemon.GetComponent<PokemonObject>().type );
-        dresser_level.SetText("{0}", ChoosenPokemon.GetComponent<PokemonObject>().level );
-        dresser_hp.SetText("{0}", ChoosenPokemon.GetComponent<PokemonObject>().health );
-
-        var SkillsJSON = JSON.Parse(TabSkills);
-        int N = SkillsJSON.Count;
-
-        int skill1_id = PokemonsJSON[i]["skills_id"][0];
-        int skill2_id = PokemonsJSON[i]["skills_id"][1];
-        int skill3_id = PokemonsJSON[i]["skills_id"][2];
-        skill1T = SkillsJSON[skill1_id]["name"];
-        skill2T = SkillsJSON[skill2_id]["name"];
-        skill3T = SkillsJSON[skill3_id]["name"];
-
-        currentSkillDamage[0] = SkillsJSON[skill1_id]["damage"];
-        currentSkillDamage[1] = SkillsJSON[skill2_id]["damage"];
-        currentSkillDamage[2] = SkillsJSON[skill3_id]["damage"];
-
-        SetHealthBar(ChoosenPokemon, "Dresser");
+            SetHealthBar(MyEirbmonsList[currentPokemon], "Dresser");
+        }
+        catch{
+            Debug.LogError("User cannot choose an Eirbmon for the fight (Did you have at least 1 Eirbmon ?)");
+            RunAwayCombat();
+        }
 
     }
 
@@ -512,6 +565,7 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         SceneManager.UnloadSceneAsync("CombatScene");
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
+        GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("end_combat");
     }
 
     IEnumerator AnimationAttack(float second, GameObject Pokemon, float position)
@@ -544,5 +598,7 @@ public class CombatManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         Fight(AttackerPokemon, DefenderPokemon, mode);
+        lockRound = false;
+
     }
 }

@@ -18,7 +18,7 @@ public class GameManager : NetworkBehaviour
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        Debug.Log("Start: version 1.3");
+        Debug.Log("Start: version 1.4");
     }
 
     public void SendMessageToReact(string message){
@@ -26,7 +26,8 @@ public class GameManager : NetworkBehaviour
             DoInteraction(message);
         }
         catch{
-            Debug.Log("DoInteraction fail");
+            Debug.LogError("Communication Unity -> React has failed for: " + message);
+            GameObject.Find("Dresser(Local)").GetComponent<DresserController>().waiting_react_response = false;
         }
     }
     
