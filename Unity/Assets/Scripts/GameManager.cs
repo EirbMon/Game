@@ -14,11 +14,14 @@ public class GameManager : NetworkBehaviour
 
     [DllImport("__Internal")]
     private static extern void DoInteraction(string message);
+    public string EirbmonSkills = null;
 
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         Debug.Log("Start: version 1.4");
+
+        SendMessageToReact("eirbmon_skills");
     }
 
     public void SendMessageToReact(string message){
@@ -28,6 +31,15 @@ public class GameManager : NetworkBehaviour
         catch{
             Debug.LogError("Communication Unity -> React has failed for: " + message);
             GameObject.Find("Dresser(Local)").GetComponent<DresserController>().waiting_react_response = false;
+        }
+    }
+
+    public void SetEirbmonSkills(string ReactJSON){
+        try{
+            EirbmonSkills = ReactJSON;
+        }
+        catch{
+            Debug.LogError("Erreur, REACT n'a pas envoyé la liste des skills (Format string ? ie JSON.Stringify() ) " + ReactJSON);
         }
     }
     

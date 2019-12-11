@@ -29,6 +29,7 @@ public class DresserController : NetworkBehaviour
     public Inventory inventory;
 
     private bool testBool = true; 
+    public bool refresh_myEirbmon = false;
     public bool waiting_react_response = false;
 
 
@@ -73,6 +74,12 @@ public class DresserController : NetworkBehaviour
 
         if (waiting_react_response)
             return;
+        
+        if (refresh_myEirbmon){
+            refresh_myEirbmon = false;
+            gameManager.SendMessageToReact("user_pokemon");
+        }
+
 
         if (SceneManager.GetSceneByName("CombatScene").isLoaded)
             return;
@@ -156,6 +163,8 @@ public class DresserController : NetworkBehaviour
         waiting_react_response = false;
 
         try{
+
+            waiting_react_response = false;
             // Create Pokemon in Game
 
             MyEirbmons = JSONString;
@@ -163,6 +172,8 @@ public class DresserController : NetworkBehaviour
             var PokemonsJSON = JSON.Parse(JSONString);
             int N = PokemonsJSON.Count;
             Debug.Log("Retrieving " + N + " pokemons");
+
+            inventory.RemoveAllItem();
                     
             for (int i=0; i<N; i++){    
                 float pos_x = -100f;
@@ -172,7 +183,6 @@ public class DresserController : NetworkBehaviour
                 Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
                 // Create Pokemon item in Inventory
                 inventory.AddItem(Pokemon);
-
                 // Deactivate Pokemon
                 Pokemon.GetComponent<PokemonObject>().visible = false;
                 Pokemon.GetComponent<PokemonObject>().Deactivate(false);
@@ -220,17 +230,11 @@ public class DresserController : NetworkBehaviour
 
         try{
 
-        if (JSONString == "fail")
-            return;
-
         var PokemonsJSON = JSON.Parse(JSONString);
-        int N = PokemonsJSON.Count;
-        var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON[0]["type"], typeof(GameObject)), new Vector2(-100, -100), Quaternion.identity) as GameObject;
-        Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[0]);
+        var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON["type"], typeof(GameObject)), new Vector2(-100, -100), Quaternion.identity) as GameObject;
+        Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON);
         inventory.AddItem(Pokemon);
-
-        waiting_react_response = true;
-        gameManager.SendMessageToReact("user_pokemon");
+        refresh_myEirbmon = true;
 
         }
         catch{

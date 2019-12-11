@@ -24,7 +24,8 @@ public class CombatManager : MonoBehaviour
     public string JSONString = null;
     public string PokemonString = null;
 
-    const string TabSkills = "[{\"name\":\"VIVE ATTACK\",\"damage\":22},{\"name\":\"ECLAIR\",\"damage\":15},{\"name\":\"HATE\",\"damage\":10},{\"name\":\"ULTRALASER\",\"damage\":51},{\"name\":\"SURF\",\"damage\":30},{\"name\":\"TREMPETTE\",\"damage\":20},{\"name\":\"BISMILLAH\",\"damage\":35},{\"name\":\"GROS YEUX\",\"damage\":0},{\"name\":\"LANCE-FLAMME\",\"damage\":5}]";
+    public string EirbmonSkills = null;
+
     public int[] currentSkillDamage = new int[3];
     
     public bool waiting_react_response = false;
@@ -110,6 +111,7 @@ public class CombatManager : MonoBehaviour
         GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("combat_pokemon");
 
         PokemonString = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
+        EirbmonSkills = GameObject.Find("GameManager").GetComponent<GameManager>().EirbmonSkills;
         InitiateEirbmon();
         IChooseYou(0);
 
@@ -542,7 +544,7 @@ public class CombatManager : MonoBehaviour
             int skill2_id = PokemonsJSON[i]["skills_id"][1];
             int skill3_id = PokemonsJSON[i]["skills_id"][2];
             
-            var SkillsJSON = JSON.Parse(TabSkills);
+            var SkillsJSON = JSON.Parse(EirbmonSkills);
             skill1T = SkillsJSON[skill1_id]["name"];
             skill2T = SkillsJSON[skill2_id]["name"];
             skill3T = SkillsJSON[skill3_id]["name"];

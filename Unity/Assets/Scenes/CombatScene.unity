@@ -254,36 +254,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1925116465}
-    - target: {fileID: 3380727327245312035, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -34.99996
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380727327315809385, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -34.99996
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380727327479571801, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -34.999992
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380727328794109948, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -34.799995
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380727328092232814, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -34.799995
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380727326899590926, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -34.799995
-      objectReference: {fileID: 0}
     - target: {fileID: 3380727327253793411, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -324,21 +294,36 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 513862827}
-    - target: {fileID: 3380727328525669752, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -140.00002
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380727328006000475, guid: f52589bb13a7ebd4897c4c898bd30594,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -140.00002
-      objectReference: {fileID: 0}
     - target: {fileID: 1070308964565319798, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 513862827}
+    - target: {fileID: 3380727326907963107, guid: f52589bb13a7ebd4897c4c898bd30594,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -260.27005
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380727328704838719, guid: f52589bb13a7ebd4897c4c898bd30594,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -259.61002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380727327110774811, guid: f52589bb13a7ebd4897c4c898bd30594,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -259.61002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380727326806884327, guid: f52589bb13a7ebd4897c4c898bd30594,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -260.29996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380727328665874860, guid: f52589bb13a7ebd4897c4c898bd30594,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -260.28006
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f52589bb13a7ebd4897c4c898bd30594, type: 3}
 --- !u!114 &68918541 stripped
@@ -508,12 +493,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a04106797da234eba4d7331f0c275d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pokemon: {fileID: 0}
   PokemonPodium: {fileID: 1874210588}
   DresserPodium: {fileID: 1593420097}
+  MyEirbmonsList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentPokemon: 0
+  EnnemyPokemon: {fileID: 0}
   JSONString: 
-  MyEirbmons: 
-  pokemonRecieved: 0
+  PokemonString: 
+  currentSkillDamage: 000000000000000000000000
+  waiting_react_response: 0
+  lockRound: 0
   currentMenu: 0
   currentSelection: 0
   MainMenu: {fileID: 1289682482}

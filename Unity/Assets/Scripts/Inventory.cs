@@ -73,4 +73,15 @@ using UnityEngine.Networking;
             }
         }
     }
+
+    public void RemoveAllItem(){
+        for (int i = 0; i<inventory.Length; i++){
+            if (inventory[i] != null){
+                inventory[i] = null;
+                InventoryButtons[i].image.overrideSprite = null;
+            }
+        }
+    }
+
+
 }
