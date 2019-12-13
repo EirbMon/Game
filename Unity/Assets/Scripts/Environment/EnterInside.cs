@@ -15,7 +15,7 @@ public class EnterInside : MonoBehaviour
         {
             float pos_x = exit.transform.position.x;
             float pos_y = exit.transform.position.y;
-            controller.Teleport(pos_x , pos_y + 1);
+            controller.Teleport(pos_x , pos_y);
         }
     }
 }
