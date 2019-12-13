@@ -32,6 +32,8 @@ public class DresserController : NetworkBehaviour
     public bool refresh_myEirbmon = false;
     public bool waiting_react_response = false;
 
+    public string ennemyPNJ;
+
 
     
     // Start is called before the first frame update
@@ -51,16 +53,14 @@ public class DresserController : NetworkBehaviour
 
         base.OnStartLocalPlayer();
         gameObject.name = "Dresser(Local)";
-
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        
         waiting_react_response = true;
         gameManager.SendMessageToReact("user_pokemon");
+        ennemyPNJ = "null";
         
-
         // EN DEV UNIQUEMENT 
-        //string MyEirbmons2 = "[{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [4,5,6],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 9,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Salameche\",\"name\": \"Valentin\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
-        //RetrievePokemonList(MyEirbmons2);
+        string MyEirbmons2 = "[{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [4,5,6],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 9,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Salameche\",\"name\": \"Valentin\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+        RetrievePokemonList(MyEirbmons2);
         // FIN DU DEV
     }
 
@@ -196,7 +196,6 @@ public class DresserController : NetworkBehaviour
 
     [ClientRpc]
     void RpcRemoveItem(string name){
-        Debug.Log(name);
         PokemonObject starterPokemon = GameObject.Find(name).GetComponent <PokemonObject> ();
         
         if (starterPokemon.inventory){
@@ -258,7 +257,16 @@ public class DresserController : NetworkBehaviour
                     if (Random.Range(0,8) == 5){
                         EnterCombat();
                     }
-                }   
+                }
+
+                if (other.CompareTag("EnnemyPNJ")){
+                    currentInterObj = other.gameObject;
+
+                    if (currentInterObj.GetComponent<EnnemyPNJ>().busy == false){
+                        ennemyPNJ = currentInterObj.name;  
+                        EnterCombat();
+                    }
+                }     
             }
     }
 

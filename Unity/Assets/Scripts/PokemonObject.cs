@@ -28,7 +28,6 @@ public class PokemonObject : NetworkBehaviour
 
     public void TakeDamage(float damage){
         this.health = this.health - damage;
-        Debug.Log("Health = " + this.health);
     }
 
     public void increaseExp(float gain){

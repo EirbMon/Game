@@ -30,6 +30,8 @@ public class GameManager : NetworkBehaviour
         }
         catch{
             Debug.LogError("Communication Unity -> React has failed for: " + message);
+            if (message == "eirbmon_skills")
+                return;
             GameObject.Find("Dresser(Local)").GetComponent<DresserController>().waiting_react_response = false;
         }
     }
