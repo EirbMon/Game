@@ -12,7 +12,7 @@ public class EnnemyPNJ : MonoBehaviour
     float timer;
     public bool busy;
     int direction = 1;
-    float timeDeactivate = 5.0f;
+    public float timeDeactivate = 5.0f;
     float DeactivateTimer;
     public string EirbmonPNJ;
     bool isDeactivate = false;

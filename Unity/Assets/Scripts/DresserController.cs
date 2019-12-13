@@ -171,7 +171,7 @@ public class DresserController : NetworkBehaviour
 
             var PokemonsJSON = JSON.Parse(JSONString);
             int N = PokemonsJSON.Count;
-            Debug.Log("Retrieving " + N + " pokemons");
+            Debug.Log("Retrieving " + N + " pokemons for the user.");
 
             inventory.RemoveAllItem();
                     
