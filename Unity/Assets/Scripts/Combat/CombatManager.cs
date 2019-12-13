@@ -123,8 +123,8 @@ public class CombatManager : MonoBehaviour
         if (!isPNJ){
             GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("combat_pokemon");
             // DEV - Text Brut sans REACT
-            string JSONString2 = "[{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,4,5],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
-            GenerateOrphelin(JSONString2);
+            //string JSONString2 = "[{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,4,5],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+            //GenerateOrphelin(JSONString2);
         }
         if (isPNJ){
             string EirbmonPNJ = GameObject.Find(ennemyPNJ).GetComponent<EnnemyPNJ>().EirbmonPNJ;
@@ -136,7 +136,7 @@ public class CombatManager : MonoBehaviour
         EirbmonSkills = GameObject.Find("GameManager").GetComponent<GameManager>().EirbmonSkills;
 
         // DEV - Text Brut sans REACT
-        EirbmonSkills = "[{\"_id\": \"5df10f5c1c9d440000336b57\",\"id\": 0,\"name\": \"Vive Attack\",\"damage\": 22,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df10fa41c9d440000336b58\",\"id\": 1,\"name\": \"Eclair\",\"damage\": 15,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df10fe31c9d440000336b59\",\"id\": 2,\"name\": \"Hate\",\"damage\": 10,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df10ff91c9d440000336b5a\",\"id\": 3,\"name\": \"UltraLaser\",\"damage\": 51,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5dd00d12f1521b52940476fc\",\"id\": 4,\"name\": \"Surf\",\"pp\": 25,\"damage\": 30,\"field\": \"telecom\",\"__v\": 0},{\"_id\": \"5df1106f1c9d440000336b5d\",\"id\": 5,\"name\": \"Trempette\",\"damage\": 10,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110581c9d440000336b5c\",\"id\": 6,\"name\": \"Bismillah\",\"damage\": 35,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110871c9d440000336b5e\",\"id\": 7,\"name\": \"Gros Yeux\",\"damage\": 0,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110a61c9d440000336b5f\",\"id\": 8,\"name\": \"Lance-Flamme\",\"damage\": 15,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110c11c9d440000336b61\",\"id\": 9,\"name\": \"Brasse\",\"damage\": 30,\"field\": \"telecom\",\"pp\": 20}]";
+        //EirbmonSkills = "[{\"_id\": \"5df10f5c1c9d440000336b57\",\"id\": 0,\"name\": \"Vive Attack\",\"damage\": 22,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df10fa41c9d440000336b58\",\"id\": 1,\"name\": \"Eclair\",\"damage\": 15,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df10fe31c9d440000336b59\",\"id\": 2,\"name\": \"Hate\",\"damage\": 10,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df10ff91c9d440000336b5a\",\"id\": 3,\"name\": \"UltraLaser\",\"damage\": 51,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5dd00d12f1521b52940476fc\",\"id\": 4,\"name\": \"Surf\",\"pp\": 25,\"damage\": 30,\"field\": \"telecom\",\"__v\": 0},{\"_id\": \"5df1106f1c9d440000336b5d\",\"id\": 5,\"name\": \"Trempette\",\"damage\": 10,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110581c9d440000336b5c\",\"id\": 6,\"name\": \"Bismillah\",\"damage\": 35,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110871c9d440000336b5e\",\"id\": 7,\"name\": \"Gros Yeux\",\"damage\": 0,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110a61c9d440000336b5f\",\"id\": 8,\"name\": \"Lance-Flamme\",\"damage\": 15,\"field\": \"telecom\",\"pp\": 20},{\"_id\": \"5df110c11c9d440000336b61\",\"id\": 9,\"name\": \"Brasse\",\"damage\": 30,\"field\": \"telecom\",\"pp\": 20}]";
         
         
         InitiateEirbmon();
@@ -208,7 +208,9 @@ public class CombatManager : MonoBehaviour
                             side.SetText("You can't catch an Eirbmon from a PNJ. Stealing is forbidden !");
                         }
                         else{
-                            if (Random.Range(0,Mathf.Round(5*EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().health/EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().max_health)) == 0)
+                            float rrand = Random.Range(0,Mathf.RoundToInt(5*EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().health/EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().max_health));
+                            Debug.Log(rrand);
+                            if (rrand == 0)
                                 CatchPokemon();
                             else{
                                 FailCatchPokemon();
@@ -401,6 +403,11 @@ public class CombatManager : MonoBehaviour
 
 
     public void RunAwayCombat(){
+
+        if (MyEirbmonsList[currentPokemon].GetComponent<PokemonObject>().health <= 0){
+            side.SetText("Your Eirbmon is dead, you can't escape with a Zombie. You need to choose another Eirbmon in your bag first.");
+            return; 
+        }
         if (Random.Range(0,2) == 0){
             side.SetText(" Run away has worked ! You have escaped the fight.");
             StartCoroutine(EndFight());
@@ -508,10 +515,21 @@ public class CombatManager : MonoBehaviour
 
     }
     public void FailCatchPokemon(){
+
+        if (MyEirbmonsList[currentPokemon].GetComponent<PokemonObject>().health <= 0){
+            side.SetText("Did you really think you can catch an Eirbmon while yours is dead ? Nup Nup Nup !");
+            return; 
+        }
+
         side.SetText(" Too bad ! You failed to catch the " + EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().type + " !");
     }
 
     public void CatchPokemon(){
+
+        if (MyEirbmonsList[currentPokemon].GetComponent<PokemonObject>().health <= 0){
+            side.SetText("Did you really think you can catch an Eirbmon while yours is dead ? Nup Nup Nup !");
+            return; 
+        }
 
         side.SetText(" Congratulations ! You catch sucessfuly the " + EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().type + " !");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
@@ -748,8 +766,8 @@ public class CombatManager : MonoBehaviour
 
         IEnumerator LooseFight()
     {
-        side.SetText("SORRY, but you lost. Come back with better Eirbmons! You can check the store to get more powerful Eirbmon!");
-        yield return new WaitForSeconds(1.1f);
+        side.SetText("Sorry, but you lost. Come back with better Eirbmons! You can check the store to get more powerful Eirbmon!");
+        yield return new WaitForSeconds(2.5f);
         StartCoroutine(EndFight());
     }
 
