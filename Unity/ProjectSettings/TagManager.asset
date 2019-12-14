@@ -20,7 +20,7 @@ TagManager:
   - Confiner
   - NPC
   - Dresser
-  - 
+  - Equipments
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Equipments
+    uniqueID: 1802973873
     locked: 0
