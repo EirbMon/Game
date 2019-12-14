@@ -16,11 +16,12 @@ public class GameManager : NetworkBehaviour
     private static extern void DoInteraction(string message);
     public string EirbmonSkills = null;
 
+    public bool dev = false;
+
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         Debug.Log("Start: version 1.5");
-
         SendMessageToReact("eirbmon_skills");
     }
 

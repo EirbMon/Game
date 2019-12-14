@@ -18,6 +18,8 @@ public class PokemonObject : NetworkBehaviour
     public float exp = 0;
     public bool visible = true;
 
+    public int[] skills_id = new int[3];
+
     void Start(){
         health = max_health;
     }
@@ -36,7 +38,7 @@ public class PokemonObject : NetworkBehaviour
             levelUp();
             this.exp = this.exp - 100;
         }
-        Debug.Log("Exp = " + this.exp + " & Level = " + this.level);
+        //Debug.Log("Exp = " + this.exp + " & Level = " + this.level);
     }
 
     public void levelUp(){
@@ -53,6 +55,12 @@ public class PokemonObject : NetworkBehaviour
             this.health = this.max_health;
         this.level = PokemonJSON["lvl"];
         this.exp = PokemonJSON["xp"];
+
+        int N = PokemonJSON["skills_id"].Count;
+        for (int i=0; i<N; i++){
+            this.skills_id[i] = PokemonJSON["skills_id"][i];
+        }
+        
     }
 
     public string ConvertToString(){
