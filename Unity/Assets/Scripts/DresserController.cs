@@ -12,12 +12,12 @@ public class DresserController : NetworkBehaviour
     GameManager gameManager;
     public float speed = 3.0f;
     public int maxHealth = 5;
-    public float timeInvincible = 2.0f;
+    public float timeInvincible = 1.0f;
     public string MyEirbmons = null;
     
     public int health {  get { return currentHealth; }}
     int currentHealth;
-    bool isInvincible;
+    public bool isInvincible;
     float invincibleTimer;
     string dresserName;
     Animator animator;
@@ -31,7 +31,7 @@ public class DresserController : NetworkBehaviour
     private bool testBool = true; 
     public bool refresh_myEirbmon = false;
     public bool waiting_react_response = false;
-
+    public bool isInCombat = false;
     public string ennemyPNJ;
 
 
@@ -57,11 +57,13 @@ public class DresserController : NetworkBehaviour
         waiting_react_response = true;
         gameManager.SendMessageToReact("user_pokemon");
         ennemyPNJ = "null";
+        bool dev = gameManager.dev;
         
         // EN DEV UNIQUEMENT 
-        //string MyEirbmons2 = "[{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [4,5,6],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 9,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Salameche\",\"name\": \"Valentin\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
-        //RetrievePokemonList(MyEirbmons2);
-        // FIN DU DEV
+        if (dev){
+         string MyEirbmons2 = "[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0}]";
+         RetrievePokemonList(MyEirbmons2);
+        }
     }
 
 
@@ -79,7 +81,6 @@ public class DresserController : NetworkBehaviour
             refresh_myEirbmon = false;
             gameManager.SendMessageToReact("user_pokemon");
         }
-
 
         if (SceneManager.GetSceneByName("CombatScene").isLoaded)
             return;
@@ -119,8 +120,10 @@ public class DresserController : NetworkBehaviour
 
         if (isInvincible){
             invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer < 0)
+            if (invincibleTimer < 0){
                 isInvincible = false;
+                isInCombat = false;
+            }
         }
 
     }
@@ -135,7 +138,7 @@ public class DresserController : NetworkBehaviour
         }
         
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        Debug.Log(currentHealth + "/" + maxHealth);
+        //Debug.Log(currentHealth + "/" + maxHealth);
     }
 
     public void Teleport(float x, float y)
@@ -254,7 +257,10 @@ public class DresserController : NetworkBehaviour
 
                 if (other.CompareTag("HerbeHaute")){
                     currentInterObj = other.gameObject;  
-                    if (Random.Range(0,8) == 5){
+                    if (Random.Range(0,10) == 0){
+                        if (isInCombat)
+                            return;
+                        isInCombat = true;
                         EnterCombat();
                     }
                 }

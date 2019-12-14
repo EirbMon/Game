@@ -163,6 +163,7 @@ MonoBehaviour:
   currentEnnemyPokemon: 0
   nbEnnemyPokemon: 0
   nbInLifePokemon: 0
+  nbMyPokemon: 0
   JSONString: 
   PokemonString: 
   EnnemyPokemonString: 
@@ -285,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913266598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 641.15, y: 311.34, z: 133.12253}
+  m_LocalPosition: {x: 641.15, y: 310.96, z: 133.12253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -679,7 +680,7 @@ PrefabInstance:
     - target: {fileID: 3380727328525669752, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0017996
+      value: -0.0018005371
       objectReference: {fileID: 0}
     - target: {fileID: 3380727328525669752, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
@@ -714,7 +715,7 @@ PrefabInstance:
     - target: {fileID: 3380727328460252554, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.00066757
+      value: -0.00065612793
       objectReference: {fileID: 0}
     - target: {fileID: 3380727328460252554, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
@@ -754,7 +755,7 @@ PrefabInstance:
     - target: {fileID: 3380727328006000475, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.3329978
+      value: -0.3330078
       objectReference: {fileID: 0}
     - target: {fileID: 3380727328006000475, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
@@ -794,7 +795,7 @@ PrefabInstance:
     - target: {fileID: 3380727327253793410, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0068893
+      value: -0.006881714
       objectReference: {fileID: 0}
     - target: {fileID: 3380727327253793410, guid: f52589bb13a7ebd4897c4c898bd30594,
         type: 3}
