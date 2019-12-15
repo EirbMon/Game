@@ -39,6 +39,7 @@ public class CombatManager : MonoBehaviour
     public bool waiting_react_response = false;
     public bool isPNJ = false;
     public bool lockRound = false;
+    bool dev;
 
     public CombatMenu currentMenu;
 
@@ -119,7 +120,7 @@ public class CombatManager : MonoBehaviour
 
         PokemonString = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
         EirbmonSkills = GameObject.Find("GameManager").GetComponent<GameManager>().EirbmonSkills;
-        bool dev = GameObject.Find("GameManager").GetComponent<GameManager>().dev;
+        dev = GameObject.Find("GameManager").GetComponent<GameManager>().dev;
         
         // DEV - Text Brut sans REACT
         if (dev)
@@ -129,13 +130,14 @@ public class CombatManager : MonoBehaviour
         isPNJ = (ennemyPNJ != "null");
 
         if (!isPNJ){
-            GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("combat_pokemon");
 
             // DEV - Text Brut sans REACT
             if (dev){
-              string JSONString2 = "[{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,4,5],\"_id\": \"5dd0571370fc0849c41dde87\",\"type\": \"Carapuce\",\"name\": \"Gerard\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 7,\"created_date\": \"2019-11-16T20:07:47.401Z\",\"updated_date\": \"2019-11-16T20:07:47.401Z\",\"__v\": 0}]";
+              string JSONString2 = "[{\"skills_id\":[],\"force\":0,\"xp\":0,\"available\":false,\"_id\":\"5df577c5b9998c72a6838783\",\"idInBlockchain\":3,\"__v\":0,\"field\":\"Elec\",\"hp\":66,\"lvl\":0,\"name\":\"Carapuce\",\"owner_id\":\"0x48bbceca684cde0646b787769d30d9fa38927e28\",\"type\":\"Carapuce\"}]";
               GenerateOrphelin(JSONString2);
             }
+            else 
+                GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("combat_pokemon");
         }
         if (isPNJ){
             string EirbmonPNJ = GameObject.Find(ennemyPNJ).GetComponent<EnnemyPNJ>().EirbmonPNJ;
@@ -540,10 +542,12 @@ public class CombatManager : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
 
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().waiting_react_response = true;
-        GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("catch_pokemon");
+        if (!dev)
+            GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("catch_pokemon");
 
         // DEV
-        //GameObject.Find("Dresser(Local)").GetComponent<DresserController>().CatchPokemon(JSONString);
+        if (dev)
+            GameObject.Find("Dresser(Local)").GetComponent<DresserController>().CatchPokemon(EnnemyPokemonString);
         // FIN DU DEV
 
         EnnemyPokemonList[currentEnnemyPokemon].transform.Rotate (Vector3.forward * -90);
@@ -553,7 +557,6 @@ public class CombatManager : MonoBehaviour
     public void GenerateOrphelin (string JSONString2) {
 
         waiting_react_response = false;
-
         EnnemyPokemonString = JSONString2;
         InitiateEnnemyEirbmon(EnnemyPokemonString);
 
@@ -724,7 +727,9 @@ public class CombatManager : MonoBehaviour
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ = "null";
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().isInvincible = true;
-        GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("end_combat");
+        if (!dev)
+            GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("end_combat");
+
         SceneManager.UnloadSceneAsync("CombatScene");
     }
 

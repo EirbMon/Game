@@ -232,7 +232,8 @@ public class DresserController : NetworkBehaviour
 
         try{
 
-        var PokemonsJSON = JSON.Parse(JSONString);
+        var PokemonsJSON = JSON.Parse(JSONString)[0];
+
         var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON["type"], typeof(GameObject)), new Vector2(-100, -100), Quaternion.identity) as GameObject;
         Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON);
         inventory.AddItem(Pokemon);

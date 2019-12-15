@@ -7,12 +7,13 @@ public class LeavingInside : MonoBehaviour
 {
     public EnterInside entry;
     public bool first = false;
+    public bool disabled = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         DresserController controller = other.GetComponent<DresserController>();
 
-        if (controller != null)
+        if (controller != null && !disabled)
         {
             if (first){
                 first = false;
