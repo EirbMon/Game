@@ -101,6 +101,9 @@ public class DresserController : NetworkBehaviour
             this.transform.Find("InventoryCanvas").gameObject.SetActive(testBool);  
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+            Screen.fullScreen = !Screen.fullScreen;
+
         // Player localization
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");

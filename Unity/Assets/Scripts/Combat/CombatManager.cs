@@ -213,8 +213,8 @@ public class CombatManager : MonoBehaviour
                             side.SetText("You can't catch an Eirbmon from a PNJ. Stealing is forbidden !");
                         }
                         else{
-                            float rrand = Random.Range(0,Mathf.RoundToInt(5*EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().health/EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().max_health));
-                            if (rrand == 0)
+                            float rrand = Random.Range(0,Mathf.RoundToInt(100*EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().health/EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().max_health));
+                            if (rrand <= 20)
                                 CatchPokemon();
                             else{
                                 FailCatchPokemon();
@@ -528,7 +528,7 @@ public class CombatManager : MonoBehaviour
             return; 
         }
 
-        side.SetText(" Too bad ! You failed to catch the " + EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().type + " !");
+        side.SetText(" Too bad ! You failed to catch the " + EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().type + " ! Attack it so it can be easier for you to catch it !");
     }
 
     public void CatchPokemon(){
