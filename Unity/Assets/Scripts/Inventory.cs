@@ -69,6 +69,7 @@ using UnityEngine.Networking;
                 inventory[i] = null;
                 Debug.Log(item.name + " was removed from inventory");
                 InventoryButtons[i].image.overrideSprite = null;
+                InventoryButtons[i].image.rectTransform.localScale -= new Vector3(1f, 0f, 0f);
                 break;
             }
         }
@@ -77,11 +78,11 @@ using UnityEngine.Networking;
     public void RemoveAllItem(){
         for (int i = 0; i<inventory.Length; i++){
             if (inventory[i] != null){
+                Destroy(inventory[i]);
+                InventoryButtons[i].image.rectTransform.localScale -= new Vector3(1f, 0f, 0f);
                 inventory[i] = null;
                 InventoryButtons[i].image.overrideSprite = null;
             }
         }
     }
-
-
 }

@@ -32,6 +32,7 @@ public class DresserController : NetworkBehaviour
     public bool refresh_myEirbmon = false;
     public bool waiting_react_response = false;
     public bool isInCombat = false;
+    bool dev = false;
     public string ennemyPNJ;
 
 
@@ -57,7 +58,7 @@ public class DresserController : NetworkBehaviour
         waiting_react_response = true;
         gameManager.SendMessageToReact("user_pokemon");
         ennemyPNJ = "null";
-        bool dev = gameManager.dev;
+        dev = gameManager.dev;
         
         // EN DEV UNIQUEMENT 
         if (dev){
@@ -80,6 +81,9 @@ public class DresserController : NetworkBehaviour
         if (refresh_myEirbmon){
             refresh_myEirbmon = false;
             gameManager.SendMessageToReact("user_pokemon");
+            if (dev)
+                RetrievePokemonList("[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\":[],\"force\":0,\"xp\":0,\"available\":false,\"_id\":\"5df577c5b9998c72a6838783\",\"idInBlockchain\":3,\"__v\":0,\"field\":\"Elec\",\"hp\":66,\"lvl\":0,\"name\":\"Carapuce\",\"owner_id\":\"0x48bbceca684cde0646b787769d30d9fa38927e28\",\"type\":\"Carapuce\"}]");
+
         }
 
         if (SceneManager.GetSceneByName("CombatScene").isLoaded)
