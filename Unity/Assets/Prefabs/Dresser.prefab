@@ -1765,12 +1765,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e0930b1c06c3246832ea7a30b94b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 11
   maxHealth: 5
   timeInvincible: 2
+  MyEirbmons: 
+  isInvincible: 0
   currentInterObj: {fileID: 0}
   currentInterObjScript: {fileID: 0}
   inventory: {fileID: 1812721876}
+  refresh_myEirbmon: 0
+  waiting_react_response: 0
+  isInCombat: 0
+  ennemyPNJ: 
 --- !u!114 &1812721876
 MonoBehaviour:
   m_ObjectHideFlags: 0

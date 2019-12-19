@@ -19,11 +19,12 @@ public class EnterInside : MonoBehaviour
                 first = false;
                 return;
             }
-
+            float offsetX = controller.transform.position.x - this.transform.position.x; 
+            float offsetY = controller.transform.position.y - this.transform.position.y;
             float pos_x = exit.transform.position.x;
             float pos_y = exit.transform.position.y;
             exit.GetComponent<LeavingInside>().first = true;
-            controller.Teleport(pos_x , pos_y);
+            controller.Teleport(pos_x + offsetX, pos_y + offsetY);
         }
     }
 }
