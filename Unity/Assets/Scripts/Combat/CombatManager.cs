@@ -726,7 +726,6 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ = "null";
-        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().isInvincible = true;
         if (!dev)
             GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("end_combat");
 

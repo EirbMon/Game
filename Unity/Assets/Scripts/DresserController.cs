@@ -11,29 +11,20 @@ public class DresserController : NetworkBehaviour
 {
     GameManager gameManager;
     public float speed = 3.0f;
-    public int maxHealth = 5;
-    public float timeInvincible = 1.0f;
     public string MyEirbmons = null;
-    
-    public int health {  get { return currentHealth; }}
-    int currentHealth;
-    public bool isInvincible;
-    float invincibleTimer;
-    string dresserName;
+
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
     Rigidbody2D rigidbody2d;
 
     public GameObject currentInterObj = null;
-    public PokemonObject currentInterObjScript = null;
     public Inventory inventory;
 
-    private bool testBool = true; 
-    public bool refresh_myEirbmon = false;
-    public bool waiting_react_response = false;
+    private bool showInventory = true; 
+    public bool waiting_react_response = true;
     public bool isInCombat = false;
-    bool dev = false;
     public string ennemyPNJ;
+    bool dev = false;
 
 
     
@@ -50,12 +41,9 @@ public class DresserController : NetworkBehaviour
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        currentHealth = maxHealth;
-
         base.OnStartLocalPlayer();
         gameObject.name = "Dresser(Local)";
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        waiting_react_response = true;
         gameManager.SendMessageToReact("user_pokemon");
         ennemyPNJ = "null";
         dev = gameManager.dev;
@@ -71,38 +59,20 @@ public class DresserController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer){
+
+        // Stop player action if it's not the local player, if it's waiting react response or if it's in combat.
+        if (!isLocalPlayer || waiting_react_response || isInCombat)
             return;
-        }
 
-        if (waiting_react_response)
-            return;
-        
-        if (refresh_myEirbmon){
-            refresh_myEirbmon = false;
-            gameManager.SendMessageToReact("user_pokemon");
-            if (dev)
-                RetrievePokemonList("[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\":[],\"force\":0,\"xp\":0,\"available\":false,\"_id\":\"5df577c5b9998c72a6838783\",\"idInBlockchain\":3,\"__v\":0,\"field\":\"Elec\",\"hp\":66,\"lvl\":0,\"name\":\"Carapuce\",\"owner_id\":\"0x48bbceca684cde0646b787769d30d9fa38927e28\",\"type\":\"Carapuce\"}]");
-
-        }
-
-        if (SceneManager.GetSceneByName("CombatScene").isLoaded)
-            return;
-        
-
+        // Interaction (touche E)
         if (Input.GetButtonDown("Interact") && currentInterObj){
-
-            TakeItem();
-            CmdRemoveItem(currentInterObj.name);
         }
 
+        // Echap
         if (Input.GetKeyDown(KeyCode.Escape)){
-            testBool = !testBool;
-            this.transform.Find("InventoryCanvas").gameObject.SetActive(testBool);  
+            showInventory = !showInventory;
+            this.transform.Find("InventoryCanvas").gameObject.SetActive(showInventory);  
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            Screen.fullScreen = !Screen.fullScreen;
 
         // Player localization
         float horizontal = Input.GetAxis("Horizontal");
@@ -125,75 +95,53 @@ public class DresserController : NetworkBehaviour
         position = position + move * speed * Time.deltaTime;
         rigidbody2d.MovePosition(position);
 
-        if (isInvincible){
-            invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer < 0){
-                isInvincible = false;
-                isInCombat = false;
-            }
-        }
-
-    }
-
-    public void ChangeHealth(int amount)
-    {
-        if (amount < 0){
-            if (isInvincible)
-                return;          
-            isInvincible = true;
-            invincibleTimer = timeInvincible;
-        }
-        
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        //Debug.Log(currentHealth + "/" + maxHealth);
     }
 
     public void Teleport(float x, float y)
     {
         Vector2 new_position = new Vector2(x,y); 
         rigidbody2d.position = new_position;
-        //rigidbody2d.MovePosition(new_position);
     }
 
     public void EnterCombat(){
-
-        if (isLocalPlayer){
+        this.isInCombat = true;
         SceneManager.LoadScene("CombatScene", LoadSceneMode.Additive); 
         this.transform.Find("InventoryCanvas").gameObject.SetActive(false);  
-        }
     }
 
     public void LeaveCombat(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         this.transform.Find("InventoryCanvas").gameObject.SetActive(true);  
+        this.isInCombat = false;
     }
 
     public void RetrievePokemonList(string JSONString){
 
-        waiting_react_response = false;
-
         try{
-
             waiting_react_response = false;
-            // Create Pokemon in Game
-
             MyEirbmons = JSONString;
+
+
+            // On supprime tous les items de l'inventaire
+            inventory.RemoveAllItem();
 
             var PokemonsJSON = JSON.Parse(JSONString);
             int N = PokemonsJSON.Count;
             Debug.Log("Retrieving " + N + " pokemons for the user.");
-
-            inventory.RemoveAllItem();
-                    
+      
             for (int i=0; i<N; i++){    
                 float pos_x = -100f;
                 float pos_y = -100f;
+
+                // Create Pokemon
                 var pokemon_prefab = Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject));
                 var Pokemon = (GameObject)Instantiate(pokemon_prefab, new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
                 Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
-                // Create Pokemon item in Inventory
+
+                // On rajoute le Pokemon dans l'inventaire
                 inventory.AddItem(Pokemon);
-                // Deactivate Pokemon
+
+                // Hide Pokemon
                 Pokemon.GetComponent<PokemonObject>().visible = false;
                 Pokemon.GetComponent<PokemonObject>().Deactivate(false);
             }
@@ -203,36 +151,6 @@ public class DresserController : NetworkBehaviour
             Debug.LogError("Erreur GetOwnerEirbmonList dans Unity: Verifier que le JSON envoyé soit correcte (le type doit exister). Voici ce que Unity recoit: " + JSONString);
         }
     }
-
-    [ClientRpc]
-    void RpcRemoveItem(string name){
-        PokemonObject starterPokemon = GameObject.Find(name).GetComponent <PokemonObject> ();
-        
-        if (starterPokemon.inventory){
-                starterPokemon.visible = false;
-                starterPokemon.Deactivate(false);
-        }
-    }
-
-    [Command]
-    void CmdRemoveItem(string name){
-        RpcRemoveItem(name);
-    }
-
-    void TakeItem(){
-
-        if (!isLocalPlayer){
-            return;
-        }
-
-        if (currentInterObjScript.inventory){
-
-                    if (inventory.AddItem(currentInterObj)){
-                        //gameManager.SendMessageToReact(currentInterObjScript.ConvertToString());
-                }
-        }
-    }
-
     public void CatchPokemon(string JSONString){
 
         waiting_react_response = false;
@@ -240,12 +158,13 @@ public class DresserController : NetworkBehaviour
         try{
 
         var PokemonsJSON = JSON.Parse(JSONString)[0];
-
         var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON["type"], typeof(GameObject)), new Vector2(-100, -100), Quaternion.identity) as GameObject;
         Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON);
         inventory.AddItem(Pokemon);
-        refresh_myEirbmon = true;
-
+        gameManager.SendMessageToReact("user_pokemon");
+        if (dev)
+            RetrievePokemonList("[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\":[],\"force\":0,\"xp\":0,\"available\":false,\"_id\":\"5df577c5b9998c72a6838783\",\"idInBlockchain\":3,\"__v\":0,\"field\":\"Elec\",\"hp\":66,\"lvl\":0,\"name\":\"Carapuce\",\"owner_id\":\"0x48bbceca684cde0646b787769d30d9fa38927e28\",\"type\":\"Carapuce\"}]");
+        
         }
         catch{
             Debug.LogError("Erreur CatchPokemon: l'Eirbmon capturé envoyé possède un format incorrecte (mauvais type ou format de la requete. Voici ce que Unity recoit: " + JSONString);
@@ -257,44 +176,30 @@ public class DresserController : NetworkBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
             if (isLocalPlayer) {
-                
-                if (other.CompareTag("interactionobject")){
-                    currentInterObj = other.gameObject;
-                    currentInterObjScript = currentInterObj.GetComponent <PokemonObject> ();
-                } 
 
+                if (isInCombat)
+                    return;
+                
                 if (other.CompareTag("HerbeHaute")){
                     currentInterObj = other.gameObject;  
                     if (Random.Range(0,10) == 0){
-                        if (isInCombat)
-                            return;
-                        isInCombat = true;
                         EnterCombat();
                     }
                 }
 
                 if (other.CompareTag("EnnemyPNJ")){
                     currentInterObj = other.gameObject;
-
                     if (currentInterObj.GetComponent<EnnemyPNJ>().busy == false){
                         ennemyPNJ = currentInterObj.name;  
                         EnterCombat();
                     }
-                }     
-            }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-            if (other.CompareTag("interactionobject")){
-                if (other.gameObject == currentInterObj){
-                    currentInterObj = null;
                 }
+
+                else
+                    currentInterObj = other.gameObject;
             }
     }
-
     void SavePlayer(){
-        
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         string saveText = "{ \"Player\" : [{ \"name\":" + "\"" + this.name + "\"," + "\"position_x\":" + "\"" + horizontal + "\"," + "\"position_y\":" + "\"" + vertical + "\"}]}";
@@ -302,13 +207,10 @@ public class DresserController : NetworkBehaviour
     }
 
     void LoadPlayer(string JSONString){
-
         var DresserJSON = JSON.Parse(JSONString)["Dresser"];
-        this.dresserName = DresserJSON["name"];
+        string dresserName = DresserJSON["name"];
         float pos_x = float.Parse(DresserJSON[0]["position_x"],CultureInfo.InvariantCulture.NumberFormat);
         float pos_y = float.Parse(DresserJSON[0]["position_y"],CultureInfo.InvariantCulture.NumberFormat);
-        transform.position = new Vector2(pos_x, pos_y);
-        //rigidbody2d.MovePosition(transform.position);
-
+        Teleport(pos_x,pos_y);
     }
 }
