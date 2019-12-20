@@ -18,12 +18,9 @@ public class PokemonObject : NetworkBehaviour
     public float health = 100;
     public float exp = 0;
     public bool visible = true;
+    public int evolve = 1;
 
     public int[] skills_id = new int[3];
-
-    void Start(){
-        health = max_health;
-    }
 
     public void Deactivate(bool visible){
         this.gameObject.SetActive(visible); 
@@ -31,15 +28,29 @@ public class PokemonObject : NetworkBehaviour
 
     public void TakeDamage(float damage){
         this.health = this.health - damage;
+
+        if (this.health < 0)
+            this.health = 0;
     }
 
-    public void increaseExp(float gain){
-        this.exp = this.exp + gain;
-        if (this.exp >= 100){
-            levelUp();
-            this.exp = this.exp - 100;
+    public int increaseLvl(){
+
+        bool isPNJ = (GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ != "null");
+        int gain = 0;
+
+        if (isPNJ)
+            gain = Mathf.RoundToInt(33/this.evolve);
+        else
+            gain = Mathf.RoundToInt(10/this.evolve);
+            
+        this.level = this.level + gain;
+
+        if (this.level >= 100){
+            this.level = 100;
         }
-        //Debug.Log("Exp = " + this.exp + " & Level = " + this.level);
+
+        return gain;
+
     }
 
     public void levelUp(){
@@ -52,12 +63,17 @@ public class PokemonObject : NetworkBehaviour
         this.name = PokemonJSON["name"];
         this.color = PokemonJSON["color"];
         this.max_health = PokemonJSON["hp"];
-        this.health = PokemonJSON["current_hp"];
-        if (PokemonJSON["current_hp"] == null)
-            this.health = this.max_health;
         this.level = PokemonJSON["lvl"];
         this.exp = PokemonJSON["xp"];
 
+        this.health = PokemonJSON["current_hp"];
+        if (PokemonJSON["current_hp"] == null)
+            this.health = this.max_health;
+
+        this.evolve = PokemonJSON["evolve"];
+        if (PokemonJSON["evolve"] == null)
+            this.evolve = 0;
+        
         int N = PokemonJSON["skills_id"].Count;
         for (int i=0; i<N; i++){
             this.skills_id[i] = PokemonJSON["skills_id"][i];
@@ -66,7 +82,7 @@ public class PokemonObject : NetworkBehaviour
     }
 
     public string ConvertToString(){
-        string message = "{\"idInBlockchain\": " + this.idInBlockchain + ", "  + "\"type\": " + "\"" + this.type + "\", "  + "\"name\": " + "\"" + this.name + "\", " + "\"lvl\": " + this.level + ", " + "\"exp\": " + this.exp + ", " + "\"hp\": " + this.health + "}";
+        string message = "{\"idInBlockchain\": " + this.idInBlockchain + ", "  + "\"type\": " + "\"" + this.type + "\", "  + "\"name\": " + "\"" + this.name + "\", " + "\"lvl\": " + this.level + ", " + "\"exp\": " + this.exp + ", " + "\"current_hp\": " + this.health + ", " + "\"hp\": " + this.max_health + "}";
         return message;
     }
 

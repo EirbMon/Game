@@ -27,6 +27,7 @@ public class DresserController : NetworkBehaviour
     bool dev = false;
 
 
+
     
     // Start is called before the first frame update
     void Start()
@@ -44,13 +45,13 @@ public class DresserController : NetworkBehaviour
         base.OnStartLocalPlayer();
         gameObject.name = "Dresser(Local)";
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gameManager.SendMessageToReact("user_pokemon");
+        gameManager.SendMessageToReact(gameManager.FormatMessage("user_pokemon"));
         ennemyPNJ = "null";
         dev = gameManager.dev;
         
         // EN DEV UNIQUEMENT 
         if (dev){
-         string MyEirbmons2 = "[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0}]";
+         string MyEirbmons2 = "[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"David\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 100,\"current_hp\": 0,\"field\": \"telecom\",\"force\": 5,\"evolve\": 1,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"evolve\": 1,\"name\": \"Lilia\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 122,\"current_hp\": 122,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Jean\",\"evolve\": 1,\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 144,\"current_hp\": 0,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"evolve\": 3,\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Dracofeu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"current_hp\": 80,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0}]";
          RetrievePokemonList(MyEirbmons2);
         }
     }
@@ -162,9 +163,9 @@ public class DresserController : NetworkBehaviour
         var Pokemon = (GameObject)Instantiate(Resources.Load(PokemonsJSON["type"], typeof(GameObject)), new Vector2(-100, -100), Quaternion.identity) as GameObject;
         Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON);
         inventory.AddItem(Pokemon);
-        gameManager.SendMessageToReact("user_pokemon");
+        gameManager.SendMessageToReact(gameManager.FormatMessage("user_pokemon"));
         if (dev)
-            RetrievePokemonList("[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\":[],\"force\":0,\"xp\":0,\"available\":false,\"_id\":\"5df577c5b9998c72a6838783\",\"idInBlockchain\":3,\"__v\":0,\"field\":\"Elec\",\"hp\":66,\"lvl\":0,\"name\":\"Carapuce\",\"owner_id\":\"0x48bbceca684cde0646b787769d30d9fa38927e28\",\"type\":\"Carapuce\"}]");
+            RetrievePokemonList("[{\"skills_id\": [4,5,6],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Salameche\",\"name\": \"David\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 100,\"current_hp\": 0,\"field\": \"telecom\",\"force\": 5,\"evolve\": 1,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [7,8,0],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Carapuce\",\"evolve\": 1,\"name\": \"Lilia\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 122,\"current_hp\": 122,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Pikachu\",\"name\": \"Jean\",\"evolve\": 1,\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 144,\"current_hp\": 0,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\": [1,2,3],\"evolve\": 3,\"_id\": \"5dd01a65da355e20acb195b1\",\"type\": \"Dracofeu\",\"name\": \"Robert\",\"owner_id\": \"xxx_userOwnerId_xxx\",\"hp\": 110,\"current_hp\": 80,\"field\": \"telecom\",\"force\": 5,\"xp\": 25,\"lvl\": 4,\"created_date\": \"2019-11-16T15:48:53.021Z\",\"updated_date\": \"2019-11-16T15:48:53.021Z\",\"__v\": 0},{\"skills_id\":[],\"force\":0,\"xp\":0,\"available\":false,\"_id\":\"5df577c5b9998c72a6838783\",\"idInBlockchain\":3,\"__v\":0,\"field\":\"Elec\",\"hp\":66,\"lvl\":0,\"name\":\"Carapuce\",\"owner_id\":\"0x48bbceca684cde0646b787769d30d9fa38927e28\",\"type\":\"Carapuce\"}]");
         
         }
         catch{
@@ -204,7 +205,7 @@ public class DresserController : NetworkBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         string saveText = "{ \"Player\" : [{ \"name\":" + "\"" + this.name + "\"," + "\"position_x\":" + "\"" + horizontal + "\"," + "\"position_y\":" + "\"" + vertical + "\"}]}";
-        //gameManager.SendMessageToReact(saveText);
+        //gameManager.SendMessageToReact(gameManager.FormatMessage(saveText));
     }
 
     void LoadPlayer(string JSONString){

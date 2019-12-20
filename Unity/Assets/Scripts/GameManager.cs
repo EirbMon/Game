@@ -21,8 +21,8 @@ public class GameManager : NetworkBehaviour
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        Debug.Log("Start: version 1.5");
-        SendMessageToReact("eirbmon_skills");
+        Debug.Log("Start: version 1.6");
+        SendMessageToReact(FormatMessage("eirbmon_skills"));
     }
 
     public void SendMessageToReact(string message){
@@ -31,10 +31,22 @@ public class GameManager : NetworkBehaviour
         }
         catch{
             Debug.LogError("Communication Unity -> React has failed for: " + message);
-            if (message == "eirbmon_skills")
+            if (message == "{ \"message\": \"eirbmon_skills\", \"length\": 0, \"pokemons\": []}")
                 return;
             GameObject.Find("Dresser(Local)").GetComponent<DresserController>().waiting_react_response = false;
         }
+    }
+
+    public string FormatMessage(string message, int N=0, GameObject[] MyEirbmonsList=null){
+        string EirbmonsString = "{ \"message\": \"" + message + "\", \"length\": " + N + ", \"pokemons\": [";
+
+        for (int i = 0; i<N; i++){
+            EirbmonsString = EirbmonsString + MyEirbmonsList[i].GetComponent<PokemonObject>().ConvertToString();
+            if (i != N-1)
+                EirbmonsString = EirbmonsString + ", ";
+        }
+        EirbmonsString = EirbmonsString + "]}";
+        return EirbmonsString;
     }
 
     public void SetEirbmonSkills(string ReactJSON){
