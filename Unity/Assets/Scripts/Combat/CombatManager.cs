@@ -17,9 +17,9 @@ public class CombatManager : MonoBehaviour
     public GameObject PokemonPodium = null;
     public GameObject DresserPodium = null;
 
-    public GameObject[] MyEirbmonsList = new GameObject[3];
+    public GameObject[] MyEirbmonsList = new GameObject[6];
     public int currentPokemon = 0;
-    public GameObject[] EnnemyPokemonList = new GameObject[3];
+    public GameObject[] EnnemyPokemonList = new GameObject[6];
     public int currentEnnemyPokemon = 0;
     public int nbEnnemyPokemon = 0;
     public int nbInLifePokemon = 0;
@@ -568,10 +568,10 @@ public class CombatManager : MonoBehaviour
         int N = 0;
         if (PokemonsJSON != null)
             N = PokemonsJSON.Count;
-        if (N>3)
-            N = 3;
+
         nbMyPokemon = N;
         nbInLifePokemon = N;
+
 
         for (int i = 0; i<N; i++){
             var pokemon_position = DresserPodium.transform.position;
@@ -606,8 +606,7 @@ public class CombatManager : MonoBehaviour
                 N = PokemonsJSON.Count;
                 nbEnnemyPokemon = PokemonsJSON.Count;
             }
-            if (N>3)
-                N = 3;
+
             if (!isPNJ){
                 N = 1;
                 nbEnnemyPokemon = 1;
@@ -726,8 +725,24 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ = "null";
-        if (!dev)
-            GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("end_combat");
+
+        var PokemonsJSON = JSON.Parse(PokemonString);
+        int N = 0;
+        if (PokemonsJSON != null)
+            N = PokemonsJSON.Count;
+
+        string EirbmonsString = "{ \"message\": \"end_combat\", \"length\": " + N + ", \"pokemons\": [";
+
+        for (int i = 0; i<N; i++){
+            EirbmonsString = EirbmonsString + MyEirbmonsList[i].GetComponent<PokemonObject>().ConvertToString();
+            if (i != N-1)
+                EirbmonsString = EirbmonsString + ", ";
+        }
+        EirbmonsString = EirbmonsString + "]}";
+        Debug.Log(EirbmonsString);
+
+        GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("end_combat");
+        GameObject.Find("GameManager").GetComponent<GameManager>().SendMessageToReact("EirbmonsString");
 
         SceneManager.UnloadSceneAsync("CombatScene");
     }
@@ -789,7 +804,19 @@ public class CombatManager : MonoBehaviour
 
         IEnumerator WinFight()
     {
-        side.SetText("WOAW !!! Congratulations ! You win the fight, you're a real dresser ! Incredible !");
+        int nb_level = 10;
+        var PokemonsJSON = JSON.Parse(PokemonString);
+        int N = 0;
+        if (PokemonsJSON != null)
+            N = PokemonsJSON.Count;
+
+        for (int i = 0; i<N; i++){
+            nb_level = 10;
+            if (isPNJ)
+                nb_level = 33;
+            MyEirbmonsList[i].GetComponent<PokemonObject>().level = nb_level + MyEirbmonsList[i].GetComponent<PokemonObject>().level;
+        }
+        side.SetText("Congratulations ! You win the fight, you're a real dresser ! All your Eirbmons gained " + nb_level + " levels. If they reached lv100, they can evolve.");
         yield return new WaitForSeconds(1.1f);
         StartCoroutine(EndFight());
     }

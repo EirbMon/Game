@@ -8,8 +8,9 @@ using SimpleJSON;
 public class PokemonObject : NetworkBehaviour
 {
     public bool inventory; //If true: object can be stored in inventory
+    public int idInBlockchain = 9999;
     public string itemType = "pokemon";
-    public string pokemon_name = "Valerian";
+    public string name = "Valerian";
     public string type = "Pikachu";
     public string color = "red";
     public float max_health = 100;
@@ -46,8 +47,9 @@ public class PokemonObject : NetworkBehaviour
     }
 
     public void Initiate (JSONNode PokemonJSON){
+        this.idInBlockchain = PokemonJSON["idInBlockchain"];
         this.type = PokemonJSON["type"];
-        this.pokemon_name = PokemonJSON["name"];
+        this.name = PokemonJSON["name"];
         this.color = PokemonJSON["color"];
         this.max_health = PokemonJSON["hp"];
         this.health = PokemonJSON["current_hp"];
@@ -64,7 +66,7 @@ public class PokemonObject : NetworkBehaviour
     }
 
     public string ConvertToString(){
-        string message = "{\"type\":" + "\"" + this.type + "\","  + "\"name\":" + "\"" + this.name + "\"," + "\"level\":" + "\"" + this.level + "\"}";
+        string message = "{\"idInBlockchain\": " + this.idInBlockchain + ", "  + "\"type\": " + "\"" + this.type + "\", "  + "\"name\": " + "\"" + this.name + "\", " + "\"lvl\": " + this.level + ", " + "\"exp\": " + this.exp + ", " + "\"hp\": " + this.health + "}";
         return message;
     }
 

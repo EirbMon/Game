@@ -136,6 +136,7 @@ public class DresserController : NetworkBehaviour
                 // Create Pokemon
                 var pokemon_prefab = Resources.Load(PokemonsJSON[i]["type"], typeof(GameObject));
                 var Pokemon = (GameObject)Instantiate(pokemon_prefab, new Vector2(pos_x, pos_y), Quaternion.identity) as GameObject;
+                Pokemon.name = PokemonsJSON[i]["name"];
                 Pokemon.GetComponent<PokemonObject>().Initiate(PokemonsJSON[i]);
 
                 // On rajoute le Pokemon dans l'inventaire
