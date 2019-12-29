@@ -558,7 +558,7 @@ public class CombatManager : MonoBehaviour
         string heathbar_mode = "Ennemy";
 
         if (AttackerPokemon.GetComponent<PokemonObject>().health <= 0 && mode > 0){
-            side.SetText("Your Eirbmon is dead, so he can't attack. It's logic, no ? Why do you try..");
+            side.SetText("Your Eirbmon is dead, so he can't attack. It's logic, no ? Why do you try ?");
             return; 
         }
 
