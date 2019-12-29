@@ -33,6 +33,10 @@ public class PokemonObject : NetworkBehaviour
             this.health = 0;
     }
 
+    public void FullHeal(){
+        this.health = this.max_health;
+    }
+
     public int increaseLvl(){
 
         bool isPNJ = (GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ != "null");
