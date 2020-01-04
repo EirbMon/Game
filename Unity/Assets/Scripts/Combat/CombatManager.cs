@@ -119,7 +119,7 @@ public class CombatManager : MonoBehaviour
  
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("CombatScene"));
         waiting_react_response = true;
-        manager = GameObject.Find("GameManager").GetComponent<GameManager>();;
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         PokemonString = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
         EirbmonSkills = manager.EirbmonSkills;

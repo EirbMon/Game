@@ -16,16 +16,27 @@ public class HealCenter : MonoBehaviour
 
     public GameManager manager = null;
 
-    public GameObject EirbmonPodium = null;
+    public GameObject PokemonPodium = null;
     public GameObject DresserPodium = null;
 
     public GameObject[] MyEirbmonsList = new GameObject[6];
-    public int currentEirbmon = 0;
-    public int nbMyEirbmon = 0;
+    public int currentPokemon = 0;
+    public GameObject[] EnnemyPokemonList = new GameObject[6];
+    public int currentEnnemyPokemon = 0;
+    public int nbEnnemyPokemon = 0;
+    public int nbInLifePokemon = 0;
+    public int nbMyPokemon = 0;
 
     public string JSONString = null;
-    public string EirbmonString = null;
-    public string EnnemyEirbmonString = null;
+    public string PokemonString = null;
+    public string EnnemyPokemonString = null;
+
+    public string EirbmonSkills = null;
+
+    public int[] currentSkillDamage = new int[3];
+    public string[] currentSkillName = new string[3];
+    public int[] currentEnnemySkillDamage = new int[3];
+    public string[] currentEnnemySkillName = new string[3];
 
     public bool waiting_react_response = false;
     public bool isPNJ = false;
@@ -36,9 +47,41 @@ public class HealCenter : MonoBehaviour
 
     [Space(10)]
     [Header("Main")]
+    public GameObject MainMenu;
+    public GameObject SideInfo;
+    public TextMeshProUGUI fight;
+    private string fightT;
     public TextMeshProUGUI bag;
     private string bagT;
+    public TextMeshProUGUI catchp;
+    private string catchpT;
+    public TextMeshProUGUI run;
+    public TextMeshProUGUI side;
+    private string runT;
 
+    [Space(10)]
+    [Header("Skills")]
+    public GameObject SkillsMenu;
+    public GameObject SkillsInfo;
+    public TextMeshProUGUI skill1;
+    public TextMeshProUGUI skill2;
+    public TextMeshProUGUI skill3;
+    public TextMeshProUGUI skill4;
+    private string skill1T;
+    private string skill2T;
+    private string skill3T;
+    private string skill4T;
+    public TextMeshProUGUI PP;
+    public TextMeshProUGUI ptype;
+
+    [Space(10)]
+    [Header("EnnemyInfo")]
+    public GameObject EnnemyInfo;
+
+    public TextMeshProUGUI ennemy_name;
+    public TextMeshProUGUI ennemy_maxhp;
+    public TextMeshProUGUI ennemy_hp;
+    public TextMeshProUGUI ennemy_level;
 
     [Space(10)]
     [Header("DresserInfo")]
@@ -55,38 +98,41 @@ public class HealCenter : MonoBehaviour
 
     [Header("Bag")]
     public GameObject Bag;
-    public TextMeshProUGUI Eirbmon1;
-    private string Eirbmon1T;
-    public TextMeshProUGUI Eirbmon2;
-    private string Eirbmon2T;
-    public TextMeshProUGUI Eirbmon3;
-    private string Eirbmon3T;
-    public TextMeshProUGUI Eirbmon4;
-    private string Eirbmon4T;
-    public TextMeshProUGUI Eirbmon5;
-    private string Eirbmon5T;
-    public TextMeshProUGUI Eirbmon6;
-    private string Eirbmon6T;
+    public TextMeshProUGUI Pokemon1;
+    private string Pokemon1T;
+    public TextMeshProUGUI Pokemon2;
+    private string Pokemon2T;
+    public TextMeshProUGUI Pokemon3;
+    private string Pokemon3T;
+    public TextMeshProUGUI Pokemon4;
+    private string Pokemon4T;
+    public TextMeshProUGUI Pokemon5;
+    private string Pokemon5T;
+    public TextMeshProUGUI Pokemon6;
+    private string Pokemon6T;
     public TextMeshProUGUI Retour;
 
 
-    private void Start()
+
+
+    void Start()
     {
-        
         waiting_react_response = true;
-
+        Debug.Log("heyhey");
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        EirbmonString = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
+        Debug.Log("Salut" + GameObject.Find("Dresser(Local)").GetComponent<DresserController>());
+        
+        PokemonString = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
+        
 
         InitiateEirbmon();
     }
 
-    private void Update()
+    void Update()
     {
 
-        if (waiting_react_response)
-            return;
+        //if (waiting_react_response)
+          //  return;
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -100,7 +146,7 @@ public class HealCenter : MonoBehaviour
     {
 
 
-        for (int i = 0; i < nbMyEirbmon; i++)
+        for (int i = 0; i < nbMyPokemon; i++)
         {
 
             MyEirbmonsList[i].GetComponent<PokemonObject>().FullHeal();
@@ -111,12 +157,12 @@ public class HealCenter : MonoBehaviour
     public void InitiateEirbmon()
     {
 
-        var PokemonsJSON = JSON.Parse(EirbmonString);
+        var PokemonsJSON = JSON.Parse(PokemonString);
         int N = 0;
         if (PokemonsJSON != null)
             N = PokemonsJSON.Count;
 
-        nbMyEirbmon = N;
+        nbMyPokemon = N;
 
         for (int i = 0; i < N; i++)
         {
@@ -132,6 +178,4 @@ public class HealCenter : MonoBehaviour
         }
 
     }
-
-
 }
