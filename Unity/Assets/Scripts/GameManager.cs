@@ -21,7 +21,7 @@ public class GameManager : NetworkBehaviour
 
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        Debug.Log("Start: version 1.6");
+        Debug.Log("Start: version 1.7");
         SendMessageToReact(FormatMessage("eirbmon_skills"));
     }
 

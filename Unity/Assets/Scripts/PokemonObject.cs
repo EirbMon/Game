@@ -43,9 +43,9 @@ public class PokemonObject : NetworkBehaviour
         int gain = 0;
 
         if (isPNJ)
-            gain = Mathf.RoundToInt(33/this.evolve);
+            gain = Mathf.RoundToInt(33/(this.evolve+1));
         else
-            gain = Mathf.RoundToInt(10/this.evolve);
+            gain = Mathf.RoundToInt(10/(this.evolve+1));
             
         this.level = this.level + gain;
 
