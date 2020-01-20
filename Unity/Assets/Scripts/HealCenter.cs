@@ -53,6 +53,7 @@ public class HealCenter : MonoBehaviour
 
         for (int i = 0; i < N; i++)
         {
+            Debug.Log("Healing Eirbmon from Unity n°" + i);
             MyEirbmonsList[i].GetComponent<PokemonObject>().FullHeal();
         }
 
