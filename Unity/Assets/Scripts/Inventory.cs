@@ -12,6 +12,7 @@ using UnityEngine.Networking;
     public class Inventory : NetworkBehaviour
     {
     public GameObject[] inventory = new GameObject[6];
+    public int N = 0;
     public Button[] InventoryButtons = new Button[6];    
     GameManager gameManager;
 
@@ -31,6 +32,7 @@ using UnityEngine.Networking;
                 itemAdded = true;
                 InventoryButtons[i].image.overrideSprite = item.GetComponent<SpriteRenderer>().sprite;
                 InventoryButtons[i].image.rectTransform.localScale += new Vector3(1f, 0f, 0f);
+                N++;
                 return true;
             }
         }
