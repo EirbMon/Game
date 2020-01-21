@@ -62,6 +62,25 @@ public class DresserController : NetworkBehaviour
     {
 
         // Stop player action if it's not the local player, if it's waiting react response or if it's in combat.
+        if (Input.GetKeyDown(KeyCode.A)){
+            waiting_react_response = false;
+            isInCombat = false;
+            showInventory = true;
+            currentInterObj = null;
+            dev = false;
+            MyEirbmons = null;
+            lookDirection = new Vector2(1,0);
+            rigidbody2d.MovePosition(rigidbody2d.position);
+            LeaveCombat();
+            rigidbody2d = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
+            base.OnStartLocalPlayer();
+            gameObject.name = "Dresser(Local)";
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameManager.SendMessageToReact(gameManager.FormatMessage("user_pokemon"));
+            ennemyPNJ = "null";
+        }
+
         if (!isLocalPlayer || waiting_react_response || isInCombat)
             return;
 
@@ -73,6 +92,22 @@ public class DresserController : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)){
             showInventory = !showInventory;
             this.transform.Find("InventoryCanvas").gameObject.SetActive(showInventory);  
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)){
+            Teleport(141.0f,-202.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T)){
+            Teleport(-12.37f,113.3846f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y)){
+            Teleport(300.0f,-10.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.W)){
+            Teleport(0.0f,0.0f);
         }
 
         // Player localization
@@ -95,6 +130,14 @@ public class DresserController : NetworkBehaviour
         Vector2 position = rigidbody2d.position;
         position = position + move * speed * Time.deltaTime;
         rigidbody2d.MovePosition(position);
+
+        if (Input.GetKeyDown(KeyCode.U)){
+            Teleport(position.x+1,position.y+1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I)){
+            Teleport(position.x-1,position.y-1);
+        }
 
     }
 

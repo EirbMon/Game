@@ -227,6 +227,7 @@ public class CombatManager : MonoBehaviour
                         }
                         else{
                             float rrand = Random.Range(0,Mathf.RoundToInt(100*EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().health/EnnemyPokemonList[currentEnnemyPokemon].GetComponent<PokemonObject>().max_health));
+                            rrand = 1;
                             if (rrand <= 51)
                                 CatchPokemon();
                             else{
