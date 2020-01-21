@@ -72,6 +72,7 @@ using UnityEngine.Networking;
                 Debug.Log(item.name + " was removed from inventory");
                 InventoryButtons[i].image.overrideSprite = null;
                 InventoryButtons[i].image.rectTransform.localScale -= new Vector3(1f, 0f, 0f);
+                N--;
                 break;
             }
         }
@@ -84,6 +85,7 @@ using UnityEngine.Networking;
                 InventoryButtons[i].image.rectTransform.localScale -= new Vector3(1f, 0f, 0f);
                 inventory[i] = null;
                 InventoryButtons[i].image.overrideSprite = null;
+                N--;
             }
         }
     }

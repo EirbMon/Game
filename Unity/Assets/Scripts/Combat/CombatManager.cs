@@ -852,10 +852,6 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EndFight()
     {
-        yield return new WaitForSeconds(0.5f);
-        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
-        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ = "null";
-
         var PokemonsJSON = JSON.Parse(PokemonString);
         int N = 0;
         if (PokemonsJSON != null)
@@ -864,7 +860,10 @@ public class CombatManager : MonoBehaviour
         string EirbmonsString = manager.FormatMessage("end_combat", N, MyEirbmonsList);
         manager.SendMessageToReact(manager.FormatMessage("end_combat_orphelin"));
         manager.SendMessageToReact(manager.FormatMessage("end_combat", N, MyEirbmonsList));
-        yield return new WaitForSeconds(1.5f);
+
+        yield return new WaitForSeconds(2.0f);
+        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
+        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ = "null";
         manager.SendMessageToReact(manager.FormatMessage("user_pokemon"));
         SceneManager.UnloadSceneAsync("CombatScene");
     }

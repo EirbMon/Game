@@ -51,10 +51,16 @@ public class HealCenter : MonoBehaviour
         MyEirbmonsList = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().inventory.inventory;
         int N = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().inventory.N;
 
+        Debug.Log("Inventory number of object: N");
+
         for (int i = 0; i < N; i++)
         {
             Debug.Log("Healing Eirbmon from Unity n°" + i);
+            try{
             MyEirbmonsList[i].GetComponent<PokemonObject>().FullHeal();
+            } catch {
+                Debug.Log("Error when healing number" + i);
+            }
         }
 
         manager.SendMessageToReact(manager.FormatMessage("heal", N, MyEirbmonsList));
