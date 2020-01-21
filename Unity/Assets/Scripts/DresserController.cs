@@ -106,6 +106,10 @@ public class DresserController : NetworkBehaviour
             Teleport(300.0f,-10.0f);
         }
 
+        if (Input.GetKeyDown(KeyCode.O)){
+            Teleport(118.0f,-122.0f);
+        }
+
         if (Input.GetKeyDown(KeyCode.W)){
             Teleport(0.0f,0.0f);
         }

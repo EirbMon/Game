@@ -713,6 +713,7 @@ public class CombatManager : MonoBehaviour
 
         if(first_choosen == -1){
             lockRound = true;
+            IChooseYou(0);
             StartCoroutine(CancelFight());
         }
         else
@@ -851,7 +852,7 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EndFight()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.5f);
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ = "null";
 
@@ -863,7 +864,8 @@ public class CombatManager : MonoBehaviour
         string EirbmonsString = manager.FormatMessage("end_combat", N, MyEirbmonsList);
         manager.SendMessageToReact(manager.FormatMessage("end_combat_orphelin"));
         manager.SendMessageToReact(manager.FormatMessage("end_combat", N, MyEirbmonsList));
-
+        yield return new WaitForSeconds(1.5f);
+        manager.SendMessageToReact(manager.FormatMessage("user_pokemon"));
         SceneManager.UnloadSceneAsync("CombatScene");
     }
 
