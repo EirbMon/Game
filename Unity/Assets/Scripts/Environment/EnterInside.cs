@@ -17,7 +17,7 @@ public class EnterInside : MonoBehaviour
         {
             if (first){
                 first = false;
-                return;
+                //return;
             }
             float offsetX = controller.transform.position.x - this.transform.position.x; 
             float offsetY = controller.transform.position.y - this.transform.position.y;

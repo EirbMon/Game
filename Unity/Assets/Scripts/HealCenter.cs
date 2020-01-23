@@ -38,7 +38,7 @@ public class HealCenter : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && inHealArea)
+        if (inHealArea)  // Input.GetKeyDown(KeyCode.Return)
         {
             HealAllEirbmon();
         }

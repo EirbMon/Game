@@ -17,7 +17,7 @@ public class LeavingInside : MonoBehaviour
         {
             if (first){
                 first = false;
-                return;
+                //return;
             }
 
             float offsetX = controller.transform.position.x - this.transform.position.x; 
