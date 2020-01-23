@@ -8,6 +8,7 @@ TagManager:
   - HerbeHaute
   - Canvas
   - EnnemyPNJ
+  - HealingArea
   layers:
   - Default
   - TransparentFX

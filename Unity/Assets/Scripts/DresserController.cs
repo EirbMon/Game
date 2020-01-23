@@ -244,6 +244,11 @@ public class DresserController : NetworkBehaviour
                     }
                 }
 
+                if (other.CompareTag("HealingArea")){
+                    currentInterObj = other.gameObject;
+                    currentInterObj.GetComponent<HealCenter>().HealAllEirbmon();
+                }
+
                 else
                     currentInterObj = other.gameObject;
             }

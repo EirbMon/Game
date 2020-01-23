@@ -514,7 +514,7 @@ public class CombatManager : MonoBehaviour
             side.SetText("Your Eirbmon is dead, you can't escape with a Zombie. You need to choose another Eirbmon in your bag first.");
             return; 
         }
-        if (Random.Range(0,2) == 0){
+        if (Random.Range(0,0) == 0){
             lockRound = true;
             side.SetText(" Run away has worked ! You have escaped the fight.");
             StartCoroutine(EndFight());

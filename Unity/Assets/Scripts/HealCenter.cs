@@ -26,22 +26,12 @@ public class HealCenter : MonoBehaviour
         //PokemonString = GameObject.Find("Dresser(Local)").GetComponent<DresserController>().MyEirbmons;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        inHealArea = true;     
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        inHealArea = false;    
-    }
-
     void Update()
     {
-        if (inHealArea)  // Input.GetKeyDown(KeyCode.Return)
-        {
-            HealAllEirbmon();
-        }
+        //if (inHealArea)  // Input.GetKeyDown(KeyCode.Return)
+        //{
+            //HealAllEirbmon();
+        //}
 
     }
 
