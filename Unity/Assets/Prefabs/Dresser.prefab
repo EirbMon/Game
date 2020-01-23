@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e0930b1c06c3246832ea7a30b94b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 6
   MyEirbmons: 
   currentInterObj: {fileID: 0}
   inventory: {fileID: 1812721876}
