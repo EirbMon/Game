@@ -862,9 +862,9 @@ public class CombatManager : MonoBehaviour
         manager.SendMessageToReact(manager.FormatMessage("end_combat", N, MyEirbmonsList));
 
         yield return new WaitForSeconds(2.0f);
-        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
         GameObject.Find("Dresser(Local)").GetComponent<DresserController>().ennemyPNJ = "null";
         manager.SendMessageToReact(manager.FormatMessage("user_pokemon"));
+        GameObject.Find("Dresser(Local)").GetComponent<DresserController>().LeaveCombat();
         SceneManager.UnloadSceneAsync("CombatScene");
     }
 

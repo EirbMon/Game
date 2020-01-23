@@ -135,24 +135,28 @@ public class DresserController : NetworkBehaviour
 
         void FixedUpdate()
     {
-        
-        // Direction                
-        Vector2 move = new Vector2(horizontal, vertical);     
 
-        if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)){
-            lookDirection.Set(move.x, move.y);
-            lookDirection.Normalize();
+        if (!isLocalPlayer || waiting_react_response || isInCombat)
+            return;
+        else{
+            // Direction                
+            Vector2 move = new Vector2(horizontal, vertical);     
+
+            if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)){
+                lookDirection.Set(move.x, move.y);
+                lookDirection.Normalize();
+            }
+                    
+            // Animation
+            animator.SetFloat("Look X", lookDirection.x);
+            animator.SetFloat("Look Y", lookDirection.y);
+            animator.SetFloat("Speed", move.magnitude);
+                    
+            // Movement
+            Vector2 position = rigidbody2d.position;
+            position = position + move * speed * Time.deltaTime;
+            rigidbody2d.MovePosition(position);
         }
-                
-        // Animation
-        animator.SetFloat("Look X", lookDirection.x);
-        animator.SetFloat("Look Y", lookDirection.y);
-        animator.SetFloat("Speed", move.magnitude);
-                
-        // Movement
-        Vector2 position = rigidbody2d.position;
-        position = position + move * speed * Time.deltaTime;
-        rigidbody2d.MovePosition(position);
 
     }
 
