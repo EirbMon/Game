@@ -22,8 +22,7 @@ public class GameManager : NetworkBehaviour
     void Start(){
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        Application.targetFrameRate = 60;
-        QualitySettings.vSyncCount = 1;
+        Application.targetFrameRate = 300;
         Debug.Log("Start: version 1.7");
         SendMessageToReact(FormatMessage("eirbmon_skills"));
     }

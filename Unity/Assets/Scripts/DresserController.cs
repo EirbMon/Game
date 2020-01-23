@@ -26,6 +26,9 @@ public class DresserController : NetworkBehaviour
     public string ennemyPNJ;
     bool dev = false;
 
+    float horizontal;
+    float vertical;
+
 
 
     
@@ -60,6 +63,9 @@ public class DresserController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Player localization
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
 
         // Stop player action if it's not the local player, if it's waiting react response or if it's in combat.
         if (Input.GetKeyDown(KeyCode.A)){
@@ -114,12 +120,25 @@ public class DresserController : NetworkBehaviour
             Teleport(0.0f,0.0f);
         }
 
-        // Player localization
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
 
+        if (Input.GetKeyDown(KeyCode.U)){
+            Debug.Log(Time.deltaTime);
+            Vector2 positiont = rigidbody2d.position;
+            Teleport(positiont.x+1,positiont.y+1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I)){
+            Vector2 positiont = rigidbody2d.position;
+            Teleport(positiont.x-1,positiont.y-1);
+        }
+    }
+
+        void FixedUpdate()
+    {
+        
         // Direction                
-        Vector2 move = new Vector2(horizontal, vertical);          
+        Vector2 move = new Vector2(horizontal, vertical);     
+
         if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)){
             lookDirection.Set(move.x, move.y);
             lookDirection.Normalize();
@@ -134,14 +153,6 @@ public class DresserController : NetworkBehaviour
         Vector2 position = rigidbody2d.position;
         position = position + move * speed * Time.deltaTime;
         rigidbody2d.MovePosition(position);
-
-        if (Input.GetKeyDown(KeyCode.U)){
-            Teleport(position.x+1,position.y+1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.I)){
-            Teleport(position.x-1,position.y-1);
-        }
 
     }
 
