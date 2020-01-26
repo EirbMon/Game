@@ -23,7 +23,7 @@ public class GameManager : NetworkBehaviour
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
         Application.targetFrameRate = 300;
-        Debug.Log("Start: version 1.7");
+        Debug.Log("Start: version 1.8");
         SendMessageToReact(FormatMessage("eirbmon_skills"));
     }
 
